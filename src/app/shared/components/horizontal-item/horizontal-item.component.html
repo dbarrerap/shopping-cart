@@ -20,15 +20,15 @@
                                     {{ producto.precio | currency }}
                                 </h5>
                             </div>
-                            <div *ngIf="route == '/shopping/shop'; else shoppingCart">
+                            <div *ngIf="route == '/shopping/cart'; else otherViews">
+                                <button type="button" class="btn btn-danger">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </div>
+                            <ng-template #otherViews>
                                 <button type="button" class="btn btn-success">
                                     <i class="fa fa-cart-plus"></i>
                                     Agregar al carrito
-                                </button>
-                            </div>
-                            <ng-template #shoppingCart>
-                                <button type="button" class="btn btn-danger">
-                                    <i class="fa fa-trash"></i>
                                 </button>
                             </ng-template>
                         </div>
