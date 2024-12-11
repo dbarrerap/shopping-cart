@@ -1,2 +1,19 @@
 // Here you can add other styles
+@import '@fortawesome/fontawesome-free/css/all.min.css';
 
+.size-span-campo {
+    width: 155px;
+}
+
+.size-span-print {
+    width: 115px;
+}
+
+.size-span-otro {
+    width: 90px;
+}
+
+.transparent-modal .modal-content {
+    background: transparent !important;
+    border: 0 !important;
+}
