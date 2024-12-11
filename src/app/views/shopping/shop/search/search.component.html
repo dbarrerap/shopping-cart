@@ -1,0 +1,50 @@
+<div class="p-3">
+    <form cForm class="d-flex">
+        <input type="text" cFormControl class="form-control me-2" name="searchQuery" [(ngModel)]="searchQuery">
+        <button type="button" class="btn btn-primary" (click)="getProductos()">
+            <i class="fa fa-magnifying-glass"></i>
+        </button>
+    </form>
+    <div class="modal-body">
+        <div class="card">
+            <div *ngIf="loading; else resultados">
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ng-template #resultados>
+            <div class="card-body">
+                <ng-scrollbar style="height: 65dvh" visibility="hover" pointerEventsMethod="scrollbar">
+                    <ng-container *ngFor="let producto of productos">
+                        <app-sarch-item [producto]="producto"></app-sarch-item>
+                        <!-- <div class="card mb-2">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    <img [src]="producto.imagen" alt="Imagen" height="100px">
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col">
+                                                <h5 class="card-title">{{ producto.nombre }}</h5>
+                                                <p class="card-text">{{ producto.descripcion }}</p>
+                                            </div>
+                                            <div class="col"></div>
+                                            <div class="col">
+    
+                                            </div>
+                                        </div>
+    
+                                    </div>
+                                </div>
+                            </div>
+                        </div> -->
+                    </ng-container>
+                </ng-scrollbar>
+            </div>
+        </ng-template>
+    </div>
+</div>

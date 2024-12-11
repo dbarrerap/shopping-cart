@@ -13,15 +13,22 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 // Import containers
-import { DefaultFooterComponent, DefaultHeaderComponent, DefaultLayoutComponent } from './containers';
+import { 
+  DefaultFooterComponent, DefaultHeaderComponent, DefaultLayoutComponent, 
+  ShoppingHeaderComponent, ShoppingLayoutComponent,
+} from './containers';
+
+import { HttpClientModule } from '@angular/common/http';
 
 import {
+  AccordionModule,
   AvatarModule,
   BadgeModule,
   BreadcrumbModule,
   ButtonGroupModule,
   ButtonModule,
   CardModule,
+  CollapseModule,
   DropdownModule,
   FooterModule,
   FormModule,
@@ -29,6 +36,7 @@ import {
   HeaderModule,
   ListGroupModule,
   NavModule,
+  NavbarModule,
   ProgressModule,
   SharedModule,
   SidebarModule,
@@ -41,7 +49,9 @@ import { IconModule, IconSetService } from '@coreui/icons-angular';
 const APP_CONTAINERS = [
   DefaultFooterComponent,
   DefaultHeaderComponent,
-  DefaultLayoutComponent
+  DefaultLayoutComponent,
+  ShoppingHeaderComponent,
+  ShoppingLayoutComponent,
 ];
 
 @NgModule({
@@ -50,6 +60,7 @@ const APP_CONTAINERS = [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+    AccordionModule,
     AvatarModule,
     BreadcrumbModule,
     FooterModule,
@@ -72,7 +83,10 @@ const APP_CONTAINERS = [
     BadgeModule,
     ListGroupModule,
     CardModule,
-    NgScrollbarModule
+    NgScrollbarModule,
+    NavbarModule,
+    CollapseModule,
+    HttpClientModule,
   ],
   providers: [
     {

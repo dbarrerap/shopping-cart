@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-9">
+            <h3>Carrito de Compras</h3>
+            <ng-container *ngFor="let item of orden.detalles">
+                <app-horizontal-item [producto]="item" [route]="router.url"></app-horizontal-item>
+            </ng-container>
+        </div>
+        <div class="col-md-3">
+            <h3>Resumen</h3>
+            <div class="card">
+                <div class="card-body">
+                    <table class="table-borderless">
+                        <tbody>
+                            <tr>
+                                <td>Subtotal sin Impuestos</td>
+                                <td class="float-end">{{ orden.subtotal | currency }}</td>
+                            </tr>
+                            <tr>
+                                <td>Subtotal IVA 15%</td>
+                                <td class="float-end">{{ orden.subtotal_iva | currency }}</td>
+                            </tr>
+                            <tr>
+                                <td>Subtotal 0%</td>
+                                <td class="float-end">{{ orden.subtotal_0 | currency }}</td>
+                            </tr>
+                            <tr>
+                                <td>Descuento</td>
+                                <td class="float-end">{{ orden.descuento | currency }}</td>
+                            </tr>
+                            <tr>
+                                <td>Total</td>
+                                <td class="float-end">{{ orden.total | currency }}</td>
+                            </tr>
+                            <tr>
+                                <td>Transporte</td>
+                                <td class="float-end">{{ orden.transporte | currency }}</td>
+                            </tr>
+                            <tr>
+                                <td>IVA 15%</td>
+                                <td class="float-end">{{ orden.iva | currency }}</td>
+                            </tr>
+                            <tr class="border-0 border-top fw-bold">
+                                <td>Total</td>
+                                <td class="float-end">{{ orden.total_cobro | currency }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <button class="btn btn-success">Continuar Compra</button>
+            </div>
+        </div>
+    </div>
+</div>

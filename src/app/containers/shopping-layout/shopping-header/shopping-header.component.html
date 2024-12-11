@@ -1,0 +1,29 @@
+<c-header class="mb-2">
+    <c-container fluid class="justify-content-center py-3" [ngStyle]="{ backgroundColor: '#151C2C' }">
+        <c-header-brand [routerLink]="['/']" [ngStyle]="{ color: '#fff' }">
+            <img src="./assets/images/logo-aptimo.png" alt="Aptimo">
+        </c-header-brand>
+    </c-container>
+    <c-header-divider></c-header-divider>
+    <c-container fluid class="justify-content-between">
+        <c-breadcrumb-router></c-breadcrumb-router>
+        <c-header-nav class="ms-auto">
+            <form cForm class="d-flex" role="search" [ngClass]="{'d-none': _router.url == '/shopping/cart'}">
+                <input type="search" cFormControl class="me-2" sizing="sm" (click)="emitSearch()">
+                <button cButton type="submit" color="primary">
+                    <i class="fa fa-magnifying-glass"></i>
+                </button>
+            </form>
+            <c-nav-item>
+                <a cNavLink [routerLink]="['/shopping/cart']">
+                    <i class="fa fa-shopping-cart"></i>
+                </a>
+            </c-nav-item>
+            <c-nav-item>
+                <button cNavLink class="btn btn-light" (click)="emitWallet()">
+                    <i class="fa fa-wallet"></i>
+                </button>
+            </c-nav-item>
+        </c-header-nav>
+    </c-container>
+</c-header>

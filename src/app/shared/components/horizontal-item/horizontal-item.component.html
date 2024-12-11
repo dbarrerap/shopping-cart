@@ -1,0 +1,41 @@
+<div class="card mb-2">
+    <div class="row g-0">
+        <div class="col-md-4">
+            <img [src]="producto.imagen" alt="Imagen">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <h5 class="card-title">{{ producto.nombre }}</h5>
+                        <p class="card-text">{{ producto.descripcion }}</p>
+                    </div>
+                    <div class="col">
+                        Mas detalles del producto
+                    </div>
+                    <div class="col">
+                        <div class="d-flex flex-column">
+                            <div class="float-end">
+                                <h5 class="text-danger">
+                                    {{ producto.precio | currency }}
+                                </h5>
+                            </div>
+                            <div *ngIf="route == '/shopping/shop'; else shoppingCart">
+                                <button type="button" class="btn btn-success">
+                                    <i class="fa fa-cart-plus"></i>
+                                    Agregar al carrito
+                                </button>
+                            </div>
+                            <ng-template #shoppingCart>
+                                <button type="button" class="btn btn-danger">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </ng-template>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

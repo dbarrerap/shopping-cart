@@ -1,0 +1,97 @@
+<div class="container">
+    <div class="alert alert-light">
+        <details>
+            <summary>Credito</summary>
+            <div class="row">
+                <div class="col-6">
+                    <app-cc-input-group label="Estado Credito" styleSpan="size-span-campo" (onAccionClickSpan)="logger($event)">
+                        <input type="number" name="" id="" class="form-control" placeholder="0">
+                    </app-cc-input-group>
+                </div>
+                <div class="col-6">
+                    <app-cc-input-group label="Cupo Credito" styleSpan="size-span-campo" (onAccionClickSpan)="logger($event)">
+                        <input type="number" name="" id="" class="form-control" placeholder="0">
+                    </app-cc-input-group>
+                </div>
+                <div class="col-6">
+                    <app-cc-input-group label="Cupo Disponible" styleSpan="size-span-campo" (onAccionClickSpan)="logger($event)">
+                        <input type="number" name="" id="" class="form-control" placeholder="0">
+                    </app-cc-input-group>
+                </div>
+                <div class="col-6">
+                    <app-cc-input-group label="No. Facturas Vencidas" styleSpan="size-span-campo" (onAccionClickSpan)="logger($event)">
+                        <input type="number" name="" id="" class="form-control" placeholder="0">
+                    </app-cc-input-group>
+                </div>
+                <div class="col-6">
+                    <app-cc-input-group label="Valores Vencidos" styleSpan="size-span-campo" (onAccionClickSpan)="logger($event)">
+                        <input type="number" name="" id="" class="form-control" placeholder="0">
+                    </app-cc-input-group>
+                </div>
+            </div>
+        </details>
+
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div ngbAccordion [closeOthers]="true">
+                <div ngbAccordionItem [collapsed]="false">
+                    <h2 ngbAccordionHeader>
+                        <button ngbAccordionButton>Delivery</button>
+                    </h2>
+                    <div ngbAccordionCollapse>
+                        <div ngbAccordionBody>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div ngbAccordionItem>
+                    <h2 ngbAccordionHeader>
+                        <button ngbAccordionButton>Features</button>
+                    </h2>
+                    <div ngbAccordionCollapse>
+                        <div ngbAccordionBody>
+    
+                        </div>
+                    </div>
+                </div>
+                <div ngbAccordionItem>
+                    <h2 ngbAccordionHeader>
+                        <button ngbAccordionButton>Brand</button>
+                    </h2>
+                    <div ngbAccordionCollapse>
+                        <div ngbAccordionBody>
+    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="row row-cols-1 row-cols-md-3 g-2 mb-2">
+                <ng-container *ngFor="let producto of productos | slice: (pagination._page - 1) * pagination._per_page : pagination._page * pagination._per_page">
+                    <div class="col">
+                        <app-shopping-item [producto]="producto"></app-shopping-item>
+                    </div>
+                </ng-container>
+            </div>
+            <div class="d-flex justify-content-between">
+                <ngb-pagination 
+                    [collectionSize]="productos.length" [pageSize]="pagination._per_page"
+                    [(page)]="pagination._page" (pageChange)="changePage($event)">
+                </ngb-pagination>
+                <div>
+                    Mostrando elementos {{ pagination._start }} al {{ pagination._end }} ({{ pagination._pages }} paginas)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #modalSearch let-modal style="background-color: transparent;">
+    <app-search></app-search>
+</ng-template>
+
+<ng-template #modalWallet let-modal>
+    <app-wallet></app-wallet>
+</ng-template>
