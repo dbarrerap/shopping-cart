@@ -28,10 +28,11 @@
             <button class="btn btn-sm btn-success text-white mx-2">
                 <i class="fa fa-cart-plus"></i>
                 Agregar al carrito
-            </button><button class="btn btn-sm btn-outline-success mx-2">
+            </button>
+            <a [routerLink]="['/shopping/details', producto.id]" class="btn btn-outline-success">
                 <i class="fa fa-plus"></i>
                 Mas detalles
-            </button>
+            </a>
 
         </div>
     </div>

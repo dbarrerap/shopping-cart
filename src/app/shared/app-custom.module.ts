@@ -4,9 +4,10 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { CcInputGroup } from './cc-input-group.component';
 
-import { NgbActiveModal, NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { NgbActiveModal, NgbModule, NgbAccordionModule } from "@ng-bootstrap/ng-bootstrap";
 import { NgScrollbarModule } from "ngx-scrollbar";
 import { HorizontalItemComponent, VerticalItemComponent } from "./components/index";
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     declarations: [
@@ -18,9 +19,11 @@ import { HorizontalItemComponent, VerticalItemComponent } from "./components/ind
     imports: [
         CommonModule,
         NgbModule,
+        NgbAccordionModule,
         FormsModule, 
         ReactiveFormsModule,
         NgScrollbarModule,
+        RouterModule,
     ],
     exports: [
         CommonModule,
@@ -28,6 +31,7 @@ import { HorizontalItemComponent, VerticalItemComponent } from "./components/ind
         HorizontalItemComponent,
         VerticalItemComponent,
         NgbModule,
+        NgbAccordionModule,
         FormsModule, 
         ReactiveFormsModule,
         NgScrollbarModule,

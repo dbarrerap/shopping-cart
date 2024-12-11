@@ -4,27 +4,32 @@
             <summary>Credito</summary>
             <div class="row">
                 <div class="col-6">
-                    <app-cc-input-group label="Estado Credito" styleSpan="size-span-campo" (onAccionClickSpan)="logger($event)">
+                    <app-cc-input-group label="Estado Credito" styleSpan="size-span-campo"
+                        (onAccionClickSpan)="logger($event)">
                         <input type="number" name="" id="" class="form-control" placeholder="0">
                     </app-cc-input-group>
                 </div>
                 <div class="col-6">
-                    <app-cc-input-group label="Cupo Credito" styleSpan="size-span-campo" (onAccionClickSpan)="logger($event)">
+                    <app-cc-input-group label="Cupo Credito" styleSpan="size-span-campo"
+                        (onAccionClickSpan)="logger($event)">
                         <input type="number" name="" id="" class="form-control" placeholder="0">
                     </app-cc-input-group>
                 </div>
                 <div class="col-6">
-                    <app-cc-input-group label="Cupo Disponible" styleSpan="size-span-campo" (onAccionClickSpan)="logger($event)">
+                    <app-cc-input-group label="Cupo Disponible" styleSpan="size-span-campo"
+                        (onAccionClickSpan)="logger($event)">
                         <input type="number" name="" id="" class="form-control" placeholder="0">
                     </app-cc-input-group>
                 </div>
                 <div class="col-6">
-                    <app-cc-input-group label="No. Facturas Vencidas" styleSpan="size-span-campo" (onAccionClickSpan)="logger($event)">
+                    <app-cc-input-group label="No. Facturas Vencidas" styleSpan="size-span-campo"
+                        (onAccionClickSpan)="logger($event)">
                         <input type="number" name="" id="" class="form-control" placeholder="0">
                     </app-cc-input-group>
                 </div>
                 <div class="col-6">
-                    <app-cc-input-group label="Valores Vencidos" styleSpan="size-span-campo" (onAccionClickSpan)="logger($event)">
+                    <app-cc-input-group label="Valores Vencidos" styleSpan="size-span-campo"
+                        (onAccionClickSpan)="logger($event)">
                         <input type="number" name="" id="" class="form-control" placeholder="0">
                     </app-cc-input-group>
                 </div>
@@ -35,33 +40,101 @@
     <div class="row">
         <div class="col-md-3">
             <div ngbAccordion [closeOthers]="true">
-                <div ngbAccordionItem [collapsed]="false">
-                    <h2 ngbAccordionHeader>
-                        <button ngbAccordionButton>Delivery</button>
-                    </h2>
+                <div ngbAccordionItem #delivery="ngbAccordionItem" class="border-0 border-bottom" [collapsed]="false">
+                    <div ngbAccordionHeader class="d-flex justify-content-between py-2 px-3">
+                        <span class="h5 m-0">Delivery</span>
+                        <button ngbAccordionToggle class="btn btn-sm custom-accordion-toggler">
+                            <i class="fa"
+                                [ngClass]="{'fa-chevron-down': delivery.collapsed, 'fa-chevron-up': !delivery.collapsed}"></i>
+                        </button>
+                    </div>
                     <div ngbAccordionCollapse>
                         <div ngbAccordionBody>
-                            
+                            <div class="box-filter-item">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="delivery" />
+                                    <label class="form-check-label" >Free Store</label>
+                                </div>
+                                <span>(8)</span>
+                            </div>
+                            <div class="box-filter-item">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="delivery" />
+                                    <label class="form-check-label" >Free Delivery</label>
+                                </div>
+                                <span>(8)</span>
+                            </div>
+                            <div class="box-filter-item">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="delivery" />
+                                    <label class="form-check-label" >Fast Delivery</label>
+                                </div>
+                                <span>(8)</span>
+                            </div>
+                            <!-- Usar un contenedor para automatizar los filtros genera error -->
+                            <!-- <ng-container *ngFor="let item of filterDeliveryItems; let i = index">
+                                <div class="box-filter-item">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="delivery" [id]="'delivery-' + i" />
+                                        <label class="form-check-label" [for]="'delivery-' + i">
+                                            {{ item.label }}
+                                        </label>
+                                    </div>
+                                    <span>({{ item.items }})</span>
+                                </div>
+                            </ng-container> -->
                         </div>
                     </div>
                 </div>
-                <div ngbAccordionItem>
-                    <h2 ngbAccordionHeader>
-                        <button ngbAccordionButton>Features</button>
-                    </h2>
+                <div ngbAccordionItem #features="ngbAccordionItem" class="border-0 border-bottom">
+                    <div ngbAccordionHeader class="d-flex justify-content-between py-2 px-3">
+                        <span class="h5 m-0">Features</span>
+                        <button ngbAccordionToggle class="btn btn-sm custom-accordion-toggler">
+                            <i class="fa"
+                                [ngClass]="{'fa-chevron-down': features.collapsed, 'fa-chevron-up': !features.collapsed}"></i>
+                        </button>
+                    </div>
                     <div ngbAccordionCollapse>
                         <div ngbAccordionBody>
-    
+                            <form cForm>
+                                <!-- <ng-container *ngFor="let item of filterFeaturesItems">
+                                    <div class="box-filter-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="features" id="flexCheckDefault">
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                {{ item.label }}
+                                            </label>
+                                        </div>
+                                        <span>({{ item.items }})</span>
+                                    </div>
+                                </ng-container> -->
+                            </form>
                         </div>
                     </div>
                 </div>
-                <div ngbAccordionItem>
-                    <h2 ngbAccordionHeader>
-                        <button ngbAccordionButton>Brand</button>
-                    </h2>
+                <div ngbAccordionItem #brand="ngbAccordionItem" class="border-0">
+                    <div ngbAccordionHeader class="d-flex justify-content-between py-2 px-3">
+                        <span class="h5 m-0">Brand</span>
+                        <button ngbAccordionToggle class="btn btn-sm custom-accordion-toggler">
+                            <i class="fa"
+                                [ngClass]="{'fa-chevron-down': brand.collapsed, 'fa-chevron-up': !brand.collapsed}"></i>
+                        </button>
+                    </div>
                     <div ngbAccordionCollapse>
                         <div ngbAccordionBody>
-    
+                            <form cForm>
+                                <!-- <ng-container *ngFor="let item of filterBrandItems">
+                                    <div class="box-filter-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="brand" id="flexCheckDefault">
+                                            <label class="form-check-label" for="flexCheckDefault">
+                                                {{ item.label }}
+                                            </label>
+                                        </div>
+                                        <span>({{ item.items }})</span>
+                                    </div>
+                                </ng-container> -->
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -69,19 +142,20 @@
         </div>
         <div class="col-md-9">
             <div class="row row-cols-1 row-cols-md-3 g-2 mb-2">
-                <ng-container *ngFor="let producto of productos | slice: (pagination._page - 1) * pagination._per_page : pagination._page * pagination._per_page">
+                <ng-container
+                    *ngFor="let producto of productos | slice: (pagination._page - 1) * pagination._per_page : pagination._page * pagination._per_page">
                     <div class="col">
                         <app-vertical-item [producto]="producto"></app-vertical-item>
                     </div>
                 </ng-container>
             </div>
             <div class="d-flex justify-content-between">
-                <ngb-pagination 
-                    [collectionSize]="productos.length" [pageSize]="pagination._per_page"
+                <ngb-pagination [collectionSize]="productos.length" [pageSize]="pagination._per_page"
                     [(page)]="pagination._page" (pageChange)="changePage($event)">
                 </ngb-pagination>
                 <div>
-                    Mostrando elementos {{ pagination._start }} al {{ pagination._end }} ({{ pagination._pages }} paginas)
+                    Mostrando elementos {{ pagination._start }} al {{ pagination._end }} ({{ pagination._pages }}
+                    paginas)
                 </div>
             </div>
         </div>

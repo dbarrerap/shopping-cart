@@ -1,0 +1,53 @@
+import { Component, inject, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ApiService } from 'src/app/services/api.service';
+import { Producto } from 'src/app/shared/models';
+
+@Component({
+  selector: 'app-details',
+  templateUrl: './details.component.html',
+  styleUrl: './details.component.scss'
+})
+export class DetailsComponent implements OnInit{
+  private route = inject(ActivatedRoute)
+  private apiService = inject(ApiService)
+  private productId!: string|null
+
+  public loading: boolean = false
+  public producto!: Producto
+  public cantidad: number = 0
+
+  public lst_equipamiento: any[] = [
+    {value: 1, label: 'Uno'},
+    {value: 2, label: 'Dos'},
+    {value: 3, label: 'Tres'},
+  ]
+
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((param) => {
+      this.productId = param.get('id')
+
+      // console.log(this.productId);
+      this.loading = true
+      this.apiService.apiCall(`productos/${this.productId}`, 'GET')?.subscribe(
+        (res: any) => {
+          // console.log(res);
+          this.producto = res
+          this.loading = false
+        }
+      )
+      
+    })
+  }
+
+  increment = (valor: number) => {
+    this.cantidad += valor;
+    if (this.cantidad > parseInt(this.producto.stock as string)) this.cantidad = parseInt(this.producto.stock as string)
+  }
+
+  decrement = (valor: number) => {
+    this.cantidad -= valor
+    if (this.cantidad < 0) this.cantidad = 0
+  }
+}

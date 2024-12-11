@@ -1,0 +1,143 @@
+<div class="container">
+    <div *ngIf="loading; else productView">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+    <ng-template #productView>
+        <div class="row">
+            <div class="col-md-8 text-center">
+                <img [src]="producto.imagen" alt="" class="img-fluid">
+            </div>
+            <div class="col-md-4 g-5">
+                <div class="mb-3">
+                    <h3>{{ producto.nombre }}</h3>
+                    <small class="d-block text-wrap">Cod. Interno: {{ producto.codigo }}</small>
+                    <small class="d-block text-wrap">Cod. Original: {{ producto.codigo }}</small>
+                </div>
+                <div class="mb-3">
+                    <h3 class="text-danger">{{ producto.precio | currency }}</h3>
+                    <h5>
+                        <span class="text-decoration-line-through me-2">{{ producto.precio | currency }}</span>
+                        <span class="badge text-white text-bg-danger">25%</span>
+                    </h5>
+                    <small>No incluye IVA</small>
+                </div>
+                <div class="mb-3 g-0">
+                    <p class="mb-0">Aplicacion: Sunt Autem Illum</p>
+                    <p class="mb-0"><strong>Marca: Voluptatem</strong></p>
+                </div>
+                <div class="mb-3">
+                    <h5>Condicion</h5>
+                    <form cForm>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioCondicion" id="flexRadioDefault1">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Nuevo (+$2.00)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioCondicion" id="flexRadioDefault2"
+                                checked>
+                            <label class="form-check-label" for="flexRadioDefault2">
+                                Segunda mano
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="mb-3">
+                    <h5>Parametro</h5>
+                    <form cForm>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioParametro" id="flexRadioDefault1">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Nuevo (+$2.00)
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioParametro" id="flexRadioDefault2"
+                                checked>
+                            <label class="form-check-label" for="flexRadioDefault2">
+                                Segunda mano
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="mb-3">
+                    <h5>Equipamiento</h5>
+                    <select class="form-select">
+                        <ng-container *ngFor="let opcion of lst_equipamiento">
+                            <option [value]="opcion.value">{{ opcion.label }}</option>
+                        </ng-container>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <p>Stock: {{ producto.stock | number }}</p>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <div class="row g-3 align-items-center">
+                            <div class="col-md-4 text-center"><button class="btn btn-outline-primary rounded-circle fw-bold" (click)="decrement(1)">-</button></div>
+                            <div class="col-md-4"><input type="text" class="form-control form-control-sm" [id]="producto.codigo" [(ngModel)]="cantidad"></div>
+                            <div class="col-md-4 text-center"><button class="btn btn-outline-primary rounded-circle fw-bold" (click)="increment(1)">+</button></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <button class="btn btn-success ms-2 text-nowrap">
+                            <i class="fa fa-cart-plus"></i>
+                            Agregar al carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div ngbAccordion [closeOthers]="true">
+                    <div ngbAccordionItem #descripcion="ngbAccordionItem" class="border-0 border-bottom" [collapsed]="false">
+                        <div ngbAccordionHeader class="d-flex justify-content-between py-2 px-3">
+                            <span class="h4 m-0">Descripcion General</span>
+                            <button ngbAccordionToggle class="btn btn-sm custom-accordion-toggler">
+                                <i class="fa" [ngClass]="{'fa-chevron-down': descripcion.collapsed, 'fa-chevron-up': !descripcion.collapsed}"></i>
+                            </button>
+                        </div>
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                <p>{{ producto.descripcion }}</p>
+                                <p>Nostrum sit deleniti facilis fugit vitae incidunt molestias. Molestiae non reiciendis odio enim. Iure qui illo optio eius dolorem aut. Autem dolorum qui iusto.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div ngbAccordionItem #especificaciones="ngbAccordionItem" class="border-0 border-bottom">
+                        <div ngbAccordionHeader class="d-flex justify-content-between py-2 px-3">
+                            <span class="h4 m-0">Especificaciones</span>
+                            <button ngbAccordionToggle class="btn btn-sm custom-accordion-toggler">
+                                <i class="fa" [ngClass]="{'fa-chevron-down': especificaciones.collapsed, 'fa-chevron-up': !especificaciones.collapsed}"></i>
+                            </button>
+                        </div>
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                Nostrum sit deleniti facilis fugit vitae incidunt molestias. Molestiae non reiciendis odio enim. Iure qui illo optio eius dolorem aut. Autem dolorum qui iusto.
+                            </div>
+                        </div>
+                    </div>
+                    <div ngbAccordionItem #caracteristicas="ngbAccordionItem" class="border-0">
+                        <div ngbAccordionHeader class="d-flex justify-content-between py-2 px-3">
+                            <span class="h4 m-0">Caracteristicas</span>
+                            <button ngbAccordionToggle class="btn btn-sm custom-accordion-toggler">
+                                <i class="fa" [ngClass]="{'fa-chevron-down': caracteristicas.collapsed, 'fa-chevron-up': !caracteristicas.collapsed}"></i>
+                            </button>
+                        </div>
+                        <div ngbAccordionCollapse>
+                            <div ngbAccordionBody>
+                                Nostrum sit deleniti facilis fugit vitae incidunt molestias. Molestiae non reiciendis odio enim. Iure qui illo optio eius dolorem aut. Autem dolorum qui iusto.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</div>

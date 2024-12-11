@@ -30,6 +30,13 @@ export class ShopComponent implements OnInit, OnDestroy {
     _end: 0,
   }
 
+  // Usar una estruxtura para automatizar filtros genera error
+  public filterDeliveryItems = [
+    {label: 'Free Store', items: 8},
+    {label: 'Free Delivery', items: 8},
+    {label: 'Fast Delivery', items: 8}
+  ]
+
   constructor() {
     this.walletSubscription = this.commonService.wallet.asObservable().subscribe(() => {
       this.modalService.open(this.modalWallet, { size: 'lg', centered: true })

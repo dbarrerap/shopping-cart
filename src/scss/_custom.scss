@@ -1,6 +1,18 @@
 // Here you can add other styles
 @import '@fortawesome/fontawesome-free/css/all.min.css';
 
+:root {
+    --clr-danger: #ff0000;
+    --clr-success: #38a86a;
+    --clr-base: #151C2C;
+    --clr-action: #4570FC;
+    --clr-white: #fff;
+    --clr-gray-00: #fafafa;
+    --clr-gray-01: #f0f3f5;
+    --clr-gray-02: #e4e7ea;
+    --clr-gray-03: #d8dee9;
+  }
+
 .size-span-campo {
     width: 155px;
 }
@@ -17,3 +29,15 @@
     background: transparent !important;
     border: 0 !important;
 }
+
+.custom-accordion-toggler {
+    background-color: var(--clr-action) !important;
+    color: var(--clr-white) !important;
+    font-size: 12px !important;
+}
+
+.box-filter-item {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
