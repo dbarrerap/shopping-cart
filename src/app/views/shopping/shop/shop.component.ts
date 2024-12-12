@@ -4,6 +4,9 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ShopService } from "./shop.service";
 import { CommonService } from 'src/app/services/common.service';
 import { Subscription } from 'rxjs';
+import { Producto } from 'src/app/shared/models';
+
+import { fakerES_MX as faker } from "@faker-js/faker";
 
 @Component({
   selector: 'app-shop',
@@ -49,25 +52,13 @@ export class ShopComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     setTimeout(() => {
-      this.service.getProductos()?.subscribe({
-        next: (res: any) => {
-          // console.log(res);
-          this.productos = res.map((producto: any) => ({
-            ...producto,
-            precio: parseFloat(producto.precio as string)
-          }))
-          Object.assign(this.pagination, {
-            _length: this.productos.length,
-            _pages: Math.ceil(this.productos.length / this.pagination._per_page),
-            _start: (this.pagination._page - 1) * this.pagination._per_page + 1,
-            _end: Math.min(this.pagination._page * this.pagination._per_page, this.productos.length)
-          })
-        },
-        error: (err: any) => {
-          console.log(err);
-
-        }
-      })
+     this.productos = faker.helpers.multiple(this.createRandomProduct, {count: 60})
+     Object.assign(this.pagination, {
+      _length: this.productos.length,
+      _pages: Math.ceil(this.productos.length / this.pagination._per_page),
+      _start: (this.pagination._page - 1) * this.pagination._per_page + 1,
+      _end: Math.min(this.pagination._page * this.pagination._per_page, this.productos.length)
+    })
     }, 0)
   }
 
@@ -89,5 +80,17 @@ export class ShopComponent implements OnInit, OnDestroy {
   logger = (event: any) => {
     console.log(event);
 
+  }
+
+  createRandomProduct = (): Producto => {
+    const imagenNumber: number = Math.floor(Math.random() * 6) + 1
+    return {
+      id: faker.database.mongodbObjectId(),
+      nombre: faker.commerce.productName(),
+      codigo: faker.commerce.isbn(),
+      descripcion: faker.commerce.productDescription(),
+      precio: faker.commerce.price(),
+      imagen: `assets/images/productos/repuesto-${imagenNumber}.png`,
+    }
   }
 }

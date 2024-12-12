@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Producto } from '../../models';
 
 @Component({
@@ -6,11 +6,7 @@ import { Producto } from '../../models';
   templateUrl: './horizontal-item.component.html',
   styleUrl: './horizontal-item.component.scss'
 })
-export class HorizontalItemComponent implements OnInit {
+export class HorizontalItemComponent {
   @Input() producto!: Producto
   @Input() route!: string
-
-  ngOnInit(): void {
-    setTimeout(() => { console.log(this.route) }, 0)
-  }
 }

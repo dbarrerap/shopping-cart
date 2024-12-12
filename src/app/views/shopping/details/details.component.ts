@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { Producto } from 'src/app/shared/models';
 
+import { fakerES_MX as faker } from "@faker-js/faker";
+
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
@@ -25,7 +27,7 @@ export class DetailsComponent implements OnInit{
 
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe((param) => {
+    /* this.route.paramMap.subscribe((param) => {
       this.productId = param.get('id')
 
       // console.log(this.productId);
@@ -38,7 +40,8 @@ export class DetailsComponent implements OnInit{
         }
       )
       
-    })
+    }) */
+   this.producto = this.createRandomProduct()
   }
 
   increment = (valor: number) => {
@@ -49,5 +52,17 @@ export class DetailsComponent implements OnInit{
   decrement = (valor: number) => {
     this.cantidad -= valor
     if (this.cantidad < 0) this.cantidad = 0
+  }
+
+  createRandomProduct = (): Producto => {
+    const imagenNumber: number = Math.floor(Math.random() * 6) + 1
+    return {
+      id: faker.database.mongodbObjectId(),
+      nombre: faker.commerce.productName(),
+      codigo: faker.commerce.isbn(),
+      descripcion: faker.commerce.productDescription(),
+      precio: faker.commerce.price(),
+      imagen: `assets/images/productos/repuesto-${imagenNumber}.png`,
+    }
   }
 }

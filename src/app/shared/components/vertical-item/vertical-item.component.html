@@ -1,39 +1,64 @@
 <div class="card h-100 border-0">
     <img [src]="producto.imagen" class="card-img-top">
     <div class="card-body">
-        <h5 class="card-title">{{ producto.nombre }}</h5>
-        <p class="card-text">{{ producto.descripcion }}</p>
-        <h3 class="text-danger">{{ producto.precio | currency }}</h3>
+        <div class="mb-3">
+            <h5 class="card-title">{{ producto.nombre }}</h5>
+            <p class="card-text mb-0">Cod. Interno: {{ producto.codigo }}</p>
+            <p class="card-text mb-0">Cod. Original: {{ producto.codigo }}</p>
+        </div>
+        <div class="mb-3">
+            <p class="card-text mb-0">Aplicacion: DIMAX 3.0 2.5 DIESEL 05</p>
+            <p class="card-text mb-0 fw-bold">MARCA: RKT</p>
+        </div>
+        <div class="mb-3">
+            <h3 class="text-danger mb-0">{{ producto.precio | currency }}</h3>
+            <h5>
+                <span class="text-decoration-line-through me-2">{{ producto.precio | currency }}</span>
+                <span class="badge text-white text-bg-danger">25%</span>
+            </h5>
+            <small>No incluye IVA</small>
+        </div>
     </div>
-    <div class="card-footer">
-        <p>Codigo: {{ producto.id }}</p>
-    </div>
-    <div class="card-footer">
+    <div class="card-footer card_footer-k">
         <div class="row">
-            <div class="col">
-                <div class="d-flex justify-content-between">
-                    <button class="btn btn-outline-primary rounded-circle fw-bold" (click)="decrement(1)">-</button>
-                    <input type="text" class="form-control form-control-sm" [id]="producto.codigo" [value]="cantidad">
-                    <button class="btn btn-outline-primary rounded-circle fw-bold" (click)="increment(1)">+</button>
-
+            <div class="col-md-6">
+                <div class="row mb-3">
+                    <div class="col">
+                        <div class="row g-0 align-items-center">
+                            <div class="col-md-4 text-center">
+                                <app-rounded-button styleClass="mx-1" (click)="decrement(1)">
+                                    <i class="fa fa-minus fa-lg"></i>
+                                </app-rounded-button>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" [id]="producto.codigo" [(ngModel)]="cantidad">
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <app-rounded-button styleClass="mx-1" (click)="increment(1)">
+                                    <i class="fa fa-plus fa-lg"></i>
+                                </app-rounded-button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col">
-                <p>Stock: {{ producto.stock | number }}</p>
+            <div class="col-md-6">
+                <small>Stock {{ producto.stock | number }}</small>
             </div>
         </div>
     </div>
-    <div class="card-footer">
-        <div class="d-flex justify-content-around">
-            <button class="btn btn-sm btn-success text-white mx-2">
-                <i class="fa fa-cart-plus"></i>
-                Agregar al carrito
-            </button>
-            <a [routerLink]="['/shopping/details', producto.id]" class="btn btn-outline-success">
-                <i class="fa fa-plus"></i>
-                Mas detalles
-            </a>
-
+    <div class="card-footer card_footer-k">
+        <div class="mb-3">
+            <div class="d-flex justify-content-around">
+                <button class="btn btn-sm btn-success text-white mx-2">
+                    <i class="fa fa-cart-plus"></i>
+                    A&ntilde;adir al carrito
+                </button>
+                <a [routerLink]="['/shopping/details', producto.id]" class="btn btn-outline-success">
+                    <i class="fa fa-plus"></i>
+                    Detalles
+                </a>
+            </div>
         </div>
     </div>
 </div>
