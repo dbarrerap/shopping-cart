@@ -1,0 +1,14 @@
+.btn-sign {
+    height: 32px;
+    width: 32px;
+    color: var(--clr-action);
+    border: none;
+    border-radius: 155px;
+    background: linear-gradient(145deg, #ffffff, #d8dbdd);
+    box-shadow: 38px 38px 76px #d1d3d5,
+        -38px -38px 76px #ffffff;
+
+    :hover {
+        background: linear-gradient(145deg, #e7eef9, #c2c8d2);
+    }
+}
