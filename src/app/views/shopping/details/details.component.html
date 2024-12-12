@@ -18,11 +18,13 @@
                     <small class="d-block text-wrap">Cod. Original: {{ producto.codigo }}</small>
                 </div>
                 <div class="mb-3">
-                    <h3 class="text-danger">{{ producto.precio | currency }}</h3>
-                    <h5>
-                        <span class="text-decoration-line-through me-2">{{ producto.precio | currency }}</span>
-                        <span class="badge text-white text-bg-danger">25%</span>
-                    </h5>
+                    <h3 class="text-danger">{{ producto.precio_oferta | currency }}</h3>
+                    <ng-container *ngIf="producto.oferta">
+                        <h5>
+                            <span class="text-decoration-line-through me-2">{{ producto.precio | currency }}</span>
+                            <span class="badge text-white text-bg-danger">{{ producto.descuento }}%</span>
+                        </h5>
+                    </ng-container>
                     <small>No incluye IVA</small>
                 </div>
                 <div class="mb-3 g-0">
@@ -79,13 +81,23 @@
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <div class="row g-3 align-items-center">
-                            <div class="col-md-4 text-center"><button class="btn btn-outline-primary rounded-circle fw-bold" (click)="decrement(1)">-</button></div>
-                            <div class="col-md-4"><input type="text" class="form-control form-control-sm" [id]="producto.codigo" [(ngModel)]="cantidad"></div>
-                            <div class="col-md-4 text-center"><button class="btn btn-outline-primary rounded-circle fw-bold" (click)="increment(1)">+</button></div>
+                            <div class="col-md-4 text-center">
+                                <app-rounded-button styleClass="mx-1" (click)="decrement(1)">
+                                    <i class="fa fa-minus fa-lg"></i>
+                                </app-rounded-button>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" [id]="producto.codigo" [(ngModel)]="cantidad">
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <app-rounded-button styleClass="mx-1" (click)="increment(1)">
+                                    <i class="fa fa-plus fa-lg"></i>
+                                </app-rounded-button>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <button class="btn btn-success ms-2 text-nowrap">
+                        <button class="btn btn-success ms-2 text-nowrap text-white">
                             <i class="fa fa-cart-plus"></i>
                             Agregar al carrito
                         </button>

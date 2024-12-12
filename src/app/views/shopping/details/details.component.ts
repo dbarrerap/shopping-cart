@@ -56,12 +56,19 @@ export class DetailsComponent implements OnInit{
 
   createRandomProduct = (): Producto => {
     const imagenNumber: number = Math.floor(Math.random() * 6) + 1
+    const precio: number = parseFloat(faker.commerce.price())
+    const oferta: boolean = faker.datatype.boolean({probability: 0.75})
+    const descuento = (Math.floor(Math.random() * 25) + 1)
+    const precio_oferta = oferta ? precio / (1 + (descuento / 100)) : precio
     return {
       id: faker.database.mongodbObjectId(),
       nombre: faker.commerce.productName(),
       codigo: faker.commerce.isbn(),
       descripcion: faker.commerce.productDescription(),
-      precio: faker.commerce.price(),
+      precio,
+      oferta,
+      descuento,
+      precio_oferta,
       imagen: `assets/images/productos/repuesto-${imagenNumber}.png`,
     }
   }

@@ -1,32 +1,63 @@
-<div class="card mb-2">
+<div class="card mb-2 border-0">
     <div class="row g-0">
-        <div class="col-md-4">
-            <img [src]="producto.imagen" alt="Imagen">
+        <div class="col-md-3">
+            <img [src]="producto.imagen" alt="Imagen" class="img-fluid">
         </div>
-        <div class="col-md-8">
+        <div class="col-md-9">
             <div class="card-body">
                 <div class="row">
-                    <div class="col">
-                        <h5 class="card-title">{{ producto.nombre }}</h5>
-                        <p class="card-text">{{ producto.descripcion }}</p>
+                    <div class="col-5">
+                        <div class="mb-3">
+                            <h5 class="card-title">{{ producto.nombre }}</h5>
+                            <small class="card-text mb-0 d-block">Cod. Interno: {{ producto.codigo }}</small>
+                            <small class="card-text mb-0">Cod. Original: {{ producto.codigo }}</small>
+                        </div>
+                        <div>
+                            <p class="card-text mb-0">Aplicacion: DIMAX 3.0 2.5 DIESEL 05</p>
+                            <p class="card-text mb-0 fw-bold">MARCA: RKT</p>
+                        </div>
                     </div>
                     <div class="col">
-                        Mas detalles del producto
+                        <div class="row g-0 align-items-center mb-3">
+                            <div class="col-md-4 text-center">
+                                <app-rounded-button styleClass="mx-1" (click)="decrement(1)">
+                                    <i class="fa fa-minus fa-lg"></i>
+                                </app-rounded-button>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control form-control-sm" [id]="producto.codigo"
+                                    [(ngModel)]="cantidad">
+                            </div>
+                            <div class="col-md-4 text-center">
+                                <app-rounded-button styleClass="mx-1" (click)="increment(1)">
+                                    <i class="fa fa-plus fa-lg"></i>
+                                </app-rounded-button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                Stock: {{ producto.stock | number }}
+                            </div>
+                        </div>
                     </div>
-                    <div class="col">
+                    <div class="col-4">
                         <div class="d-flex flex-column">
                             <div class="float-end">
-                                <h5 class="text-danger">
-                                    {{ producto.precio | currency }}
-                                </h5>
+                                <p class="text-danger mb-0 fw-bold text-end">
+                                    <small>Precio Unit.:</small> {{ producto.precio | currency }}
+                                </p>
+                                <ng-container *ngIf="producto.oferta">
+                                    <p class="mb-0 text-end">Descuento: {{ producto.descuento }}%</p>
+                                    <p class="mb-0 text-end">Subtotal: {{ producto.precio_oferta | currency }}</p>
+                                </ng-container>
                             </div>
-                            <div *ngIf="route == '/shopping/cart'; else otherViews">
-                                <button type="button" class="btn btn-danger">
+                            <div *ngIf="route == '/shopping/cart'; else otherViews" class="d-flex justify-content-end">
+                                <button type="button" class="btn btn-danger text-light">
                                     <i class="fa fa-trash"></i>
                                 </button>
                             </div>
                             <ng-template #otherViews>
-                                <button type="button" class="btn btn-success">
+                                <button type="button" class="btn btn-success text-white">
                                     <i class="fa fa-cart-plus"></i>
                                     Agregar al carrito
                                 </button>

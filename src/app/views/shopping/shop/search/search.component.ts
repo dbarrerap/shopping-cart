@@ -25,10 +25,11 @@ export class SearchComponent implements OnInit {
   }
 
   filterProductos = () => {
-    console.log(this.searchQuery);
-    
-    this.productosFiltered = this.productos.filter(item => item.nombre.toLowerCase().includes((this.searchQuery as string).toLowerCase()))
-    console.log(this.productosFiltered.length);
+    this.loading = true
+    setTimeout(() => {
+      this.productosFiltered = this.productos.filter(item => item.nombre.toLowerCase().includes((this.searchQuery as string).toLowerCase()))
+      this.loading = false
+    }, 1250)
     
   }
 

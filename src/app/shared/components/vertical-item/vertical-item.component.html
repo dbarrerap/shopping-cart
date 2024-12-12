@@ -11,11 +11,13 @@
             <p class="card-text mb-0 fw-bold">MARCA: RKT</p>
         </div>
         <div class="mb-3">
-            <h3 class="text-danger mb-0">{{ producto.precio | currency }}</h3>
-            <h5>
-                <span class="text-decoration-line-through me-2">{{ producto.precio | currency }}</span>
-                <span class="badge text-white text-bg-danger">25%</span>
-            </h5>
+            <h3 class="text-danger mb-0">{{ producto.precio_oferta | currency }}</h3>
+            <ng-container *ngIf="producto.oferta">
+                <h5>
+                    <span class="text-decoration-line-through me-2">{{ producto.precio | currency }}</span>
+                    <span class="badge text-white text-bg-danger">{{ producto.descuento }}%</span>
+                </h5>
+            </ng-container>
             <small>No incluye IVA</small>
         </div>
     </div>
