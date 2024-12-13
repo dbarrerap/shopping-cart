@@ -32,6 +32,15 @@ export class ShopComponent implements OnInit, OnDestroy {
     _start: 0,
     _end: 0,
   }
+  public pagination_2: any = {
+    page: 1,
+    perPage: 6,
+    limit: 6,
+    length: 0,
+    pages: 0,
+    start: 0,
+    end: 0,
+  }
 
   // Usar una estruxtura para automatizar filtros genera error
   public filterDeliveryItems = [
@@ -39,6 +48,12 @@ export class ShopComponent implements OnInit, OnDestroy {
     {label: 'Free Delivery', items: 8},
     {label: 'Fast Delivery', items: 8}
   ]
+
+  filter: any = {};
+  paginate: any;
+  lista_productos: any[] = [];
+  orden: any = []
+  producto: any
 
   constructor() {
     this.walletSubscription = this.commonService.wallet.asObservable().subscribe(() => {
@@ -51,7 +66,35 @@ export class ShopComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
+   
+    this.producto = {
+      id_producto: 0,
+      codigo: '',
+      nombre: '',
+      descripcion: '',
+      nombrecorto: '',
+      marca: '',
+      precio1: 0,
+      stock: 0,
+      estado: '',
+      id_usuario: 0,
+      fotos: [],
+    }
+   
+
+    this.filter = {
+      busqueda:'',
+      filterControl: ""
+    }
+    this.paginate = {
+      length: 0,
+      perPage: 20,
+      page: 1,
+      pageSizeOptions: [20, 40,60,80,100]
+    }
     setTimeout(() => {
+      this.CargarProductos()
      this.productos = faker.helpers.multiple(this.createRandomProduct, {count: 60})
      Object.assign(this.pagination, {
       _length: this.productos.length,
@@ -68,14 +111,15 @@ export class ShopComponent implements OnInit, OnDestroy {
   }
 
   changePage = (event: number) => {
-    // console.log(event);
+     console.log(event);
     Object.assign(this.pagination, {
       _page: event,
       _start: (event - 1) * this.pagination._per_page + 1,
       _end: Math.min(event * this.pagination._per_page, this.productos.length)
     })
-
+    this.CargarProductos()
   }
+
 
   logger = (event: any) => {
     console.log(event);
@@ -100,4 +144,38 @@ export class ShopComponent implements OnInit, OnDestroy {
       imagen: `assets/images/productos/repuesto-${imagenNumber}.png`,
     }
   }
+
+  async CargarProductos() {
+    // this.mensajeSpiner = "Cargando productos...";
+    // this.lcargando.ctlSpinner(true);
+    try {
+
+   
+      //alert(JSON.stringify(this.filter));
+      
+       let productos = await this.service.getProductosFotos({filter: this.filter, paginate : this.pagination});
+       console.log(productos)
+       productos.data.data.map((item: any) => Object.assign(item, { cantidad: 1 }))
+      
+       
+        this.lista_productos= productos.data.data;
+        console.log(this.lista_productos)
+
+        Object.assign(this.pagination, {
+          _length: this.productos.length,
+          _pages: Math.ceil(this.productos.length / this.pagination._per_page),
+          _start: (this.pagination._page - 1) * this.pagination._per_page + 1,
+          _end: Math.min(this.pagination._page * this.pagination._per_page, this.productos.length)
+        })
+ 
+      //  console.log(this.lista_productos);
+      //  this.paginate.length = productos.total;
+      //  this.lcargando.ctlSpinner(false)
+     } catch (err) {
+       console.log(err)
+      //  this.lcargando.ctlSpinner(false)
+      //  this.toastr.error(err.error.message, 'Error en Carga Inicial')
+     }
+  
+ }  
 }
