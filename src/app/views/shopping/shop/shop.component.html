@@ -30,14 +30,13 @@
                 </div>
             </div>
         </details>
-
     </div>
     <div class="row">
         <div class="col-md-3">
             <div ngbAccordion [closeOthers]="true">
                 <div ngbAccordionItem #delivery="ngbAccordionItem" class="border-0 border-bottom" [collapsed]="false">
                     <div ngbAccordionHeader class="d-flex justify-content-between py-2 px-3">
-                        <span class="h5 m-0">Delivery</span>
+                        <span class="h6 m-0 roboto-medium">Delivery</span>
                         <button ngbAccordionToggle class="btn btn-sm custom-accordion-toggler">
                             <i class="fa"
                                 [ngClass]="{'fa-chevron-down': delivery.collapsed, 'fa-chevron-up': !delivery.collapsed}"></i>
@@ -83,7 +82,7 @@
                 </div>
                 <div ngbAccordionItem #features="ngbAccordionItem" class="border-0 border-bottom">
                     <div ngbAccordionHeader class="d-flex justify-content-between py-2 px-3">
-                        <span class="h5 m-0">Features</span>
+                        <span class="h6 m-0 roboto-medium">Features</span>
                         <button ngbAccordionToggle class="btn btn-sm custom-accordion-toggler">
                             <i class="fa"
                                 [ngClass]="{'fa-chevron-down': features.collapsed, 'fa-chevron-up': !features.collapsed}"></i>
@@ -109,7 +108,7 @@
                 </div>
                 <div ngbAccordionItem #brand="ngbAccordionItem" class="border-0">
                     <div ngbAccordionHeader class="d-flex justify-content-between py-2 px-3">
-                        <span class="h5 m-0">Brand</span>
+                        <span class="h6 m-0 roboto-medium">Brand</span>
                         <button ngbAccordionToggle class="btn btn-sm custom-accordion-toggler">
                             <i class="fa"
                                 [ngClass]="{'fa-chevron-down': brand.collapsed, 'fa-chevron-up': !brand.collapsed}"></i>
@@ -135,15 +134,187 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-9">
-            <div class="row row-cols-1 row-cols-md-3 g-2 mb-2">
-                <ng-container
-                    *ngFor="let producto of lista_productos | slice: (pagination._page - 1) * pagination._per_page : pagination._page * pagination._per_page; let i = index">
-                    <div class="col">
-                        <app-vertical-item [producto]="producto"></app-vertical-item>
+        <!-- <div class="col-md-3">
+            <aside class="aside">
+              <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item accordion-item_k">
+                  <h2 class="accordion-header accordion-header_k">
+                    <button class="accordion-button accordion-button_k roboto-medium collapsed" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false"
+                      aria-controls="flush-collapseOne">
+                      Delivery
+                    </button>
+                  </h2>
+                  <div id="flush-collapseOne" class="accordion-collapse collapse show"
+                    data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body accordion-body_k">
+                      <div class="box-filter-item">
+                        <div class="form-check">
+                          <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                          <label class="form-check-label" for="exampleCheck1">Free Store</label>
+                        </div>
+                        <span>(8)</span>
+                      </div>
+                      <div class="box-filter-item">
+                        <div class="form-check">
+                          <input type="checkbox" class="form-check-input" id="exampleCheck2">
+                          <label class="form-check-label" for="exampleCheck2">Free Delivery</label>
+                        </div>
+                        <span>(8)</span>
+                      </div>
+                      <div class="box-filter-item">
+                        <div class="form-check">
+                          <input type="checkbox" class="form-check-input" id="exampleCheck3">
+                          <label class="form-check-label" for="exampleCheck3">Fast Delivery</label>
+                        </div>
+                        <span>(8)</span>
+                      </div>
                     </div>
-                </ng-container>
-            </div>
+                  </div>
+                </div>
+                <div class="accordion-item accordion-item_k">
+                  <h2 class="accordion-header accordion-header_k">
+                    <button class="accordion-button accordion-button_k roboto-medium collapsed" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                      aria-controls="flush-collapseTwo">
+                      Features
+                    </button>
+                  </h2>
+                  <div id="flush-collapseTwo" class="accordion-collapse collapse show"
+                    data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body accordion-body_k">
+                      <div class="box-filter-item">
+                        <div class="form-check">
+                          <input type="checkbox" class="form-check-input" id="exampleCheck4">
+                          <label class="form-check-label" for="exampleCheck4">Cover included</label>
+                        </div>
+                        <span>(8)</span>
+                      </div>
+                      <div class="box-filter-item">
+                        <div class="form-check">
+                          <input type="checkbox" class="form-check-input" id="exampleCheck5">
+                          <label class="form-check-label" for="exampleCheck5">Paintable</label>
+                        </div>
+                        <span>(8)</span>
+                      </div>
+                      <div class="box-filter-item">
+                        <div class="form-check">
+                          <input type="checkbox" class="form-check-input" id="exampleCheck6">
+                          <label class="form-check-label" for="exampleCheck6">Lugs</label>
+                        </div>
+                        <span>(8)</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item accordion-item_k">
+                  <h2 class="accordion-header accordion-header_k">
+                    <button class="accordion-button accordion-button_k roboto-medium collapsed" type="button"
+                      data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false"
+                      aria-controls="flush-collapseThree">
+                      Brand
+                    </button>
+                  </h2>
+                  <div id="flush-collapseThree" class="accordion-collapse collapse show"
+                    data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body accordion-body_k">
+                      <div class="box-filter-item">
+                        <div class="form-check">
+                          <input type="checkbox" class="form-check-input" id="exampleCheck7">
+                          <label class="form-check-label" for="exampleCheck7">Eaton</label>
+                        </div>
+                        <span>(8)</span>
+                      </div>
+                      <div class="box-filter-item">
+                        <div class="form-check">
+                          <input type="checkbox" class="form-check-input" id="exampleCheck8">
+                          <label class="form-check-label" for="exampleCheck8">GE</label>
+                        </div>
+                        <span>(8)</span>
+                      </div>
+                      <div class="box-filter-item">
+                        <div class="form-check">
+                          <input type="checkbox" class="form-check-input" id="exampleCheck9">
+                          <label class="form-check-label" for="exampleCheck9">Siemens</label>
+                        </div>
+                        <span>(8)</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </aside>
+          </div> -->
+        <div class="col-md-9">
+            <!-- <div class="row row-cols-1 row-cols-md-3 g-2 mb-2"> -->
+               
+                    <!-- <div class="col"> -->
+                        <!-- <app-vertical-item [producto]="producto" [index]="i"></app-vertical-item> -->
+
+                        <section class="s-main">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <main class="main">
+                                                <div class="grid-catalogue">
+                                                    <div class="row-catalogue">
+                                                        <!-- <ng-container
+                                                        *ngFor="let producto of lista_productos | slice: (pagination._page - 1) * pagination._per_page : pagination._page * pagination._per_page; let i = index"> -->
+                                                            <div class="card-product" *ngFor="let producto of lista_productos | slice: (pagination._page - 1) * pagination._per_page : pagination._page * pagination._per_page; let i = index">
+                                                                <a [routerLink]="['/shopping/details', producto.id_producto]">
+                                                                    <div class="card-header">
+                                                                        <img [src]="producto.fotos && producto.fotos.length > 0 ? producto.fotos[0].recurso : ''" class="card-img-top">
+                                                                    </div>
+                                                                </a>
+                                                                <div class="card-body">
+                                                                    <a  [routerLink]="['/shopping/details', producto.id_producto]">
+                                                                        <div class="card-detail_one">
+                                                                            <h2 class="card-title roboto-medium">{{ producto.nombre }}</h2>
+                                                                            <div class="card-code">
+                                                                            <span class="card-code_item">Cod. Interno: {{ producto.codigo }}</span>
+                                                                            <span class="card-code_item">Cod. Original: {{ producto.codigo }}</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="card-detail_two">
+                                                                            <p class="card-aplic">Aplicación: DIMAX 3.0 2.5 A DIESEL 05</p>
+                                                                            <p class="card-brand roboto-medium">Marca: {{ producto.marca }}</p>
+                                                                        </div>
+                                                                    </a>
+                                                                    <div class="cardBoxPrice">
+                                                                        <h3 class="card-price card-price_discount roboto-medium">$114.08</h3>
+                                                                        <div class="flex-price">
+                                                                        <h3 class="card-price_normal roboto-medium">{{producto.precio1}}</h3>
+                                                                        <span class="card-price_percentage roboto-medium">-25%</span>
+                                                                        </div>
+                                                                        <small>No incluye IVA</small>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="card-footer">
+                                                                    <div class="card-footer_one">
+                                                                    <div class="box-counter">
+                                                                        <button class="btn-counter_sign" (click)="disminuirCantidad(producto, i)">-</button>
+                                                                        <input type="text" placeholder="" class="box-counter_input"  [id]="producto.codigo" [(ngModel)]="producto.cantidad">
+                                                                        <button class="btn-counter_sign" (click)="incrementarCantidad(producto, i)">+</button>
+                                                                    </div>
+                                                                    <span class="box-stock">Stock: {{ producto.stock | number }}</span>
+                                                                    </div>
+                                                                    <div class="card-footer_actions">
+                                                                    <button class="btn-one roboto-medium btn-one_cart" (click)="addToCart(producto,i)">Añadir al carrito</button>
+                                                                    <button class="btn-one roboto-medium btn-one_outline" [routerLink]="['/shopping/details', producto.id_producto]">+ Detalles</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        <!-- </ng-container> -->
+                                                    </div>
+                                                </div>
+                                        </main>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    <!-- </div> -->
+                
+            <!-- </div> -->
             <div class="d-flex justify-content-between">
                 <ngb-pagination [collectionSize]="productos.length" [pageSize]="pagination._per_page"
                     [(page)]="pagination._page" (pageChange)="changePage($event)">

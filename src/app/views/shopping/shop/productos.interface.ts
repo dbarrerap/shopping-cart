@@ -9,7 +9,8 @@ export interface Productos {
     stock: number;
     estado: string;
     id_usuario: number;
-    fotos: Fotos[];
+    //fotos?: Fotos[];
+    fotos?: Fotos[];
     cantidad: number,
     subtotal: number,
     porcentaje: number,

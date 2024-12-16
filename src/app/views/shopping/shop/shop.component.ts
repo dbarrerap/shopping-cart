@@ -7,6 +7,9 @@ import { Subscription } from 'rxjs';
 import { Producto } from 'src/app/shared/models';
 
 import { fakerES_MX as faker } from "@faker-js/faker";
+import { Productos } from './productos.interface';
+
+import { ToastrService } from 'ngx-toastr'; 
 
 @Component({
   selector: 'app-shop',
@@ -21,6 +24,10 @@ export class ShopComponent implements OnInit, OnDestroy {
   private modalService = inject(NgbModal)
   private walletSubscription!: Subscription
   private searchSubscription!: Subscription
+
+  itemCount: number = 0;
+  private itemsCountSubscription!: Subscription;
+  private itemsSubscription!: Subscription;
 
   public productos: any[] = []
   public pagination: any = {
@@ -55,7 +62,7 @@ export class ShopComponent implements OnInit, OnDestroy {
   orden: any = []
   producto: any
 
-  constructor() {
+  constructor( private toastr: ToastrService,) {
     this.walletSubscription = this.commonService.wallet.asObservable().subscribe(() => {
       this.modalService.open(this.modalWallet, { size: 'lg', centered: true })
     })
@@ -66,6 +73,12 @@ export class ShopComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+
+    this.itemsCountSubscription = this.service.getItemsCount().subscribe(count => {
+      this.itemCount = count;
+      console.log(this.itemCount)
+   
+    });
 
    
     this.producto = {
@@ -174,10 +187,39 @@ export class ShopComponent implements OnInit, OnDestroy {
      } catch (err) {
        console.log(err)
       //  this.lcargando.ctlSpinner(false)
-      //  this.toastr.error(err.error.message, 'Error en Carga Inicial')
+        //this.toastr.error(err.error.message, 'Error en Carga Inicial')
      }
   
  }
+
+ incrementarCantidad(product: Productos, index:number): void {
+  this.lista_productos[index].cantidad++;
+}
+
+disminuirCantidad(product: Productos, index: number): void {
+  if (this.lista_productos[index].cantidad > 1) {
+    this.lista_productos[index].cantidad--;
+  }
+}
+addToCart(product: any, index: number): void {
+  if (product) {
+    this.service.addToCart(product, index);
+    console.log(product)
+    if(product.cantidad > 1){
+      //this.toastr.success(product.cantidad + ' '+product.nombre +' agregados al carrito')
+      this.toastr.success(product.cantidad + ' ' + product.nombre + ' agregados al carrito', '', {
+        positionClass: 'toast-top-center'
+      });
+    }else if(product.cantidad == 1){
+      //this.toastr.success(product.cantidad + ' '+product.nombre +' agregado al carrito')
+      this.toastr.success(product.cantidad + ' ' + product.nombre + ' agregados al carrito', '', {
+        positionClass: 'toast-top-center'
+      });
+    }
+  } else {
+  }
+  this.service.cliente$.emit (this.orden);
+}
 
  
 }

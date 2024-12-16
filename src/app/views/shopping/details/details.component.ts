@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
 import { Producto } from 'src/app/shared/models';
-
+import { ShopService } from '../shop/shop.service';
 import { fakerES_MX as faker } from "@faker-js/faker";
 
 @Component({
@@ -13,6 +13,7 @@ import { fakerES_MX as faker } from "@faker-js/faker";
 export class DetailsComponent implements OnInit{
   private route = inject(ActivatedRoute)
   private apiService = inject(ApiService)
+  private service = inject(ShopService)
   private productId!: string|null
 
   public loading: boolean = false

@@ -1,6 +1,7 @@
 import { Component, Input,inject } from '@angular/core';
 import { Producto } from '../../models';
-import { Productos } from '../../models/productos.interface';
+//import { Productos } from '../../models/productos.interface';
+import { Productos } from '../../../views/shopping/shop/productos.interface';
 import { ShopService } from 'src/app/views/shopping/shop/shop.service';
 
 @Component({
@@ -18,6 +19,18 @@ export class VerticalItemComponent {
  
   public cantidad: number = 0
   lista_productos: any[] = [];
+  ngOnInit(): void {
+
+    this.service.pedido$.subscribe(
+      (res)=>{
+        console.log(res)
+        
+      
+      }
+    )
+
+  
+  }
   
   increment = (valor: number) => {
     this.cantidad += valor;

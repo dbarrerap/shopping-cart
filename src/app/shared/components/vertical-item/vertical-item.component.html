@@ -58,9 +58,9 @@
                                     <div class="card-footer">
                                         <div class="card-footer_one">
                                           <div class="box-counter">
-                                            <button class="btn-counter_sign" (click)="disminuirCantidad(producto.cantidad, index)">-</button>
+                                            <button class="btn-counter_sign" (click)="disminuirCantidad(producto, index)">-</button>
                                             <input type="text" placeholder="" class="box-counter_input"  [id]="producto.codigo" [(ngModel)]="producto.cantidad">
-                                            <button class="btn-counter_sign" (click)="incrementarCantidad(producto.cantidad, index)">+</button>
+                                            <button class="btn-counter_sign" (click)="incrementarCantidad(producto, index)">+</button>
                                           </div>
                                           <span class="box-stock">Stock: {{ producto.stock | number }}</span>
                                         </div>

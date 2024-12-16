@@ -19,7 +19,7 @@ type ClienteArray = Cliente[];
 export class ShopService {
   private items: CartItem[] = [];
   // private cliente: Cliente[] = [];
-   private clientearray: Cliente[] = []  ;
+   private clientearray: Cliente[] = [];
   private itemsCount = new BehaviorSubject<number>(0);
   private cliente = new BehaviorSubject<ClienteArray>([]);
   pedido$ = new EventEmitter<any>();
@@ -116,12 +116,14 @@ export class ShopService {
       console.log('1')
       this.items[existingItemIndex].cantidad += 1;
       this.pedido$.emit ({val: 'CARRITO AGREGAR', data:this.items});
+      console.log(this.items)
       //this.items[existingItemIndex].product.porcentaje = 0;
      
     } else {
       console.log('2')
       //product.porcentaje = 0;
       this.items.push({ product , cantidad: 1 });
+      this.pedido$.emit ({val: 'CARRITO AGREGAR', data:this.items});
     }
     this.updateItemsCount();
   }
@@ -135,9 +137,11 @@ export class ShopService {
       if (this.items[existingItemIndex].cantidad > 1) {
         this.items[existingItemIndex].cantidad -= 1;
         this.pedido$.emit ({val: 'CARRITO DISMINUIR', data:this.items});
+        console.log(this.items)
       } else {
         this.items.splice(existingItemIndex, 1);
         this.pedido$.emit ({val: 'CARRITO DISMINUIR', data:this.items});
+        console.log(this.items)
       }
     }
     this.updateItemsCount();

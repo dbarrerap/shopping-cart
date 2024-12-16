@@ -1,9 +1,84 @@
 <div class="container">
     <div class="row">
         <div class="col-md-9">
-            <h3>Carrito de Compras ({{ orden.detalles.length }} productos)</h3>
+            <!-- <h3>Carrito de Compras ({{ orden.detalles.length }} productos)</h3>
             <ng-container *ngFor="let item of orden.detalles">
                 <app-horizontal-item [producto]="item" [route]="router.url" (updatedQuantity)="handleUpdateQuantity($event)"></app-horizontal-item>
+            </ng-container> -->
+             <h3>Carrito de Compras ({{ itemCount }} productos)</h3>
+            <ng-container *ngFor="let item of items; let i = index">
+                <div class="card mb-2 border-0">
+                    <div class="row g-0">
+                        <div class="col-md-3">
+                            <!-- <img [src]="item.product?.fotos?.[0]?.recurso || null"   alt="Imagen" class="img-fluid"> -->
+                        </div>
+                        <div class="col-md-9">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <div class="mb-3">
+                                            <h5 class="card-title">{{ item.product.nombre }}</h5>
+                                            <small class="card-text mb-0 d-block">Cod. Interno: {{ item.product.codigo }}</small>
+                                            <small class="card-text mb-0">Cod. Original: {{ item.product.codigo }}</small>
+                                        </div>
+                                        <div>
+                                            <p class="card-text mb-0">Aplicacion: DIMAX 3.0 2.5 DIESEL 05</p>
+                                            <p class="card-text mb-0 fw-bold">MARCA: RKT</p>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="row g-0 align-items-center mb-3">
+                                            <div class="col-md-4 text-center">
+                                                <app-rounded-button styleClass="mx-1" (click)="disminuirCantidad(item.product, i)">
+                                                    <i class="fa fa-minus fa-lg"></i>
+                                                </app-rounded-button>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <input type="text" class="form-control form-control-sm" 
+                                                [(ngModel)]="item.product.cantidad"  (input)="totalDescuento($event,i)">
+                                            </div>
+                                            <div class="col-md-4 text-center">
+                                                <app-rounded-button styleClass="mx-1" (click)="incrementarCantidad(item.product, i)">
+                                                    <i class="fa fa-plus fa-lg"></i>
+                                                </app-rounded-button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                Stock: {{ item.product.stock | number }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="d-flex flex-column">
+                                            <div class="float-end">
+                                                <p class="text-danger mb-0 fw-bold text-end">
+                                                    <small>Precio Unit.:</small> {{ item.product.precio1 | currency }}
+                                                </p>
+                                                <ng-container *ngIf="item.product.descuento">
+                                                    <p class="mb-0 text-end">Descuento: {{ item.product.descuento }}%</p>
+                                                    <p class="mb-0 text-end">Subtotal: {{ item.product.subtotal | currency }}</p>
+                                                </ng-container>
+                                            </div>
+                                            <div *ngIf="router.url == '/shopping/cart'; else otherViews" class="d-flex justify-content-end">
+                                                <button type="button" class="btn btn-danger text-light" (click)="eliminarProducto(item.product.id_producto,i)">
+                                                    <i class="fa fa-trash"></i>
+                                                </button>
+                                            </div>
+                                            <ng-template #otherViews>
+                                                <button type="button" class="btn btn-success text-white">
+                                                    <i class="fa fa-cart-plus"></i>
+                                                    Agregar al carrito
+                                                </button>
+                                            </ng-template>
+                                        </div>
+                                    </div>
+                                </div>
+                
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </ng-container>
         </div>
         <div class="col-md-3">
