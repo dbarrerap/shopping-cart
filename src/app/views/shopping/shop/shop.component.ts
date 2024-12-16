@@ -177,5 +177,7 @@ export class ShopComponent implements OnInit, OnDestroy {
       //  this.toastr.error(err.error.message, 'Error en Carga Inicial')
      }
   
- }  
+ }
+
+ 
 }

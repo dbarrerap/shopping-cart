@@ -10,7 +10,7 @@ export interface Productos {
     estado: string;
     id_usuario: number;
     fotos: Fotos[];
-    cantidad: any,
+    cantidad: number,
     subtotal: number,
     porcentaje: number,
     descuento: number,
