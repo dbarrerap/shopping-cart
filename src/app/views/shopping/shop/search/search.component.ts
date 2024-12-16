@@ -3,7 +3,8 @@ import { ShopService } from '../shop.service';
 
 import { fakerES_MX as faker } from "@faker-js/faker";
 import { Producto } from 'src/app/shared/models';
-
+import { Productos } from '../productos.interface';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -18,10 +19,19 @@ export class SearchComponent implements OnInit {
   public loading: boolean = false
 
   private service = inject(ShopService)
+  itemCount: number = 0;
+  private itemsCountSubscription!: Subscription;
+  private itemsSubscription!: Subscription;
 
   ngOnInit(): void {
     this.productos = faker.helpers.multiple(this.createRandomProduct, { count: 30 })
     this.productosFiltered = this.productos
+
+    this.itemsCountSubscription = this.service.getItemsCount().subscribe(count => {
+      this.itemCount = count;
+      console.log(this.itemCount)
+   
+    });
   }
 
   filterProductos = () => {

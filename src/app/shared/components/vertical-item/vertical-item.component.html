@@ -1,66 +1,127 @@
-<div class="card h-100 border-0">
-    <img [src]="producto.fotos && producto.fotos.length > 0 ? producto.fotos[0].recurso : defaultImage" style="height: 250px; width: 80%; object-fit: cover;" class="card-img-top">
-    <div class="card-body">
-        <div class="mb-3">
-            <h5 class="card-title">{{ producto.nombre }}</h5>
-            <p class="card-text mb-0">Cod. Interno: {{ producto.codigo }}</p>
-            <p class="card-text mb-0">Cod. Original: {{ producto.codigo }}</p>
-        </div>
-        <div class="mb-3">
-            <p class="card-text mb-0">Aplicacion: DIMAX 3.0 2.5 DIESEL 05</p>
-            <p class="card-text mb-0 fw-bold">MARCA: RKT</p>
-        </div>
-        <div class="mb-3">
-            <h3 class="text-danger mb-0">{{ producto.precio1 | currency }}</h3>
-            <ng-container *ngIf="producto.precio1">
-                <h5>
-                    <span class="text-decoration-line-through me-2">{{ producto.precio1 | currency }}</span>
-                    <span class="badge text-white text-bg-danger">{{ producto.descuento }}%</span>
-                </h5>
-            </ng-container>
-            <small>No incluye IVA</small>
-        </div>
-    </div>
-    <div class="card-footer card_footer-k">
+<section class="s-main">
+    <div class="container">
         <div class="row">
-            <div class="col-md-6">
-                <div class="row mb-3">
-                    <div class="col">
-                        <div class="row g-0 align-items-center">
-                            <div class="col-md-4 text-center">
-                                <app-rounded-button styleClass="mx-1" (click)="decrement(1)">
-                                    <i class="fa fa-minus fa-lg"></i>
-                                </app-rounded-button>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control form-control-sm" [id]="producto.codigo" [(ngModel)]="cantidad">
-                            </div>
-                            <div class="col-md-4 text-center">
-                                <app-rounded-button styleClass="mx-1" (click)="increment(1)">
-                                    <i class="fa fa-plus fa-lg"></i>
-                                </app-rounded-button>
+            <div class="col-md-12">
+                <main class="main">
+                    <!-- <div class="card h-100 border-0"> -->
+                        
+                        <div class="grid-catalogue">
+                            <div class="row-catalogue">
+                                <div class="card-product">
+                                    <a [routerLink]="['/shopping/details', producto.id_producto]">
+                                        <div class="card-header">
+                                            <img [src]="producto.fotos && producto.fotos.length > 0 ? producto.fotos[0].recurso : ''" class="card-img-top">
+                                        </div>
+                                      </a>
+                                    <div class="card-body">
+                                        <a  [routerLink]="['/shopping/details', producto.id_producto]">
+                                            <div class="card-detail_one">
+                                                <h2 class="card-title roboto-medium">{{ producto.nombre }}</h2>
+                                                <div class="card-code">
+                                                  <span class="card-code_item">Cod. Interno: {{ producto.codigo }}</span>
+                                                  <span class="card-code_item">Cod. Original: {{ producto.codigo }}</span>
+                                                </div>
+                                              </div>
+                                              <div class="card-detail_two">
+                                                <p class="card-aplic">Aplicación: DIMAX 3.0 2.5 A DIESEL 05</p>
+                                                <p class="card-brand roboto-medium">Marca: {{ producto.marca }}</p>
+                                            </div>
+                                        </a>
+                                        <div class="cardBoxPrice">
+                                            <h3 class="card-price card-price_discount roboto-medium">$114.08</h3>
+                                            <div class="flex-price">
+                                              <h3 class="card-price_normal roboto-medium">{{producto.precio1}}</h3>
+                                              <span class="card-price_percentage roboto-medium">-25%</span>
+                                            </div>
+                                            <small>No incluye IVA</small>
+                                        </div>
+                                        <!-- <div class="mb-3">
+                                            <h5 class="card-title">{{ producto.nombre }}</h5>
+                                            <p class="card-text mb-0">Cod. Interno: {{ producto.codigo }}</p>
+                                            <p class="card-text mb-0">Cod. Original: {{ producto.codigo }}</p>
+                                        </div>
+                                        <div class="mb-3">
+                                            <p class="card-text mb-0">Aplicacion: DIMAX 3.0 2.5 DIESEL 05</p>
+                                            <p class="card-text mb-0 fw-bold">MARCA: RKT</p>
+                                        </div>
+                                        <div class="mb-3">
+                                            <h3 class="text-danger mb-0">{{ producto.precio1 | currency }}</h3>
+                                            <ng-container *ngIf="producto.precio1">
+                                                <h5>
+                                                    <span class="text-decoration-line-through me-2">{{ producto.precio1 | currency }}</span>
+                                                    <span class="badge text-white text-bg-danger">{{ producto.descuento }}%</span>
+                                                </h5>
+                                            </ng-container>
+                                            <small>No incluye IVA</small>
+                                        </div> -->
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="card-footer_one">
+                                          <div class="box-counter">
+                                            <button class="btn-counter_sign" (click)="disminuirCantidad(producto.cantidad, index)">-</button>
+                                            <input type="text" placeholder="" class="box-counter_input"  [id]="producto.codigo" [(ngModel)]="producto.cantidad">
+                                            <button class="btn-counter_sign" (click)="incrementarCantidad(producto.cantidad, index)">+</button>
+                                          </div>
+                                          <span class="box-stock">Stock: {{ producto.stock | number }}</span>
+                                        </div>
+                                        <div class="card-footer_actions">
+                                          <button class="btn-one roboto-medium btn-one_cart" (click)="addToCart(producto,index)">Añadir al carrito</button>
+                                          <button class="btn-one roboto-medium btn-one_outline" [routerLink]="['/shopping/details', producto.id_producto]">+ Detalles</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <small>Stock {{ producto.stock | number }}</small>
+                        
+                        
+                        <!-- <div class="card-footer card_footer-k">   
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="row mb-3">
+                                        <div class="col">
+                                            <div class="row g-0 align-items-center">
+                                                <div class="col-md-4 text-center">
+                                                    <app-rounded-button styleClass="mx-1" (click)="disminuirCantidad(producto.cantidad, index)">
+                                                        <i class="fa fa-minus fa-lg"></i>
+                                                    </app-rounded-button>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <input type="text" class="form-control form-control-sm" [id]="producto.codigo" [(ngModel)]="producto.cantidad" >
+                                                </div>
+                                                <div class="col-md-4 text-center">
+                                                    <app-rounded-button styleClass="mx-1" (click)="incrementarCantidad(producto.cantidad, index)">
+                                                        <i class="fa fa-plus fa-lg"></i>
+                                                    </app-rounded-button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <small>Stock {{ producto.stock | number }}</small>
+                                </div>
+                            </div>
+                        </div> -->
+                        <!-- <div class="card-footer card_footer-k">
+                            <div class="mb-3">
+                                <div class="d-flex justify-content-around">
+                                    <button class="btn btn-sm btn-success text-white mx-2" (click)="addToCart(producto,index)">
+                                        <i class="fa fa-cart-plus"></i>
+                                        A&ntilde;adir al carrito
+                                    </button>
+                                    <a [routerLink]="['/shopping/details', producto.id_producto]" class="btn btn-outline-success">
+                                        <i class="fa fa-plus"></i>
+                                        Detalles
+                                    </a>
+                                </div>
+                            </div>
+                        </div> -->
+                    <!-- </div> -->
+                </main>
             </div>
         </div>
     </div>
-    <div class="card-footer card_footer-k">
-        <div class="mb-3">
-            <div class="d-flex justify-content-around">
-                <button class="btn btn-sm btn-success text-white mx-2">
-                    <i class="fa fa-cart-plus"></i>
-                    A&ntilde;adir al carrito
-                </button>
-                <a [routerLink]="['/shopping/details', producto.id_producto]" class="btn btn-outline-success">
-                    <i class="fa fa-plus"></i>
-                    Detalles
-                </a>
-            </div>
-        </div>
-    </div>
-</div>
+</section>
+
+
+

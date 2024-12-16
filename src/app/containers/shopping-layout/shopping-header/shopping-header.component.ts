@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonService } from "src/app/services/common.service";
+import { ShopService } from '../../../views/shopping/shop/shop.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-shopping-header',
@@ -8,7 +10,20 @@ import { CommonService } from "src/app/services/common.service";
   styleUrl: './shopping-header.component.scss'
 })
 export class ShoppingHeaderComponent {
-  constructor(private commonService: CommonService, public _router: Router) {}
+
+  itemCount: number = 0;
+  private itemsCountSubscription!: Subscription;
+  private itemsSubscription!: Subscription;
+
+  constructor(private commonService: CommonService,private shopService: ShopService, public _router: Router) {}
+
+  ngOnInit():void{
+    this.itemsCountSubscription = this.shopService.getItemsCount().subscribe(count => {
+      this.itemCount = count;
+      console.log(this.itemCount)
+   
+    });
+  }
   emitWallet = () => {
     this.commonService.wallet.next({})
   }
