@@ -37,9 +37,6 @@ export class CartComponent implements OnInit {
   lista_productos: any[] = [];
   orden: any= [];
 
- 
-
-
 
   constructor( private service: ShopService,private toastr: ToastrService) { 
       this.service.pedido$.subscribe(
@@ -119,8 +116,17 @@ export class CartComponent implements OnInit {
     }
 
     this.items = this.service.getItems();
+    console.log(this.items )
+   
     
     if(this.items.length > 0){
+      this.items.forEach((item) => {
+        // Verificar que item.product.fotos no esté vacío y que fotos[0].recurso exista
+        if (item.product && item.product.fotos && item.product.fotos.length > 0) {
+          item.product.foto1 = item.product.fotos[0].recurso;
+        }
+      });
+     
       this.totalPorProducto()
     }else{
     //  this.vmButtons[0].showimg= false
@@ -484,10 +490,14 @@ export class CartComponent implements OnInit {
 
    totalPorProducto(){
     //const totalCount = this.items.reduce((total, item) => total + item.product.precio1, 0);
+
     this.items.forEach(item => {
       item.product.subtotal = parseFloat(item.product.precio1) * Number(item.product.cantidad);
       item.product.descuento = parseFloat(item.product.precio1) * Number(item.product.cantidad) * Number(item.product.porcentaje) / 100;
       item.product.total = item.product.subtotal -  Number(item.product.descuento);
+      item.product.transporte = 0;
+      item.product.subtotal_iva = item.product.codigo_impuesto_iva == 2 ? parseFloat(item.product.precio1) * Number(item.product.cantidad): 0
+      item.product.subtotal_0 = item.product.codigo_impuesto_iva != 2 ? parseFloat(item.product.precio1) * Number(item.product.cantidad): 0
       this.totalProductos += parseFloat(item.product.precio1) * Number(item.product.cantidad);
     });
 
@@ -502,6 +512,16 @@ export class CartComponent implements OnInit {
     subtotalOrden(){
     const totalCount = this.items.reduce((total, item) => total + item.product.subtotal, 0);
     this.orden.subtotal= totalCount
+    return totalCount;
+   }
+   subtotalIvaOrden(){
+    const totalCount = this.items.reduce((total, item) => total + item.product.subtotal_iva, 0);
+    this.orden.subtotal_iva= totalCount
+    return totalCount;
+   }
+   subtotalCeroOrden(){
+    const totalCount = this.items.reduce((total, item) => total + item.product.subtotal_0, 0);
+    this.orden.subtotal_0= totalCount
     return totalCount;
    }
    descuentoOrden(){
@@ -520,15 +540,32 @@ export class CartComponent implements OnInit {
     this.orden.total_con_impuesto= totalCount
     return totalCount;
    }
+   
+   totalTransporte(){
+    const totalCount = this.items.reduce((total, item) => total + item.product.transporte, 0);
+    this.orden.transporte= totalCount
+    return totalCount;
+   }
    totalDescuento(event: any, i: number) {
+
+   
+  
     this.items.forEach(item => {
       item.product.subtotal = parseFloat(item.product.precio1) * Number(item.product.cantidad);
       item.product.descuento = parseFloat(item.product.precio1) * Number(item.product.cantidad) * Number(item.product.porcentaje) / 100;
       item.product.total = item.product.subtotal -  Number(item.product.descuento);
       item.product.iva = item.product.total *  0.15;
       item.product.total_final = item.product.total + item.product.iva;
+      item.product.total_final += item.product.total + item.product.iva;
+
+      if (item.product.codigo_impuesto_iva == 2) {
+        item.product.subtotal_iva += item.product.subtotal -  Number(item.product.descuento);// Suma al subtotal con IVA
+      } else {
+        item.product.subtotal_0 += item.product.subtotal -  Number(item.product.descuento); // Suma al subtotal sin IVA
+      }
       this.totalProductos += parseFloat(item.product.precio1) * Number(item.product.cantidad);
     });
+    
 
   }
 

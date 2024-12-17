@@ -66,10 +66,10 @@ export class ShopService {
   getProducto(id:number,data:any={})
   {
    return new Promise<any>((resolve,reject)=>{
-     this.apiService.apiCallPedidos(`pedidos/consultar-producto/${id}`, "POST", data).subscribe({
+     this.apiService.apiCallPedidos(`pedidos/consultar-producto-foto/${id}`, "POST", data).subscribe({
         next: (res: any) => resolve(res),
         error: (err: any) => reject(err),
-        complete: () => console.log('pedidos/consultar-producto/ completado')
+        complete: () => console.log('pedidos/consultar-producto-foto completado')
       //  (res:any)=>resolve(res.data),
       //  (err:any)=>reject(err)
 
@@ -93,12 +93,18 @@ export class ShopService {
     if (existingItemIndex !== -1) {
       this.items[existingItemIndex].cantidad += Number(product.cantidad);
       this.items[existingItemIndex].product.porcentaje = 0;
+      this.items[existingItemIndex].product.transporte = 0;
+      this.items[existingItemIndex].product.subtotal_iva = product.codigo_impuesto_iva == 2 ? product.subtotal :  0;
+      this.items[existingItemIndex].product.subtotal_0 = product.codigo_impuesto_iva != 2 ? product.subtotal :  0;
       this.items[existingItemIndex].product.iva = parseFloat(product.precio1) * Number(product.cantidad) * 0.15;
       this.items[existingItemIndex].product.total_final = parseFloat(product.precio1)  * Number(product.cantidad) + product.iva;
       // this.items[existingItemIndex].product.fotos = {id_producto_fotos: 0,fk_producto: 0,recurso: ''}
 
     } else {
       product.porcentaje = 0;
+      product.transporte = 0;
+      product.subtotal_iva = product.codigo_impuesto_iva == 2 ? product.subtotal :  0;
+      product.subtotal_0 = product.codigo_impuesto_iva != 2 ? product.subtotal :  0;
       product.iva = Number(product.precio1) * Number(product.cantidad) * 0.15;
       product.total_final = parseFloat(product.precio1)  * Number(product.cantidad) + product.iva;
       // product.fotos = {id_producto_fotos: 0,fk_producto: 0,recurso: ''}

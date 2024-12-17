@@ -47,7 +47,7 @@ ngb-modal-window {
     list-style-type: none;
   }
   
-  h1, h2, h3, h4, h5, h6, p, span, a, strong, blockquote,  b, u, em {
+  h1, h2, h3, h4, h5, h6, p, span, a, strong, blockquote, i, b, u, em {
     color: inherit;
     font-style: inherit;
     font-weight: inherit;
@@ -275,9 +275,9 @@ ngb-modal-window {
     background-color: var(--clr-white);
     border-radius: 8px;
     border: solid 1px var(--clr-base);
-    height: 36px;
+    height: 34px;
     padding: 6px 12px;
-    width: 45px;
+    width: 34px;
   }
   
   .box-stock {

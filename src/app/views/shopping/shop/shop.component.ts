@@ -74,6 +74,47 @@ export class ShopComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
+    this.service.pedido$.subscribe(
+      (res)=>{
+        console.log(res)
+        
+        if(res.val == 'GUARDAR'){
+          res.data.forEach((e:any) => {
+            // let items = res.data.filter(dat => {e.id_producto == dat.id_producto}) 
+            // if(e.id_producto == items[0]){
+              Object.assign(e,{cantidad: 1})
+            //}
+          })
+          this.lista_productos.forEach(e => {
+            // let items = res.data.filter(dat => {e.id_producto == dat.id_producto}) 
+            // if(e.id_producto == items[0]){
+              Object.assign(e,{cantidad: 1})
+            //}
+          })
+        }else if(res.val == 'ELIMINAR'){
+          this.lista_productos.forEach(e => {
+            if(e.id_producto == res.id_eliminado){
+              Object.assign(e,{cantidad: 1})
+            }
+          })
+        }
+        else{
+          // this.lista_productos.forEach(e => {
+          //   if(e.id_producto == res){
+          //     Object.assign(e,{cantidad: 1})
+          //   }
+          // })
+        }
+      }
+    )
+    this.service.cliente$.subscribe(
+      (res)=>{
+        console.log(res)
+        this.orden = res
+      }
+    )
+
+
     this.itemsCountSubscription = this.service.getItemsCount().subscribe(count => {
       this.itemCount = count;
       console.log(this.itemCount)

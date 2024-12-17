@@ -4,6 +4,7 @@ import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgbCarouselConfig, NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
  
 
 import { NgScrollbarModule } from 'ngx-scrollbar';
@@ -86,6 +87,7 @@ const APP_CONTAINERS = [
     CollapseModule,
     HttpClientModule,
     ToastrModule.forRoot(),
+    NgbCarouselModule
   ],
   providers: [
     {

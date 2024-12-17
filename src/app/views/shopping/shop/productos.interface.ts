@@ -10,14 +10,20 @@ export interface Productos {
     estado: string;
     id_usuario: number;
     //fotos?: Fotos[];
+    foto1:string,
+    fotosTodas: [],
     fotos?: Fotos[];
     cantidad: number,
     subtotal: number,
+    subtotal_iva: number,
+    subtotal_0: number,
     porcentaje: number,
     descuento: number,
     total: number,
     iva:number,
     total_final: number,
+    transporte: number,
+    codigo_impuesto_iva:number
 
     // Otros campos que sean necesarios
   }
