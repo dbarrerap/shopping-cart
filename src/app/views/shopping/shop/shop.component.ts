@@ -70,9 +70,6 @@ export class ShopComponent implements OnInit, OnDestroy {
       this.modalService.open(this.modalSearch, { size: 'xl', windowClass: 'transparent-modal' })
     }
     )
-  }
-
-  ngOnInit(): void {
 
     this.service.pedido$.subscribe(
       (res)=>{
@@ -120,6 +117,11 @@ export class ShopComponent implements OnInit, OnDestroy {
       console.log(this.itemCount)
    
     });
+  }
+
+  ngOnInit(): void {
+
+   
 
    
     this.producto = {
@@ -209,10 +211,10 @@ export class ShopComponent implements OnInit, OnDestroy {
       
        let productos = await this.service.getProductosFotos({filter: this.filter, paginate : this.pagination});
        console.log(productos)
-       productos.data.data.map((item: any) => Object.assign(item, { cantidad: 1 }))
+       productos.data.map((item: any) => Object.assign(item, { cantidad: 1 }))
       
        
-        this.lista_productos= productos.data.data;
+        this.lista_productos= productos.data;
         console.log(this.lista_productos)
 
         Object.assign(this.pagination, {

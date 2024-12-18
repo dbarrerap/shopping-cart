@@ -56,7 +56,7 @@ export class ShopService {
   getProductosFotos(data: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.apiService.apiCallPedidos('pedidos/get-productos-fotos', 'POST', data).subscribe({
-        next: (res: any) => resolve(res),
+        next: (res: any) => resolve(res.data),
         error: (err: any) => reject(err),
         complete: () => console.log('getProductosFotos completado'), 
       });
