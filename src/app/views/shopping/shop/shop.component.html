@@ -1,140 +1,68 @@
 <div class="container">
-    <div class="alert alert-light">
-        <details>
-            <summary>Credito</summary>
-            <div class="row">
-                <div class="col-6">
-                    <app-cc-input-group label="Estado Credito" styleSpan="size-span-campo">
-                        <input type="number" name="" id="" class="form-control" placeholder="0">
-                    </app-cc-input-group>
-                </div>
-                <div class="col-6">
-                    <app-cc-input-group label="Cupo Credito" styleSpan="size-span-campo">
-                        <input type="number" name="" id="" class="form-control" placeholder="0">
-                    </app-cc-input-group>
-                </div>
-                <div class="col-6">
-                    <app-cc-input-group label="Cupo Disponible" styleSpan="size-span-campo">
-                        <input type="number" name="" id="" class="form-control" placeholder="0">
-                    </app-cc-input-group>
-                </div>
-                <div class="col-6">
-                    <app-cc-input-group label="No. Facturas Vencidas" styleSpan="size-span-campo">
-                        <input type="number" name="" id="" class="form-control" placeholder="0">
-                    </app-cc-input-group>
-                </div>
-                <div class="col-6">
-                    <app-cc-input-group label="Valores Vencidos" styleSpan="size-span-campo">
-                        <input type="number" name="" id="" class="form-control" placeholder="0">
-                    </app-cc-input-group>
-                </div>
-            </div>
-        </details>
-    </div>
-    <div class="row">
-        <div class="col-md-3">
-            <div ngbAccordion [closeOthers]="true">
-                <div ngbAccordionItem #delivery="ngbAccordionItem" class="border-0 border-bottom" [collapsed]="false">
-                    <div ngbAccordionHeader class="d-flex justify-content-between py-2 px-3">
-                        <span class="h6 m-0 roboto-medium">Delivery</span>
-                        <button ngbAccordionToggle class="btn btn-sm custom-accordion-toggler">
-                            <i class="fa"
-                                [ngClass]="{'fa-chevron-down': delivery.collapsed, 'fa-chevron-up': !delivery.collapsed}"></i>
-                        </button>
-                    </div>
-                    <div ngbAccordionCollapse>
-                        <div ngbAccordionBody>
-                            <div class="box-filter-item">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="delivery" />
-                                    <label class="form-check-label" >Free Store</label>
-                                </div>
-                                <span>(8)</span>
-                            </div>
-                            <div class="box-filter-item">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="delivery" />
-                                    <label class="form-check-label" >Free Delivery</label>
-                                </div>
-                                <span>(8)</span>
-                            </div>
-                            <div class="box-filter-item">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="delivery" />
-                                    <label class="form-check-label" >Fast Delivery</label>
-                                </div>
-                                <span>(8)</span>
-                            </div>
-                            <!-- Usar un contenedor para automatizar los filtros genera error -->
-                            <!-- <ng-container *ngFor="let item of filterDeliveryItems; let i = index">
-                                <div class="box-filter-item">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="delivery" [id]="'delivery-' + i" />
-                                        <label class="form-check-label" [for]="'delivery-' + i">
-                                            {{ item.label }}
-                                        </label>
-                                    </div>
-                                    <span>({{ item.items }})</span>
-                                </div>
-                            </ng-container> -->
-                        </div>
-                    </div>
-                </div>
-                <div ngbAccordionItem #features="ngbAccordionItem" class="border-0 border-bottom">
-                    <div ngbAccordionHeader class="d-flex justify-content-between py-2 px-3">
-                        <span class="h6 m-0 roboto-medium">Features</span>
-                        <button ngbAccordionToggle class="btn btn-sm custom-accordion-toggler">
-                            <i class="fa"
-                                [ngClass]="{'fa-chevron-down': features.collapsed, 'fa-chevron-up': !features.collapsed}"></i>
-                        </button>
-                    </div>
-                    <div ngbAccordionCollapse>
-                        <div ngbAccordionBody>
-                            <form cForm>
-                                <!-- <ng-container *ngFor="let item of filterFeaturesItems">
-                                    <div class="box-filter-item">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="features" id="flexCheckDefault">
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                {{ item.label }}
-                                            </label>
-                                        </div>
-                                        <span>({{ item.items }})</span>
-                                    </div>
-                                </ng-container> -->
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <div ngbAccordionItem #brand="ngbAccordionItem" class="border-0">
-                    <div ngbAccordionHeader class="d-flex justify-content-between py-2 px-3">
-                        <span class="h6 m-0 roboto-medium">Brand</span>
-                        <button ngbAccordionToggle class="btn btn-sm custom-accordion-toggler">
-                            <i class="fa"
-                                [ngClass]="{'fa-chevron-down': brand.collapsed, 'fa-chevron-up': !brand.collapsed}"></i>
-                        </button>
-                    </div>
-                    <div ngbAccordionCollapse>
-                        <div ngbAccordionBody>
-                            <form cForm>
-                                <!-- <ng-container *ngFor="let item of filterBrandItems">
-                                    <div class="box-filter-item">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="brand" id="flexCheckDefault">
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                {{ item.label }}
-                                            </label>
-                                        </div>
-                                        <span>({{ item.items }})</span>
-                                    </div>
-                                </ng-container> -->
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <div class="alert alert-light">
+    <details>
+      <summary>Credito</summary>
+      <div class="row">
+        <div class="col-6">
+          <app-cc-input-group label="Estado Credito" styleSpan="size-span-campo">
+            <input type="number" name="" id="" class="form-control" placeholder="0">
+          </app-cc-input-group>
         </div>
-        <!-- <div class="col-md-3">
+        <div class="col-6">
+          <app-cc-input-group label="Cupo Credito" styleSpan="size-span-campo">
+            <input type="number" name="" id="" class="form-control" placeholder="0">
+          </app-cc-input-group>
+        </div>
+        <div class="col-6">
+          <app-cc-input-group label="Cupo Disponible" styleSpan="size-span-campo">
+            <input type="number" name="" id="" class="form-control" placeholder="0">
+          </app-cc-input-group>
+        </div>
+        <div class="col-6">
+          <app-cc-input-group label="No. Facturas Vencidas" styleSpan="size-span-campo">
+            <input type="number" name="" id="" class="form-control" placeholder="0">
+          </app-cc-input-group>
+        </div>
+        <div class="col-6">
+          <app-cc-input-group label="Valores Vencidos" styleSpan="size-span-campo">
+            <input type="number" name="" id="" class="form-control" placeholder="0">
+          </app-cc-input-group>
+        </div>
+      </div>
+    </details>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+
+      <div class="accordion accordion-flush" id="deliveryAccordion">
+        <div class="accordion-item accordion-item_k">
+          <h3 class="accordion-header accordion-header_k" id="headingDelivery">
+            <button class="accordion-button accordion-button_k collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDelivery"
+              aria-expanded="true" aria-controls="collapseDelivery">
+              Delivery
+            </button>
+          </h3>
+          <div id="collapseDelivery" class="accordion-collapse collapse show" aria-labelledby="headingDelivery"
+            data-bs-parent="#deliveryAccordion">
+            <div class="accordion-body">
+              <div *ngFor="let item of filterDeliveryItems; let i = index" class="box-filter-item">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" [value]="item.id" [id]="'delivery-' + item.id"
+                    [(ngModel)]="item.checked" />
+                  <label class="form-check-label" [for]="'delivery-' + item.id">
+                    {{ item.label }}
+                  </label>
+                </div>
+                <span>({{ item.items }})</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  <!-- <div class="col-md-3">
             <aside class="aside">
               <div class="accordion accordion-flush" id="accordionFlushExample">
                 <div class="accordion-item accordion-item_k">
@@ -245,93 +173,97 @@
               </div>
             </aside>
           </div> -->
-        <div class="col-md-9">
-            <!-- <div class="row row-cols-1 row-cols-md-3 g-2 mb-2"> -->
-               
-                    <!-- <div class="col"> -->
-                        <!-- <app-vertical-item [producto]="producto" [index]="i"></app-vertical-item> -->
+  <div class="col-md-9">
+    <!-- <div class="row row-cols-1 row-cols-md-3 g-2 mb-2"> -->
 
-                        <section class="s-main">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <main class="main">
-                                                <div class="grid-catalogue">
-                                                    <div class="row-catalogue">
-                                                        <!-- <ng-container
+    <!-- <div class="col"> -->
+    <!-- <app-vertical-item [producto]="producto" [index]="i"></app-vertical-item> -->
+
+    <section class="s-main">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <main class="main">
+              <div class="grid-catalogue">
+                <div class="row-catalogue">
+                  <!-- <ng-container
                                                         *ngFor="let producto of lista_productos | slice: (pagination._page - 1) * pagination._per_page : pagination._page * pagination._per_page; let i = index"> -->
-                                                            <div class="card-product" *ngFor="let producto of lista_productos | slice: (pagination._page - 1) * pagination._per_page : pagination._page * pagination._per_page; let i = index">
-                                                                <a [routerLink]="['/shopping/details', producto.id_producto]">
-                                                                    <div class="card-header">
-                                                                        <img [src]="producto.fotos && producto.fotos.length > 0 ? producto.fotos[0].recurso : ''" class="card-img-top">
-                                                                    </div>
-                                                                </a>
-                                                                <div class="card-body">
-                                                                    <a  [routerLink]="['/shopping/details', producto.id_producto]">
-                                                                        <div class="card-detail_one">
-                                                                            <h2 class="card-title roboto-medium">{{ producto.nombre }}</h2>
-                                                                            <div class="card-code">
-                                                                            <span class="card-code_item">Cod. Interno: {{ producto.codigo }}</span>
-                                                                            <span class="card-code_item">Cod. Original: {{ producto.codigo }}</span>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="card-detail_two">
-                                                                            <p class="card-aplic">Aplicación: DIMAX 3.0 2.5 A DIESEL 05</p>
-                                                                            <p class="card-brand roboto-medium">Marca: {{ producto.marca }}</p>
-                                                                        </div>
-                                                                    </a>
-                                                                    <div class="cardBoxPrice">
-                                                                        <h3 class="card-price card-price_discount roboto-medium">$114.08</h3>
-                                                                        <div class="flex-price">
-                                                                        <h3 class="card-price_normal roboto-medium">{{producto.precio1}}</h3>
-                                                                        <span class="card-price_percentage roboto-medium">-25%</span>
-                                                                        </div>
-                                                                        <small>No incluye IVA</small>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="card-footer">
-                                                                    <div class="card-footer_one">
-                                                                    <div class="box-counter">
-                                                                        <button class="btn-counter_sign" (click)="disminuirCantidad(producto, i)">-</button>
-                                                                        <input type="text" placeholder="" class="box-counter_input"  [id]="producto.codigo" [(ngModel)]="producto.cantidad">
-                                                                        <button class="btn-counter_sign" (click)="incrementarCantidad(producto, i)">+</button>
-                                                                    </div>
-                                                                    <span class="box-stock">Stock: {{ producto.stock | number }}</span>
-                                                                    </div>
-                                                                    <div class="card-footer_actions">
-                                                                    <button class="btn-one roboto-medium btn-one_cart" (click)="addToCart(producto)">Añadir al carrito</button>
-                                                                    <button class="btn-one roboto-medium btn-one_outline" [routerLink]="['/shopping/details', producto.id_producto]">+ Detalles</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        <!-- </ng-container> -->
-                                                    </div>
-                                                </div>
-                                        </main>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                    <!-- </div> -->
-                
-            <!-- </div> -->
-            <div class="d-flex justify-content-between">
-                <ngb-pagination [collectionSize]="productos.length" [pageSize]="pagination._per_page"
-                    [(page)]="pagination._page" (pageChange)="changePage($event)">
-                </ngb-pagination>
-                <div>
-                    Mostrando elementos {{ pagination._start }} al {{ pagination._end }} ({{ pagination._pages }}
-                    paginas)
+                  <div class="card-product"
+                    *ngFor="let producto of lista_productos | slice: (pagination._page - 1) * pagination._per_page : pagination._page * pagination._per_page; let i = index">
+                    <a [routerLink]="['/shopping/details', producto.id_producto]">
+                      <div class="card-header">
+                        <img [src]="producto.fotos && producto.fotos.length > 0 ? producto.fotos[0].recurso : ''"
+                          class="card-img-top">
+                      </div>
+                    </a>
+                    <div class="card-body">
+                      <a [routerLink]="['/shopping/details', producto.id_producto]">
+                        <div class="card-detail_one">
+                          <h2 class="card-title roboto-medium">{{ producto.nombre }}</h2>
+                          <div class="card-code">
+                            <span class="card-code_item">Cod. Interno: {{ producto.codigo }}</span>
+                            <span class="card-code_item">Cod. Original: {{ producto.codigo }}</span>
+                          </div>
+                        </div>
+                        <div class="card-detail_two">
+                          <p class="card-aplic">Aplicación: DIMAX 3.0 2.5 A DIESEL 05</p>
+                          <p class="card-brand roboto-medium">Marca: {{ producto.marca }}</p>
+                        </div>
+                      </a>
+                      <div class="cardBoxPrice">
+                        <h3 class="card-price card-price_discount roboto-medium">$114.08</h3>
+                        <div class="flex-price">
+                          <h3 class="card-price_normal roboto-medium">{{producto.precio1}}</h3>
+                          <span class="card-price_percentage roboto-medium">-25%</span>
+                        </div>
+                        <small>No incluye IVA</small>
+                      </div>
+                    </div>
+                    <div class="card-footer">
+                      <div class="card-footer_one">
+                        <div class="box-counter">
+                          <button class="btn-counter_sign" (click)="disminuirCantidad(producto, i)">-</button>
+                          <input type="text" placeholder="" class="box-counter_input" [id]="producto.codigo"
+                            [(ngModel)]="producto.cantidad">
+                          <button class="btn-counter_sign" (click)="incrementarCantidad(producto, i)">+</button>
+                        </div>
+                        <span class="box-stock">Stock: {{ producto.stock | number }}</span>
+                      </div>
+                      <div class="card-footer_actions">
+                        <button class="btn-one roboto-medium btn-one_cart" (click)="addToCart(producto)">Añadir al
+                          carrito</button>
+                        <button class="btn-one roboto-medium btn-one_outline"
+                          [routerLink]="['/shopping/details', producto.id_producto]">+ Detalles</button>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- </ng-container> -->
                 </div>
-            </div>
+              </div>
+            </main>
+          </div>
         </div>
+      </div>
+    </section>
+    <!-- </div> -->
+
+    <!-- </div> -->
+    <div class="d-flex justify-content-between">
+      <ngb-pagination [collectionSize]="productos.length" [pageSize]="pagination._per_page" [(page)]="pagination._page"
+        (pageChange)="changePage($event)">
+      </ngb-pagination>
+      <div>
+        Mostrando elementos {{ pagination._start }} al {{ pagination._end }} ({{ pagination._pages }}
+        paginas)
+      </div>
     </div>
+  </div>
 </div>
 
 <ng-template #modalSearch let-modal style="background-color: transparent;">
-    <app-search></app-search>
+  <app-search></app-search>
 </ng-template>
 
 <ng-template #modalWallet let-modal>
-    <app-wallet></app-wallet>
+  <app-wallet></app-wallet>
 </ng-template>

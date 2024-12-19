@@ -50,11 +50,12 @@ export class ShopComponent implements OnInit, OnDestroy {
   }
 
   // Usar una estruxtura para automatizar filtros genera error
-  public filterDeliveryItems = [
-    {id: '12',label: 'Free Store', items: 8},
-    {id: '33',label: 'Free Delivery', items: 8},
-    {id: '70',label: 'Fast Delivery', items: 8}
-  ]
+  public filterDeliveryItems: any = [
+    { id: '12', label: 'Free Store', items: 8, checked: false },
+    { id: '33', label: 'Free Delivery', items: 8, checked: false },
+    { id: '70', label: 'Fast Delivery', items: 8, checked: false },
+    { id: '79', label: 'Fast Delivery4', items: 8, checked: false }
+];
 
   filter: any = {};
   paginate: any;
@@ -123,8 +124,6 @@ export class ShopComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
-   
 
    
     this.producto = {
