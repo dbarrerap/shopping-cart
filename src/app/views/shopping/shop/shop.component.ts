@@ -20,7 +20,7 @@ export class ShopComponent implements OnInit, OnDestroy {
   @ViewChild('modalSearch', { static: false }) modalSearch!: ElementRef
   @ViewChild('modalWallet', { static: false }) modalWallet!: ElementRef
   private service = inject(ShopService)
-  private commonService = inject(CommonService)
+  //private commonService = inject(CommonService)
   private modalService = inject(NgbModal)
   private walletSubscription!: Subscription
   private searchSubscription!: Subscription
@@ -51,9 +51,9 @@ export class ShopComponent implements OnInit, OnDestroy {
 
   // Usar una estruxtura para automatizar filtros genera error
   public filterDeliveryItems = [
-    {label: 'Free Store', items: 8},
-    {label: 'Free Delivery', items: 8},
-    {label: 'Fast Delivery', items: 8}
+    {id: '12',label: 'Free Store', items: 8},
+    {id: '33',label: 'Free Delivery', items: 8},
+    {id: '70',label: 'Fast Delivery', items: 8}
   ]
 
   filter: any = {};
@@ -62,13 +62,16 @@ export class ShopComponent implements OnInit, OnDestroy {
   orden: any = []
   producto: any
 
-  constructor( private toastr: ToastrService,) {
+  constructor( private toastr: ToastrService,private commonService:CommonService ) {
     this.walletSubscription = this.commonService.wallet.asObservable().subscribe(() => {
       this.modalService.open(this.modalWallet, { size: 'lg', centered: true })
     })
     this.searchSubscription = this.commonService.search.asObservable().subscribe(() => {
-      this.modalService.open(this.modalSearch, { size: 'xl', windowClass: 'transparent-modal' })
+     this.modalService.open(this.modalSearch, { size: 'xl', windowClass: 'transparent-modal' })
+      //this.modalService.open(this.modalSearch, { size: '', windowClass: 'transparent-modal modal-medium-large' })
+      
     }
+    
     )
 
     this.service.pedido$.subscribe(
@@ -244,9 +247,9 @@ disminuirCantidad(product: Productos, index: number): void {
     this.lista_productos[index].cantidad--;
   }
 }
-addToCart(product: any, index: number): void {
+addToCart(product: any): void {
   if (product) {
-    this.service.addToCart(product, index);
+    this.service.addToCart(product);
     console.log(product)
     if(product.cantidad > 1){
       //this.toastr.success(product.cantidad + ' '+product.nombre +' agregados al carrito')

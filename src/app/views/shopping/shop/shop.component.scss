@@ -997,3 +997,14 @@ ngb-modal-window {
   
   /*# sourceMappingURL=main.css.map */
   
+
+  /* Mantén la clase existente */
+.transparent-modal {
+  background-color: rgba(0, 0, 0, 0.5); /* Ejemplo: Fondo semitransparente */
+}
+
+/* Añade la configuración de tamaño intermedio */
+.transparent-modal.modal-medium-large {
+  max-width: 100% !important;; /* Ajusta el ancho intermedio */
+  height: auto !important;;   /* Ajusta la altura según el contenido */
+}

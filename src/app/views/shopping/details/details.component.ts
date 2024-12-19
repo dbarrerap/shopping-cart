@@ -153,14 +153,14 @@ export class DetailsComponent implements OnInit{
     if (this.cantidad < 0) this.cantidad = 0
   }
 
-  incrementarCantidad(product: Productos, index: number) {
+  incrementarCantidad(product: Productos) {
 
-    this.service.agregarDesdeCarrito(product,index);
+    this.service.agregarDesdeCarrito(product);
     //this.calculoIva();
   }
-  disminuirCantidad(product: Productos, index: number) {
+  disminuirCantidad(product: Productos) {
 
-    this.service.disminuirDesdeCarrito(product,index);
+    this.service.disminuirDesdeCarrito(product);
     //this.calculoIva();
     
   }

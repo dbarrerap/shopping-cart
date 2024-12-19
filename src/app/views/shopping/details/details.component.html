@@ -112,7 +112,7 @@
                     <div class="col-md-6">
                         <div class="row g-3 align-items-center">
                             <div class="col-md-4 text-center">
-                                <app-rounded-button styleClass="mx-1" (click)="disminuirCantidad(producto,1)">
+                                <app-rounded-button styleClass="mx-1" (click)="disminuirCantidad(producto)">
                                     <i class="fa fa-minus fa-lg"></i>
                                 </app-rounded-button>
                             </div>
@@ -120,7 +120,7 @@
                                 <input type="text" class="form-control form-control-sm" [id]="producto.codigo" [(ngModel)]="producto.cantidad">
                             </div>
                             <div class="col-md-4 text-center">
-                                <app-rounded-button styleClass="mx-1" (click)="incrementarCantidad(producto,1)">
+                                <app-rounded-button styleClass="mx-1" (click)="incrementarCantidad(producto)">
                                     <i class="fa fa-plus fa-lg"></i>
                                 </app-rounded-button>
                             </div>

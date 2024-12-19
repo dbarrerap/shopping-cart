@@ -16,7 +16,7 @@
             </div>
         </div>
         <ng-template #resultados>
-            <div class="card-body">
+            <div class="modal-search_scroll" >
                 <ng-scrollbar style="height: 65dvh" visibility="hover" pointerEventsMethod="scrollbar">
                     <ng-container *ngFor="let productos of productosFiltered">
                         <app-horizontal-item [producto]="productos"></app-horizontal-item>

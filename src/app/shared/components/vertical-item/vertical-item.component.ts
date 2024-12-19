@@ -42,14 +42,14 @@ export class VerticalItemComponent {
     if (this.cantidad < 0) this.cantidad = 0
   }
 
-  incrementarCantidad(product: Productos, index: number) {
+  incrementarCantidad(product: Productos) {
 
-    this.service.agregarDesdeCarrito(product,index);
+    this.service.agregarDesdeCarrito(product);
     this.calculoIva();
   }
-  disminuirCantidad(product: Productos, index: number) {
+  disminuirCantidad(product: Productos) {
 
-    this.service.disminuirDesdeCarrito(product,index);
+    this.service.disminuirDesdeCarrito(product);
     this.calculoIva();
     
   }
@@ -65,9 +65,9 @@ export class VerticalItemComponent {
     });
   }
 
-  addToCart(product: any, index: number): void {
+  addToCart(product: any): void {
     if (product) {
-      this.service.addToCart(product, index);
+      this.service.addToCart(product);
       console.log(product)
       if(product.cantidad > 1){
        // this.toastr.success(product.cantidad + ' '+product.nombre +' agregados al carrito')

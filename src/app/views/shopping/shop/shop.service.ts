@@ -86,7 +86,7 @@ export class ShopService {
     return this.apiService.apiCallPedidos('pedidos/actualizar-pedido', 'POST', data);
   }
 
-  addToCart(product: Productos, index: number) {
+  addToCart(product: Productos) {
     console.log(product)
     const existingItemIndex = this.items.findIndex(item => this.areProductsEqual(item.product, product));
     console.log(existingItemIndex)
@@ -114,7 +114,9 @@ export class ShopService {
     this.updateItemsCount();
   }
 
-  agregarDesdeCarrito(product: Productos, index: number) {
+ 
+
+  agregarDesdeCarrito(product: Productos) {
     console.log(product)
     const existingItemIndex = this.items.findIndex(item => this.areProductsEqual(item.product, product));
     console.log(existingItemIndex)
@@ -134,7 +136,7 @@ export class ShopService {
     this.updateItemsCount();
   }
 
-  disminuirDesdeCarrito(product: Productos, index: number) {
+  disminuirDesdeCarrito(product: Productos) {
     console.log(product);
     const existingItemIndex = this.items.findIndex(item => this.areProductsEqual(item.product, product));
     console.log(existingItemIndex);

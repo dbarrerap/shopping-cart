@@ -299,7 +299,7 @@
                                                                     <span class="box-stock">Stock: {{ producto.stock | number }}</span>
                                                                     </div>
                                                                     <div class="card-footer_actions">
-                                                                    <button class="btn-one roboto-medium btn-one_cart" (click)="addToCart(producto,i)">Añadir al carrito</button>
+                                                                    <button class="btn-one roboto-medium btn-one_cart" (click)="addToCart(producto)">Añadir al carrito</button>
                                                                     <button class="btn-one roboto-medium btn-one_outline" [routerLink]="['/shopping/details', producto.id_producto]">+ Detalles</button>
                                                                     </div>
                                                                 </div>

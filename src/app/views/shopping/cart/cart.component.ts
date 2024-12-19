@@ -469,7 +469,7 @@ export class CartComponent implements OnInit {
 
 
   increaseQuantity(product: Productos,index:number) {
-    this.service.addToCart(product,index);
+    this.service.addToCart(product);
   }
   
   decreaseQuantity(product: Productos) {
@@ -592,12 +592,12 @@ export class CartComponent implements OnInit {
  
   incrementarCantidad(product: Productos, index: number) {
 
-    this.service.agregarDesdeCarrito(product,index);
+    this.service.agregarDesdeCarrito(product);
     this.calculoIva();
   }
   disminuirCantidad(product: Productos, index: number) {
 
-    this.service.disminuirDesdeCarrito(product,index);
+    this.service.disminuirDesdeCarrito(product);
     this.calculoIva();
     
   }
