@@ -1,11 +1,11 @@
 <div class="p-3">
-    <form cForm class="d-flex">
-        <input type="text" cFormControl class="form-control me-2" name="searchQuery" [(ngModel)]="searchQuery">
-        <button type="button" class="btn btn-primary" (click)="filterProductos()">
-            <i class="fa fa-magnifying-glass"></i>
-        </button>
-    </form>
     <div class="modal-body">
+        <form cForm class="d-flex mb-3">
+            <input type="text" cFormControl class="form-control me-2" name="searchQuery" [(ngModel)]="searchQuery">
+            <button type="button" class="btn btn-primary" (click)="filterProductos()">
+                <i class="fa fa-magnifying-glass"></i>
+            </button>
+        </form>
         <div class="card">
             <div *ngIf="loading; else resultados">
                 <div class="d-flex justify-content-center">
