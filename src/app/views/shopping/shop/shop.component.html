@@ -34,106 +34,29 @@
     </div>
     <div class="row">
         <div class="col-md-3">
-            <div ngbAccordion [closeOthers]="true">
-                <div ngbAccordionItem #delivery="ngbAccordionItem" class="border-0 border-bottom" [collapsed]="false">
-                    <div ngbAccordionHeader class="d-flex justify-content-between py-2 px-3">
-                        <span class="h5 m-0">Delivery</span>
-                        <button ngbAccordionToggle class="btn btn-sm custom-accordion-toggler">
-                            <i class="fa"
-                                [ngClass]="{'fa-chevron-down': delivery.collapsed, 'fa-chevron-up': !delivery.collapsed}"></i>
-                        </button>
-                    </div>
-                    <div ngbAccordionCollapse>
-                        <div ngbAccordionBody>
-                            <div class="box-filter-item">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="delivery" />
-                                    <label class="form-check-label" >Free Store</label>
-                                </div>
-                                <span>(8)</span>
-                            </div>
-                            <div class="box-filter-item">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="delivery" />
-                                    <label class="form-check-label" >Free Delivery</label>
-                                </div>
-                                <span>(8)</span>
-                            </div>
-                            <div class="box-filter-item">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="delivery" />
-                                    <label class="form-check-label" >Fast Delivery</label>
-                                </div>
-                                <span>(8)</span>
-                            </div>
-                            <!-- Usar un contenedor para automatizar los filtros genera error -->
-                            <!-- <ng-container *ngFor="let item of filterDeliveryItems; let i = index">
-                                <div class="box-filter-item">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="delivery" [id]="'delivery-' + i" />
-                                        <label class="form-check-label" [for]="'delivery-' + i">
-                                            {{ item.label }}
-                                        </label>
-                                    </div>
-                                    <span>({{ item.items }})</span>
-                                </div>
-                            </ng-container> -->
+            <c-accordion [flush]="true">
+                <c-accordion-item #item="cAccordionItem" [visible]="false" class="accordion-item_k" *ngFor="let header of sidebarFilter">
+                    <ng-template cTemplateId="accordionHeaderTemplate">
+                        <div class="accordion-header_k">
+                            <button (click)="item.toggleItem()" [collapsed]="!item.visible" cAccordionButton class="accordion-button_k">
+                              {{ header.label }}
+                            </button>
                         </div>
-                    </div>
-                </div>
-                <div ngbAccordionItem #features="ngbAccordionItem" class="border-0 border-bottom">
-                    <div ngbAccordionHeader class="d-flex justify-content-between py-2 px-3">
-                        <span class="h5 m-0">Features</span>
-                        <button ngbAccordionToggle class="btn btn-sm custom-accordion-toggler">
-                            <i class="fa"
-                                [ngClass]="{'fa-chevron-down': features.collapsed, 'fa-chevron-up': !features.collapsed}"></i>
-                        </button>
-                    </div>
-                    <div ngbAccordionCollapse>
-                        <div ngbAccordionBody>
-                            <form cForm>
-                                <!-- <ng-container *ngFor="let item of filterFeaturesItems">
-                                    <div class="box-filter-item">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="features" id="flexCheckDefault">
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                {{ item.label }}
-                                            </label>
-                                        </div>
-                                        <span>({{ item.items }})</span>
-                                    </div>
-                                </ng-container> -->
-                            </form>
+                      </ng-template>
+                      <ng-template cTemplateId="accordionBodyTemplate">
+                        <div class="accordion-body">
+                            <ng-container *ngFor="let items of header.items">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" [id]=items.id [(ngModel)]=items.checked>
+                                    <label class="form-check-label" [for]=items.id>
+                                      {{ items.label }}
+                                    </label>                                  
+                                </div>
+                            </ng-container>
                         </div>
-                    </div>
-                </div>
-                <div ngbAccordionItem #brand="ngbAccordionItem" class="border-0">
-                    <div ngbAccordionHeader class="d-flex justify-content-between py-2 px-3">
-                        <span class="h5 m-0">Brand</span>
-                        <button ngbAccordionToggle class="btn btn-sm custom-accordion-toggler">
-                            <i class="fa"
-                                [ngClass]="{'fa-chevron-down': brand.collapsed, 'fa-chevron-up': !brand.collapsed}"></i>
-                        </button>
-                    </div>
-                    <div ngbAccordionCollapse>
-                        <div ngbAccordionBody>
-                            <form cForm>
-                                <!-- <ng-container *ngFor="let item of filterBrandItems">
-                                    <div class="box-filter-item">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="brand" id="flexCheckDefault">
-                                            <label class="form-check-label" for="flexCheckDefault">
-                                                {{ item.label }}
-                                            </label>
-                                        </div>
-                                        <span>({{ item.items }})</span>
-                                    </div>
-                                </ng-container> -->
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                      </ng-template>
+                </c-accordion-item>
+            </c-accordion>
         </div>
         <div class="col-md-9">
             <div class="row row-cols-1 row-cols-md-3 g-2 mb-2">
@@ -157,7 +80,7 @@
     </div>
 </div>
 
-<ng-template #modalSearch let-modal style="background-color: transparent;">
+<ng-template #modalSearch let-modal>
     <app-search></app-search>
 </ng-template>
 

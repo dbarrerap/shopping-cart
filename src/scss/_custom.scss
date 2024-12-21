@@ -49,3 +49,37 @@
 .card_footer-k .btn-outline-success:hover {
     color: #fff !important;
 }
+
+.accordion-item_k {
+    color: var(--clr-base);
+}
+
+.accordion-header_k .accordion-button::after {
+    background-color: var(--clr-action);
+    border-radius: 4px;
+    height: 24px;
+    width: 24px;
+}
+
+.accordion-button_k {
+    padding: 8px 0;
+}
+
+.accordion-button_k:focus {
+    box-shadow: none;
+}
+
+.accordion-button_k::after {
+    background-image: url('/assets/images/icons/icon-arrow-down.png') !important;
+    background-position: center;
+}
+
+.accordion-button_k:not(.collapsed)::after {
+    background-image: url('/assets/images/icons/icon-arrow-down.png') !important;
+    background-position: center;
+}
+
+.accordion-header_k .accordion-button:not(.collapsed) {
+    background-color: transparent;
+    box-shadow: none;
+}
