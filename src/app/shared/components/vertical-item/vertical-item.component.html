@@ -1,5 +1,6 @@
 <div class="card h-100 border-0">
-    <img [src]="producto.fotos && producto.fotos.length > 0 ? producto.fotos[0].recurso : defaultImage" style="height: 250px; width: 80%; object-fit: cover;" class="card-img-top">
+    <img [src]="producto.fotos && producto.fotos.length > 0 ? producto.fotos[0].recurso : defaultImage"
+        style="height: 250px; width: 80%; object-fit: cover;" class="card-img-top">
     <div class="card-body">
         <div class="mb-3">
             <h5 class="card-title">{{ producto.nombre }}</h5>
@@ -21,46 +22,27 @@
             <small>No incluye IVA</small>
         </div>
     </div>
-    <div class="card-footer card_footer-k">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="row mb-3">
-                    <div class="col">
-                        <div class="row g-0 align-items-center">
-                            <div class="col-md-4 text-center">
-                                <app-rounded-button styleClass="mx-1" (click)="decrement(1)">
-                                    <i class="fa fa-minus fa-lg"></i>
-                                </app-rounded-button>
-                            </div>
-                            <div class="col-md-4">
-                                <input type="text" class="form-control form-control-sm" [id]="producto.codigo" [(ngModel)]="cantidad">
-                            </div>
-                            <div class="col-md-4 text-center">
-                                <app-rounded-button styleClass="mx-1" (click)="increment(1)">
-                                    <i class="fa fa-plus fa-lg"></i>
-                                </app-rounded-button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="card-footer bg-transparent">
+        <div class="card-footer_one">
+            <div class="box-counter">
+                <app-rounded-button styleClass="mx-1" (click)="decrement(1)">
+                    <i class="fa fa-minus fa-lg"></i>
+                </app-rounded-button>
+                <input type="text" class="box-counter_input" [id]="producto.codigo" [(ngModel)]="cantidad">
+                <app-rounded-button styleClass="mx-1" (click)="increment(1)">
+                    <i class="fa fa-plus fa-lg"></i>
+                </app-rounded-button>
             </div>
-            <div class="col-md-6">
-                <small>Stock {{ producto.stock | number }}</small>
-            </div>
+            <span class="box-stock">Stock {{ producto.stock | number }}</span>
         </div>
-    </div>
-    <div class="card-footer card_footer-k">
-        <div class="mb-3">
-            <div class="d-flex justify-content-around">
-                <button class="btn btn-sm btn-success text-white mx-2">
-                    <i class="fa fa-cart-plus"></i>
-                    A&ntilde;adir al carrito
-                </button>
-                <a [routerLink]="['/shopping/details', producto.id_producto]" class="btn btn-outline-success">
-                    <i class="fa fa-plus"></i>
-                    Detalles
-                </a>
-            </div>
+        <div class="card-footer_actions">
+            <button type="button" class="btn-one roboto-medium btn-one_cart">
+                A&ntilde;adir al carrito
+            </button>
+            <button type="button" class="btn-one roboto-medium btn-one_outline">
+                <i class="fa fa-plus"></i>
+                Detalles
+            </button>
         </div>
     </div>
 </div>
