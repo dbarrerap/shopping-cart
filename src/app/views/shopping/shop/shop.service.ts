@@ -1,5 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
+import LaravelPaginateResponse from '../../../shared/models/LaravelPaginateResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +8,22 @@ import { ApiService } from '../../../services/api.service';
 export class ShopService {
   private apiService = inject(ApiService)
 
-  getProductos = () => this.apiService.apiCall('productos', 'GET')
+  getProductos = (data?: any) => new Promise<LaravelPaginateResponse>((resolve, reject) => {
+    this.apiService.apiCall('pedidos/get-productos', 'POST', data)?.subscribe({
+      next: (response: any) => {
+        if (!response || response.data === undefined) {
+          console.error('Error con la respuesta del servidor', response)
+          reject('Error con la respuesta del servicio')
+        }
+
+        resolve(response.data)
+      },
+      error: (error: any) => {
+        console.log('Error con el servicio', error)
+        reject(error)
+      }
+    })
+  })
 
   getProductosSearch = (params: any) => {
     let endpoint = `productos?`
@@ -21,8 +37,8 @@ export class ShopService {
 
   getProductosFotosAsync(data: any = {}): Promise<any> {
     return new Promise<any>((resolve, reject) => {
-      this.apiService.apiCallPedidos("pedidos/get-productos-fotos", "POST", data).subscribe(
-        (res: any) => {
+      this.apiService.apiCallPedidos("pedidos/get-productos-fotos", "POST", data).subscribe({
+        next: (res: any) => {
           console.log('Respuesta del servidor:', res);
           if (res && res.data !== undefined) {
             resolve(res.data);
@@ -30,11 +46,11 @@ export class ShopService {
             reject(new Error('La respuesta no contiene un campo "data".'));
           }
         },
-        (err: any) => {
+        error: (err: any) => {
           console.error('Error en la solicitud:', err);
           reject(err);
-        }
-      );
+        },
+      });
     });
   }
 

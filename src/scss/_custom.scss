@@ -65,6 +65,12 @@ body {
     justify-content: space-between;
 }
 
+.box-pagination {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+  }
+
 .card_footer-k {
     background-color: var(--clr-white) !important;
 }

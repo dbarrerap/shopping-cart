@@ -8,6 +8,7 @@ import { NgScrollbarModule } from "ngx-scrollbar";
 import { 
     AccordionModule,
     SharedModule,
+    SpinnerModule,
 } from "@coreui/angular";
 
 import { CcInputGroup } from './cc-input-group.component';
@@ -37,6 +38,7 @@ import {
         RouterModule,
         SharedModule,
         AccordionModule,
+        SpinnerModule,
     ],
     exports: [
         CommonModule,
@@ -51,6 +53,7 @@ import {
         NgScrollbarModule,
         SharedModule,
         AccordionModule,
+        SpinnerModule,
     ],
     providers: [
         NgbActiveModal,

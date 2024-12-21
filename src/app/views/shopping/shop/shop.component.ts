@@ -19,27 +19,20 @@ export class ShopComponent implements OnInit, OnDestroy {
   private service = inject(ShopService)
   private commonService = inject(CommonService)
   private modalService = inject(NgbModal)
+  public loadingProductos: boolean = false
   private walletSubscription!: Subscription
   private searchSubscription!: Subscription
 
   public productos: any[] = []
   public pagination: any = {
-    _page: 1,
-    _per_page: 6,
-    _limit: 6,
-    _length: 0,
-    _pages: 0,
-    _start: 0,
-    _end: 0,
-  }
-  public pagination_2: any = {
-    page: 1,
-    perPage: 6,
-    limit: 6,
     length: 0,
-    pages: 0,
+    pageSize: 9,
+    pageSizeOptions: [3, 9, 12],
+
+    page: 1,
     start: 0,
     end: 0,
+    pages: 0,
   }
 
   public sidebarFilter = [
@@ -72,16 +65,8 @@ export class ShopComponent implements OnInit, OnDestroy {
     }
   ]
 
-  // Usar una estruxtura para automatizar filtros genera error
-  public filterDeliveryItems = [
-    { label: 'Free Store', items: 8 },
-    { label: 'Free Delivery', items: 8 },
-    { label: 'Fast Delivery', items: 8 }
-  ]
-
   filter: any = {};
-  paginate: any;
-  lista_productos: any[] = [];
+  // lista_productos: any[] = [];
   orden: any = []
   producto: any
 
@@ -118,22 +103,9 @@ export class ShopComponent implements OnInit, OnDestroy {
       filterControl: ""
     }
 
-    this.paginate = {
-      length: 0,
-      perPage: 20,
-      page: 1,
-      pageSizeOptions: [20, 40, 60, 80, 100]
-    }
-
     setTimeout(() => {
-      this.CargarProductos()
-      this.productos = faker.helpers.multiple(this.createRandomProduct, { count: 60 })
-      Object.assign(this.pagination, {
-        _length: this.productos.length,
-        _pages: Math.ceil(this.productos.length / this.pagination._per_page),
-        _start: (this.pagination._page - 1) * this.pagination._per_page + 1,
-        _end: Math.min(this.pagination._page * this.pagination._per_page, this.productos.length)
-      })
+      // this.productos = faker.helpers.multiple(this.createRandomProduct, { count: 60 })
+      this.cargarProductos()
     }, 0)
   }
 
@@ -142,20 +114,12 @@ export class ShopComponent implements OnInit, OnDestroy {
     this.searchSubscription.unsubscribe()
   }
 
-  changePage = (event: number) => {
-    console.log(event);
-    Object.assign(this.pagination, {
-      _page: event,
-      _start: (event - 1) * this.pagination._per_page + 1,
-      _end: Math.min(event * this.pagination._per_page, this.productos.length)
-    })
-    this.CargarProductos()
-  }
-
-
-  logger = (event: any) => {
-    console.log(event);
-
+  changePage = (page: number) => {
+    // console.log('change page', page)
+    Object.assign(this.pagination, { page })
+    // console.log('pagination', this.pagination);
+    
+    this.cargarProductos()
   }
 
   createRandomProduct = (): Producto => {
@@ -177,37 +141,18 @@ export class ShopComponent implements OnInit, OnDestroy {
     }
   }
 
-  async CargarProductos() {
-    // this.mensajeSpiner = "Cargando productos...";
-    // this.lcargando.ctlSpinner(true);
-    try {
-
-
-      //alert(JSON.stringify(this.filter));
-
-      let productos = await this.service.getProductosFotos({ filter: this.filter, paginate: this.pagination });
-      console.log(productos)
-      productos.data.data.map((item: any) => Object.assign(item, { cantidad: 1 }))
-
-
-      this.lista_productos = productos.data.data;
-      console.log(this.lista_productos)
-
-      Object.assign(this.pagination, {
-        _length: this.productos.length,
-        _pages: Math.ceil(this.productos.length / this.pagination._per_page),
-        _start: (this.pagination._page - 1) * this.pagination._per_page + 1,
-        _end: Math.min(this.pagination._page * this.pagination._per_page, this.productos.length)
-      })
-
-      //  console.log(this.lista_productos);
-      //  this.paginate.length = productos.total;
-      //  this.lcargando.ctlSpinner(false)
-    } catch (err) {
-      console.log(err)
-      //  this.lcargando.ctlSpinner(false)
-      //  this.toastr.error(err.error.message, 'Error en Carga Inicial')
-    }
-
+  cargarProductos = async () => {
+    this.productos = []
+    this.loadingProductos = true
+    const response = await this.service.getProductos({pagination: this.pagination})
+    console.log(response)
+    Object.assign(this.pagination, {
+      length: response.total, 
+      start: response.from, 
+      end: response.to,
+      pages: response.last_page
+    })
+    this.productos = response.data
+    this.loadingProductos = false
   }
 }
