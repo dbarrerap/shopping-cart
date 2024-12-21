@@ -11,8 +11,12 @@ import {
 } from "@coreui/angular";
 
 import { CcInputGroup } from './cc-input-group.component';
-import { HorizontalItemComponent, VerticalItemComponent } from "./components/index";
-import { RoundedButtonComponent } from './components/rounded-button/rounded-button.component';
+import { 
+    HorizontalItemComponent, 
+    VerticalItemComponent, 
+    RoundedButtonComponent,
+    SearchComponent, 
+} from "./components/index";
 
 
 @NgModule({
@@ -21,6 +25,7 @@ import { RoundedButtonComponent } from './components/rounded-button/rounded-butt
         HorizontalItemComponent,
         VerticalItemComponent,
         RoundedButtonComponent,
+        SearchComponent, 
         
     ],
     imports: [
@@ -39,6 +44,7 @@ import { RoundedButtonComponent } from './components/rounded-button/rounded-butt
         HorizontalItemComponent,
         VerticalItemComponent,
         RoundedButtonComponent,
+        SearchComponent, 
         NgbModule,
         FormsModule, 
         ReactiveFormsModule,

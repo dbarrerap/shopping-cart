@@ -1,8 +1,8 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { ShopService } from '../shop.service';
+// import { ShopService } from '../shop.service';
 
 import { fakerES_MX as faker } from "@faker-js/faker";
-import { Producto } from 'src/app/shared/models';
+import { Producto } from '../../models';
 
 @Component({
   selector: 'app-search',
@@ -17,7 +17,7 @@ export class SearchComponent implements OnInit {
   public searchQuery: string|null = null
   public loading: boolean = false
 
-  private service = inject(ShopService)
+  // private service = inject(ShopService)
 
   ngOnInit(): void {
     this.productos = faker.helpers.multiple(this.createRandomProduct, { count: 30 })

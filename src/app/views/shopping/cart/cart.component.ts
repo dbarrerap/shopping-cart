@@ -1,16 +1,31 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, inject, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Cliente, OrdenCompra, Producto } from "src/app/shared/models";
 import { fakerES_MX as faker } from "@faker-js/faker";
+import { Subscription } from 'rxjs';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+import { Cliente, OrdenCompra, Producto } from "../../../shared/models";
+import { CommonService } from '../../../services/common.service';
 
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss'
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, OnDestroy {
+  @ViewChild('modalSearch', { static: false }) modalSearch!: ElementRef
+  private searchSubscription!: Subscription
   public router = inject(Router)
   /* @Input() */ public orden!: OrdenCompra
+  private commonService = inject(CommonService)
+  private modalService = inject(NgbModal)
+
+  constructor() {
+    this.searchSubscription = this.commonService.search.asObservable().subscribe(() => {
+      this.modalService.open(this.modalSearch, { size: 'xl', windowClass: 'transparent-modal' })
+    }
+    )
+  }
 
   ngOnInit(): void {
     const cliente: Cliente = {
@@ -35,6 +50,10 @@ export class CartComponent implements OnInit {
       transporte: 0,
       total_cobro: total
     }
+  }
+
+  ngOnDestroy(): void {
+    this.searchSubscription.unsubscribe()
   }
 
   handleUpdateQuantity = (quantity: number) => {

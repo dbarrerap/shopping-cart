@@ -1,12 +1,12 @@
 import { Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subscription } from 'rxjs';
+import { fakerES_MX as faker } from "@faker-js/faker";
 
 import { ShopService } from "./shop.service";
 import { CommonService } from '../../../services/common.service';
-import { Subscription } from 'rxjs';
 import { Producto } from '../../../shared/models/Producto';
 
-import { fakerES_MX as faker } from "@faker-js/faker";
 
 @Component({
   selector: 'app-shop',
