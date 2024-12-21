@@ -1,5 +1,6 @@
 export interface Producto {
     id?: string
+    id_producto?: number
     codigo: string
     nombre: string
     descripcion: string
@@ -10,4 +11,9 @@ export interface Producto {
     stock?: number | string
     imagen: string
     cantidad?: number|string
+    fotos?: ProductoFoto[]
+}
+
+interface ProductoFoto {
+    recurso: string
 }

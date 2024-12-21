@@ -88,7 +88,7 @@ body {
     border: solid 1px var(--clr-base);
     height: 32px;
     // padding: 6px;
-    width: 32px;
+    width: 32px !important;
     text-align: center;
 }
 
@@ -120,8 +120,8 @@ body {
 }
 
 .btn-one_outline {
-//     background-color: var(--clr-white);
-//     border: solid 1px var(--clr-success);
+    //     background-color: var(--clr-white);
+    //     border: solid 1px var(--clr-success);
     color: var(--clr-success);
 }
 
@@ -170,4 +170,101 @@ body {
 .accordion-header_k .accordion-button:not(.collapsed) {
     background-color: transparent;
     box-shadow: none;
+}
+
+.accordion_k-detail {
+    margin: 80px 0;
+  }
+
+.card-detail_one {
+    margin-bottom: 12px;
+}
+
+.card-detail_two {
+    margin-bottom: 20px;
+}
+
+.card-title {
+    font-size: 16px;
+    margin-bottom: 4px;
+    height: 36px;
+    display: -webkit-box;
+    line-clamp: 2;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card-code {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-code_item {
+    font-size: 12px;
+}
+
+.card-aplic {
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.card-price {
+    font-size: 24px;
+}
+
+.card-price_discount {
+    color: var(--clr-danger);
+}
+
+.flex-price {
+    align-items: center;
+    display: flex;
+    gap: 4px;
+}
+
+.card-price_normal {
+    font-size: 16px;
+    margin-bottom: 0;
+    text-decoration: line-through;
+}
+
+.card-price_percentage {
+    background-color: var(--clr-danger);
+    border-radius: 4px;
+    color: var(--clr-white);
+    font-size: 14px;
+    padding: 2px 4px;
+}
+
+.box-detail_two {
+    margin-top: 20px;
+}
+
+.box-detail_two-item {
+    margin-bottom: 20px;
+}
+
+.title-detail_item {
+    font-size: 12px;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+}
+
+.form-check-label_detail {
+    font-size: 12px;
+    line-height: 24px;
+}
+
+.box-filter-item {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.form-select_detail {
+    font-size: 12px;
 }

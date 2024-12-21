@@ -1,9 +1,10 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ApiService } from 'src/app/services/api.service';
-import { Producto } from 'src/app/shared/models';
-
 import { fakerES_MX as faker } from "@faker-js/faker";
+
+import { ApiService } from '../../../services/api.service';
+import { Producto } from '../../../shared/models';
+
 
 @Component({
   selector: 'app-details',
@@ -41,7 +42,11 @@ export class DetailsComponent implements OnInit{
       )
       
     }) */
-   this.producto = this.createRandomProduct()
+   this.loading = true
+   setTimeout(() => {
+     this.producto = this.createRandomProduct()
+     this.loading = false
+   }, 1250)
   }
 
   increment = (valor: number) => {
