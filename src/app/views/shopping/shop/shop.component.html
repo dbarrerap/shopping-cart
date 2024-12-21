@@ -1,7 +1,7 @@
 <div class="container">
     <div class="alert alert-light">
         <details>
-            <summary>Credito</summary>
+            <summary class="roboto-bold">Credito</summary>
             <div class="row">
                 <div class="col-6">
                     <app-cc-input-group label="Estado Credito" styleSpan="size-span-campo">
@@ -38,7 +38,7 @@
                 <c-accordion-item #item="cAccordionItem" [visible]="false" class="accordion-item_k" *ngFor="let header of sidebarFilter">
                     <ng-template cTemplateId="accordionHeaderTemplate">
                         <div class="accordion-header_k">
-                            <button (click)="item.toggleItem()" [collapsed]="!item.visible" cAccordionButton class="accordion-button_k">
+                            <button (click)="item.toggleItem()" [collapsed]="!item.visible" cAccordionButton class="accordion-button_k roboto-bold">
                               {{ header.label }}
                             </button>
                         </div>
