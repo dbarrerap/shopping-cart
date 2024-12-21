@@ -7,7 +7,7 @@
     <c-container fluid class="justify-content-between text-bg-light p-3">
         <c-breadcrumb-router></c-breadcrumb-router>
         <c-header-nav class="ms-auto">
-            <form cForm class="d-flex" role="search" [ngClass]="{'d-none': _router.url == '/shopping/cart'}">
+            <form cForm class="d-flex" role="search">
                 <input type="search" cFormControl class="me-2" sizing="sm" (click)="emitSearch()">
                 <button cButton type="submit" color="primary">
                     <i class="fa fa-magnifying-glass"></i>
