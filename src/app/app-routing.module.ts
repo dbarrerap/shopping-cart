@@ -9,6 +9,7 @@ import { Page404Component } from './views/pages/page404/page404.component';
 import { Page500Component } from './views/pages/page500/page500.component';
 import { LoginComponent } from './views/pages/login/login.component';
 import { RegisterComponent } from './views/pages/register/register.component';
+import { authGuard, loginGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -19,6 +20,7 @@ const routes: Routes = [
   {
     path: '',
     component: DefaultLayoutComponent,
+    canActivate: [authGuard],
     data: {
       title: 'Home'
     },
@@ -78,13 +80,20 @@ const routes: Routes = [
   {
     path: '',
     component: ShoppingLayoutComponent,
-    data: {
-      title: 'Home'
-    },
+    canActivate: [authGuard],
     children: [
       {
-        path: 'shopping',
-        loadChildren: () => import('./views/shopping/shopping.module').then(m => m.ShoppingModule)
+        path: '',
+        canActivateChild: [authGuard],
+        data: {
+          title: 'Home'
+        },
+        children: [
+          {
+            path: 'shopping',
+            loadChildren: () => import('./views/shopping/shopping.module').then(m => m.ShoppingModule)
+          }
+        ]
       }
     ]
   },
@@ -105,6 +114,7 @@ const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    canActivate: [loginGuard],
     data: {
       title: 'Login Page'
     }
