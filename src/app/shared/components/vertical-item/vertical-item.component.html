@@ -39,10 +39,12 @@
             <button type="button" class="btn-one roboto-medium btn-one_cart">
                 A&ntilde;adir al carrito
             </button>
-            <button type="button" class="btn-one roboto-medium btn-one_outline">
+            <a [routerLink]="['/shopping/details', producto.id_producto]" class="btn btn-outline-success roboto-medium btn-one btn-one_outline">
                 <i class="fa fa-plus"></i>
                 Detalles
-            </button>
+            </a>
+            <!-- <button type="button" class="btn-one roboto-medium btn-one_outline">
+            </button> -->
         </div>
     </div>
 </div>

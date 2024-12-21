@@ -120,14 +120,14 @@ body {
 }
 
 .btn-one_outline {
-    background-color: var(--clr-white);
-    border: solid 1px var(--clr-success);
+//     background-color: var(--clr-white);
+//     border: solid 1px var(--clr-success);
     color: var(--clr-success);
 }
 
 .btn-one_outline:hover {
-    background-color: var(--clr-success);
-    color: var(--clr-white);
+    // background-color: var(--clr-success);
+    color: var(--clr-white) !important;
 }
 
 .card_footer-k {
