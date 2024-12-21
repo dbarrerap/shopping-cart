@@ -1,5 +1,6 @@
 // Here you can add other styles
 @import '@fortawesome/fontawesome-free/css/all.min.css';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
 
 :root {
     --clr-danger: #ff0000;
@@ -11,6 +12,28 @@
     --clr-gray-01: #f0f3f5;
     --clr-gray-02: #e4e7ea;
     --clr-gray-03: #d8dee9;
+}
+
+body {
+    font-family: "Roboto", sans-serif !important;
+}
+
+.roboto-regular {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.roboto-medium {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.roboto-bold {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-style: normal;
 }
 
 .size-span-campo {
