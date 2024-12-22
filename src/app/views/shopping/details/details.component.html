@@ -9,7 +9,18 @@
     <ng-template #productView>
         <div class="row">
             <div class="col-12 col-md-8 text-center">
-                <img [src]="producto.imagen" alt="" class="img-fluid">
+                <c-carousel [dark]="true" [interval]="2750" transition="crossfade">
+                    <c-carousel-indicators></c-carousel-indicators>
+                    <c-carousel-inner>
+                        <c-carousel-item *ngFor="let foto of producto.fotos">
+                            <div class="d-flex justify-content-center w-100 my-3">
+                                <img [src]="foto.recurso" alt="{{ producto.nombre }}" class="d-block w-50" loading="lazy">
+                            </div>
+                        </c-carousel-item>
+                    </c-carousel-inner>
+                    <c-carousel-control [routerLink] caption="Previous" direction="prev"></c-carousel-control>
+                    <c-carousel-control [routerLink] caption="Next" direction="next"></c-carousel-control>
+                </c-carousel>
             </div>
             <div class="col-12 col-md-4">
                 <div class="box-detail">
@@ -26,7 +37,8 @@
                             <div class="card-brand roboto-medium">Marca: Voluptatem</div>
                         </div>
                         <div>
-                            <h3 class="card-price card-price_discount roboto-medium">{{ producto.precio_oferta | currency }}</h3>
+                            <h3 class="card-price card-price_discount roboto-medium">{{ producto.precio_oferta |
+                                currency }}</h3>
                             <div class="flex-price">
                                 <h3 class="card-price_normal roboto-medium">{{ producto.precio | currency }}</h3>
                                 <span class="card-price_percentage roboto-medium">-{{ producto.descuento }}%</span>
@@ -39,12 +51,16 @@
                             <h3 class="title-detail_item">Condici&oacute;n</h3>
                             <form cForm>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioCondicion" id="flexRadioDefault1">
-                                    <label class="form-check-label form-check-label_detail" for="flexRadioDefault1">Nuevo (+$2.00)</label>
+                                    <input class="form-check-input" type="radio" name="flexRadioCondicion"
+                                        id="flexRadioDefault1">
+                                    <label class="form-check-label form-check-label_detail"
+                                        for="flexRadioDefault1">Nuevo (+$2.00)</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioCondicion" id="flexRadioDefault2" checked>
-                                    <label class="form-check-label form-check-label_detail" for="flexRadioDefault2">Segunda mano</label>
+                                    <input class="form-check-input" type="radio" name="flexRadioCondicion"
+                                        id="flexRadioDefault2" checked>
+                                    <label class="form-check-label form-check-label_detail"
+                                        for="flexRadioDefault2">Segunda mano</label>
                                 </div>
                             </form>
                         </div>
@@ -52,19 +68,24 @@
                             <h3 class="title-detail_item">Di&aacute;metro</h3>
                             <form cForm>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDiametro" id="flexRadioDefault1">
-                                    <label class="form-check-label form-check-label_detail" for="flexRadioDefault1">Nuevo (+$2.00)</label>
+                                    <input class="form-check-input" type="radio" name="flexRadioDiametro"
+                                        id="flexRadioDefault1">
+                                    <label class="form-check-label form-check-label_detail"
+                                        for="flexRadioDefault1">Nuevo (+$2.00)</label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDiametro" id="flexRadioDefault2" checked>
-                                    <label class="form-check-label form-check-label_detail" for="flexRadioDefault2">Segunda mano</label>
+                                    <input class="form-check-input" type="radio" name="flexRadioDiametro"
+                                        id="flexRadioDefault2" checked>
+                                    <label class="form-check-label form-check-label_detail"
+                                        for="flexRadioDefault2">Segunda mano</label>
                                 </div>
                             </form>
                         </div>
                         <div class="box-detail_two-item">
                             <h3 class="title-detail_item">Equipamiento</h3>
                             <select class="form-select">
-                                <option [value]="opcion.value" class="form-select_detail" *ngFor="let opcion of lst_equipamiento">{{ opcion.label }}</option>
+                                <option [value]="opcion.value" class="form-select_detail"
+                                    *ngFor="let opcion of lst_equipamiento">{{ opcion.label }}</option>
                             </select>
                         </div>
                     </div>
@@ -76,7 +97,9 @@
                                     <app-rounded-button styleClass="mx-1" (click)="decrement(1)">
                                         <i class="fa fa-minus fa-lg"></i>
                                     </app-rounded-button>
-                                    <input type="text" class="form-control form-control-sm box-counter_input text-center" [id]="producto.codigo" [(ngModel)]="cantidad">
+                                    <input type="text"
+                                        class="form-control form-control-sm box-counter_input text-center"
+                                        [id]="producto.codigo" [(ngModel)]="cantidad">
                                     <app-rounded-button styleClass="mx-1" (click)="increment(1)">
                                         <i class="fa fa-plus fa-lg"></i>
                                     </app-rounded-button>
@@ -105,7 +128,8 @@
                         <ng-template cTemplateId="accordionBodyTemplate">
                             <div class="accordion-body">
                                 <p>{{ producto.descripcion }}</p>
-                                <p>Nostrum sit deleniti facilis fugit vitae incidunt molestias. Molestiae non reiciendis odio enim. Iure qui illo optio eius dolorem aut. Autem dolorum qui iusto.</p>
+                                <p>Nostrum sit deleniti facilis fugit vitae incidunt molestias. Molestiae non reiciendis
+                                    odio enim. Iure qui illo optio eius dolorem aut. Autem dolorum qui iusto.</p>
                             </div>
                         </ng-template>
                     </c-accordion-item>
@@ -120,7 +144,8 @@
                         </ng-template>
                         <ng-template cTemplateId="accordionBodyTemplate">
                             <div class="accordion-body">
-                                Nostrum sit deleniti facilis fugit vitae incidunt molestias. Molestiae non reiciendis odio enim. Iure qui illo optio eius dolorem aut. Autem dolorum qui iusto.
+                                Nostrum sit deleniti facilis fugit vitae incidunt molestias. Molestiae non reiciendis
+                                odio enim. Iure qui illo optio eius dolorem aut. Autem dolorum qui iusto.
                             </div>
                         </ng-template>
                     </c-accordion-item>
@@ -135,7 +160,8 @@
                         </ng-template>
                         <ng-template cTemplateId="accordionBodyTemplate">
                             <div class="accordion-body">
-                                Nostrum sit deleniti facilis fugit vitae incidunt molestias. Molestiae non reiciendis odio enim. Iure qui illo optio eius dolorem aut. Autem dolorum qui iusto.
+                                Nostrum sit deleniti facilis fugit vitae incidunt molestias. Molestiae non reiciendis
+                                odio enim. Iure qui illo optio eius dolorem aut. Autem dolorum qui iusto.
                             </div>
                         </ng-template>
                     </c-accordion-item>

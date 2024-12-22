@@ -3,12 +3,17 @@ import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterModule } from '@angular/router';
 
-import { NgbActiveModal, NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { 
+    NgbModule,
+    NgbActiveModal, 
+    NgbCarouselModule,
+} from "@ng-bootstrap/ng-bootstrap";
 import { NgScrollbarModule } from "ngx-scrollbar";
 import { 
     AccordionModule,
     SharedModule,
     SpinnerModule,
+    CarouselModule,
 } from "@coreui/angular";
 
 import { CcInputGroup } from './cc-input-group.component';
@@ -39,6 +44,8 @@ import {
         SharedModule,
         AccordionModule,
         SpinnerModule,
+        CarouselModule,
+        NgbCarouselModule,
     ],
     exports: [
         CommonModule,
@@ -54,6 +61,8 @@ import {
         SharedModule,
         AccordionModule,
         SpinnerModule,
+        CarouselModule,
+        NgbCarouselModule,
     ],
     providers: [
         NgbActiveModal,

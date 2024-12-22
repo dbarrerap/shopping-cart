@@ -65,6 +65,11 @@ export class DetailsComponent implements OnInit{
     const oferta: boolean = faker.datatype.boolean({probability: 0.75})
     const descuento = (Math.floor(Math.random() * 25) + 1)
     const precio_oferta = oferta ? precio / (1 + (descuento / 100)) : precio
+    const fotos = [
+      { recurso: 'assets/images/productos/repuesto-1.png' },
+      { recurso: 'assets/images/productos/repuesto-3.png' },
+      { recurso: 'assets/images/productos/repuesto-5.png' },
+    ]
     return {
       id: faker.database.mongodbObjectId(),
       nombre: faker.commerce.productName(),
@@ -74,6 +79,7 @@ export class DetailsComponent implements OnInit{
       oferta,
       descuento,
       precio_oferta,
+      fotos,
       imagen: `assets/images/productos/repuesto-${imagenNumber}.png`,
     }
   }
