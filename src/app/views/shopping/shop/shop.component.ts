@@ -11,6 +11,21 @@ import { Productos } from './productos.interface';
 
 import { ToastrService } from 'ngx-toastr'; 
 
+interface SidebarItem {
+  id: number;
+  label: string;
+
+  items: Items[],
+}
+interface Items {
+  id: number;
+  label: string;
+  total: number;
+  checked: boolean;
+  items: Items[]
+  
+}
+
 @Component({
   selector: 'app-shop',
   templateUrl: './shop.component.html',
@@ -48,6 +63,8 @@ export class ShopComponent implements OnInit, OnDestroy {
     start: 0,
     end: 0,
   }
+
+  public sidebarFilter: SidebarItem[] = [];
 
   // Usar una estruxtura para automatizar filtros genera error
   public filterDeliveryItems: any = [
@@ -153,6 +170,7 @@ export class ShopComponent implements OnInit, OnDestroy {
     }
     setTimeout(() => {
       this.CargarProductos()
+      this.CargarGruposMarcas()
      this.productos = faker.helpers.multiple(this.createRandomProduct, {count: 60})
      Object.assign(this.pagination, {
       _length: this.productos.length,
@@ -236,6 +254,28 @@ export class ShopComponent implements OnInit, OnDestroy {
      }
   
  }
+
+ async CargarGruposMarcas() {
+  // this.mensajeSpiner = "Cargando productos...";
+  // this.lcargando.ctlSpinner(true);
+  try {
+
+ 
+    //alert(JSON.stringify(this.filter));
+    
+     let gruposMarcas = await this.service.getGruposMarcas({filter: this.filter});
+
+     this.sidebarFilter= gruposMarcas.original
+
+     console.log(gruposMarcas)
+ 
+   } catch (err) {
+     console.log(err)
+    //  this.lcargando.ctlSpinner(false)
+      //this.toastr.error(err.error.message, 'Error en Carga Inicial')
+   }
+
+}
 
  incrementarCantidad(product: Productos, index:number): void {
   this.lista_productos[index].cantidad++;

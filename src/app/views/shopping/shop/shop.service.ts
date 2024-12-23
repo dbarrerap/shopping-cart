@@ -63,6 +63,16 @@ export class ShopService {
     });
   }
 
+  getGruposMarcas(data: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.apiService.apiCallPedidos('pedidos/get-grupos-marcas', 'POST', data).subscribe({
+        next: (res: any) => resolve(res.data),
+        error: (err: any) => reject(err),
+        complete: () => console.log('getProductosFotos completado'), 
+      });
+    });
+  }
+
   getProducto(id:number,data:any={})
   {
    return new Promise<any>((resolve,reject)=>{

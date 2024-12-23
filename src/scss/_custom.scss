@@ -70,12 +70,12 @@
   }
   
   .accordion-button_k::after {
-    background-image: url(./../images/iconos/icon-arrow-down.png);
+    /* background-image: url(./../images/iconos/icon-arrow-down.png); */
     background-position: center;
   }
   
   .accordion-button_k:not(.collapsed)::after {
-    background-image: url(./../images/iconos/icon-arrow-down.png);
+    /* background-image: url(./../images/iconos/icon-arrow-down.png); */
     background-position: center;
   }
 
