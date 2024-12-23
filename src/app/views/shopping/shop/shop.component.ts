@@ -160,7 +160,9 @@ export class ShopComponent implements OnInit, OnDestroy {
 
     this.filter = {
       busqueda:'',
-      filterControl: ""
+      filterControl: "",
+      grupos: [],
+      marcas: []
     }
     this.paginate = {
       length: 0,
@@ -305,6 +307,31 @@ addToCart(product: any): void {
   }
   this.service.cliente$.emit (this.orden);
 }
+
+async onSelectedGrupoMarca(event: any,item: any): Promise<void> {
+
+  console.log('Checkbox cambiado:', event.target.checked);
+  console.log('Item:', item);
+  console.log('Tipo:', item.tipo);
+  if (event.target.checked) {
+    if (item.tipo === 'marca') {
+      console.log(item.id.trim())
+      this.filter.marcas.push(item.id.trim());
+    } else if (item.tipo === 'grupo') {
+      this.filter.grupos.push(item.id.trim());
+    }
+    this.CargarProductos();
+  } else {
+    if (item.tipo === 'marca') {
+      this.filter.marcas = this.filter.marcas.filter((marca: any) => marca !== item.id.trim());
+    } else if (item.tipo === 'grupo') {
+      this.filter.grupos = this.filter.grupos.filter((grupo: any) => grupo !== item.id.trim());
+    }
+    this.CargarProductos();
+  }
+ 
+}
+
 
  
 }
