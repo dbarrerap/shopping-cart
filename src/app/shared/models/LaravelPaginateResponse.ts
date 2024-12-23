@@ -1,4 +1,4 @@
-export default class LaravelPaginateResponse {
+export interface LaravelPaginateResponse {
     data?: any  // Puede ser un objeto o un array
     current_page?: number
     from?: number

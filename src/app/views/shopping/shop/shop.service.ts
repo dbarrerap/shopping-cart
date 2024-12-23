@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
-import LaravelPaginateResponse from '../../../shared/models/LaravelPaginateResponse';
+import { LaravelPaginateResponse } from "../../../shared/models";
 
 @Injectable({
   providedIn: 'root'
