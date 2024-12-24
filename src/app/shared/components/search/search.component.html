@@ -1,0 +1,28 @@
+<div class="p-3">
+    <form cForm class="d-flex">
+        <input type="text" cFormControl class="form-control me-2" name="searchQuery" [(ngModel)]="searchQuery">
+        <button type="button" class="btn btn-primary" (click)="filterProductos()">
+            <i class="fa fa-magnifying-glass"></i>
+        </button>
+    </form>
+    <div class="modal-body">
+        <div class="card">
+            <div *ngIf="loading; else resultados">
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <ng-template #resultados>
+            <div class="modal-search_scroll" >
+                <ng-scrollbar style="height: 65dvh" visibility="hover" pointerEventsMethod="scrollbar">
+                    <ng-container *ngFor="let productos of productosFiltered">
+                        <app-horizontal-item [producto]="productos"></app-horizontal-item>
+                    </ng-container>
+                </ng-scrollbar>
+            </div>
+        </ng-template>
+    </div>
+</div>

@@ -17,6 +17,7 @@ import { AppComponent } from './app.component';
 
 // Import containers
 import { 
+  DefaultFooterComponent, DefaultHeaderComponent, DefaultLayoutComponent, 
   ShoppingHeaderComponent, ShoppingLayoutComponent,
 } from './containers';
 
@@ -49,9 +50,13 @@ import {
 import { IconModule, IconSetService } from '@coreui/icons-angular';
 
 const APP_CONTAINERS = [
+  DefaultFooterComponent,
+  DefaultHeaderComponent,
+  DefaultLayoutComponent,
   ShoppingHeaderComponent,
   ShoppingLayoutComponent,
 ];
+
 
 @NgModule({
   declarations: [AppComponent, ...APP_CONTAINERS],
@@ -86,8 +91,7 @@ const APP_CONTAINERS = [
     NavbarModule,
     CollapseModule,
     HttpClientModule,
-    ToastrModule.forRoot(),
-    NgbCarouselModule
+    ToastrModule.forRoot()
   ],
   providers: [
     {
@@ -101,3 +105,107 @@ const APP_CONTAINERS = [
 })
 export class AppModule {
 }
+
+// import { NgModule } from '@angular/core';
+// import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
+// import { BrowserModule, Title } from '@angular/platform-browser';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import { ReactiveFormsModule } from '@angular/forms';
+
+// import { NgScrollbarModule } from 'ngx-scrollbar';
+
+// // Import routing module
+// import { AppRoutingModule } from './app-routing.module';
+
+// // Import app component
+// import { AppComponent } from './app.component';
+
+// // Import containers
+// import { 
+//   DefaultFooterComponent, DefaultHeaderComponent, DefaultLayoutComponent, 
+//   ShoppingHeaderComponent, ShoppingLayoutComponent,
+// } from './containers';
+
+// import { HttpClientModule } from '@angular/common/http';
+
+// import {
+//   AccordionModule,
+//   AvatarModule,
+//   BadgeModule,
+//   BreadcrumbModule,
+//   ButtonGroupModule,
+//   ButtonModule,
+//   CardModule,
+//   CollapseModule,
+//   DropdownModule,
+//   FooterModule,
+//   FormModule,
+//   GridModule,
+//   HeaderModule,
+//   ListGroupModule,
+//   NavModule,
+//   NavbarModule,
+//   ProgressModule,
+//   SharedModule,
+//   SidebarModule,
+//   TabsModule,
+//   UtilitiesModule
+// } from '@coreui/angular';
+
+// import { IconModule, IconSetService } from '@coreui/icons-angular';
+
+// const APP_CONTAINERS = [
+//   DefaultFooterComponent,
+//   DefaultHeaderComponent,
+//   DefaultLayoutComponent,
+//   ShoppingHeaderComponent,
+//   ShoppingLayoutComponent,
+// ];
+
+// @NgModule({
+//   declarations: [AppComponent, ...APP_CONTAINERS],
+//   imports: [
+//     BrowserModule,
+//     BrowserAnimationsModule,
+//     AppRoutingModule,
+//     AccordionModule,
+//     AvatarModule,
+//     BreadcrumbModule,
+//     FooterModule,
+//     DropdownModule,
+//     GridModule,
+//     HeaderModule,
+//     SidebarModule,
+//     IconModule,
+//     NavModule,
+//     ButtonModule,
+//     FormModule,
+//     UtilitiesModule,
+//     ButtonGroupModule,
+//     ReactiveFormsModule,
+//     SidebarModule,
+//     SharedModule,
+//     TabsModule,
+//     ListGroupModule,
+//     ProgressModule,
+//     BadgeModule,
+//     ListGroupModule,
+//     CardModule,
+//     NgScrollbarModule,
+//     NavbarModule,
+//     CollapseModule,
+//     HttpClientModule,
+//   ],
+//   providers: [
+//     {
+//       provide: LocationStrategy,
+//       useClass: HashLocationStrategy
+//     },
+//     IconSetService,
+//     Title
+//   ],
+//   bootstrap: [AppComponent]
+// })
+// export class AppModule {
+// }
+

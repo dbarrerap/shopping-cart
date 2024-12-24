@@ -186,51 +186,12 @@
                       </div>
                     </div>
                   </div>
-                <!-- <h3>Resumen</h3>
-                <div class="card border-0">
-                    <div class="card-body">
-                        <table class="table-borderless">
-                            <tbody>
-                                <tr>
-                                    <td>Subtotal sin Impuestos</td>
-                                    <td class="float-end">{{ subtotalOrden()| currency }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Subtotal IVA 15%</td>
-                                    <td class="float-end">{{ subtotalIvaOrden()| currency }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Subtotal 0%</td>
-                                    <td class="float-end">{{ subtotalCeroOrden()| currency }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Descuento</td>
-                                    <td class="float-end">{{ descuentoOrden() | currency }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Total</td>
-                                    <td class="float-end">{{ totalOrden() | currency }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Transporte</td>
-                                    <td class="float-end">{{ totalTransporte()| currency }}</td>
-                                </tr>
-                                <tr>
-                                    <td>IVA 15%</td>
-                                    <td class="float-end">{{ totalIvaOrden()| currency }}</td>
-                                </tr>
-                                <tr class="border-0 border-top fw-bold">
-                                    <td>Total</td>
-                                    <td class="float-end">{{ totalFinalOrden() | currency }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="d-grid mt-3">
-                            <button class="btn btn-success text-white">Continuar Compra</button>
-                        </div>
-                    </div>
-                </div> -->
+               
             </div>
         </div>
     </div>
 </section>
+
+<ng-template #modalSearch let-modal>
+  <app-search></app-search>
+</ng-template>

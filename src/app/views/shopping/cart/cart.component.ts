@@ -1,9 +1,11 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit,ViewChild,ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 //import { Cliente, OrdenCompra, Producto } from "src/app/shared/models";
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Productos } from '../shop/productos.interface'; 
 import { Cliente } from '../shop/cliente.interface';
 import { ShopService } from 'src/app/views/shopping/shop/shop.service';
+import { CommonService } from '../../../services/common.service';
 import { fakerES_MX as faker } from "@faker-js/faker";
 import { ToastrService } from 'ngx-toastr'; 
 import Swal from 'sweetalert2';
@@ -19,7 +21,10 @@ import moment from 'moment';
   styleUrl: './cart.component.scss'
 })
 export class CartComponent implements OnInit {
+  @ViewChild('modalSearch', { static: false }) modalSearch!: ElementRef
+  @ViewChild('modalWallet', { static: false }) modalWallet!: ElementRef
   public router = inject(Router)
+  private modalService = inject(NgbModal)
   /* @Input() */ //public orden!: OrdenCompra
 
   public items: { product: Productos, cantidad: number }[] = [];
@@ -27,6 +32,9 @@ export class CartComponent implements OnInit {
   public itemCount: number = 0;
   private itemsCountSubscription!: Subscription;
   private clienteSubscription!: Subscription;
+
+  private walletSubscription!: Subscription
+  private searchSubscription!: Subscription
 
   sinObservacion: boolean = false
 
@@ -38,7 +46,18 @@ export class CartComponent implements OnInit {
   orden: any= [];
 
 
-  constructor( private service: ShopService,private toastr: ToastrService) { 
+  constructor( private service: ShopService,private toastr: ToastrService, private commonService:CommonService) { 
+
+    this.walletSubscription = this.commonService.wallet.asObservable().subscribe(() => {
+      this.modalService.open(this.modalWallet, { size: 'lg', centered: true })
+    })
+    this.searchSubscription = this.commonService.search.asObservable().subscribe(() => {
+     this.modalService.open(this.modalSearch, { size: 'xl', windowClass: 'transparent-modal' })
+      //this.modalService.open(this.modalSearch, { size: '', windowClass: 'transparent-modal modal-medium-large' })
+      
+    }
+    
+    )
       this.service.pedido$.subscribe(
         (res)=>{
           console.log(res)

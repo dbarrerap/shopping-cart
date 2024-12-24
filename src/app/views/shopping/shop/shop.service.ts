@@ -3,6 +3,7 @@ import { ApiService } from '../../../services/api.service';
 import { Productos } from './productos.interface';
 import { Cliente } from './cliente.interface';
 import { BehaviorSubject } from 'rxjs';
+import { LaravelPaginateResponse } from '../../../shared/models/LaravelPaginateResponse';
 
 
 
@@ -53,15 +54,54 @@ export class ShopService {
   // {
   //   return this.apiService.apiCallPedidos('pedidos/get-productos-fotos', 'POST', data);
   // }
-  getProductosFotos(data: any): Promise<any> {
-    return new Promise((resolve, reject) => {
-      this.apiService.apiCallPedidos('pedidos/get-productos-fotos', 'POST', data).subscribe({
-        next: (res: any) => resolve(res.data),
-        error: (err: any) => reject(err),
-        complete: () => console.log('getProductosFotos completado'), 
-      });
-    });
-  }
+  // getProductosFotos(data: any): Promise<any> {
+  //   return new Promise((resolve, reject) => {
+  //     this.apiService.apiCallPedidos('pedidos/get-productos-fotos-carrito', 'POST', data).subscribe({
+  //       next: (res: any) => resolve(res.data),
+  //       error: (err: any) => reject(err),
+  //       complete: () => console.log('getProductosFotos completado'), 
+  //     });
+  //   });
+  // }
+
+  getProductosFotosSearch = (data?: any) => new Promise<LaravelPaginateResponse>((resolve, reject) => {
+    this.apiService.apiCall('/pedidos/get-productos-fotos-search-carrito', 'POST', data)?.subscribe({
+      next: (response: any) => {
+
+        console.log(response)
+        if (!response || response.data === undefined) {
+          console.error('Error con la respuesta del servidor', response)
+          reject('Error con la respuesta del servicio')
+        }
+
+        resolve(response.data)
+      },
+      error: (error: any) => {
+        console.log('Error con el servicio', error)
+        reject(error)
+      }
+    })
+  })
+
+
+  getProductosFotos = (data?: any) => new Promise<LaravelPaginateResponse>((resolve, reject) => {
+    this.apiService.apiCall('/pedidos/get-productos-fotos-carrito', 'POST', data)?.subscribe({
+      next: (response: any) => {
+
+        console.log(response)
+        if (!response || response.data === undefined) {
+          console.error('Error con la respuesta del servidor', response)
+          reject('Error con la respuesta del servicio')
+        }
+
+        resolve(response.data)
+      },
+      error: (error: any) => {
+        console.log('Error con el servicio', error)
+        reject(error)
+      }
+    })
+  })
 
   getGruposMarcas(data: any): Promise<any> {
     return new Promise((resolve, reject) => {

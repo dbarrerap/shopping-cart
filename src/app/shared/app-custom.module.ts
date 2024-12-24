@@ -6,9 +6,11 @@ import { CcInputGroup } from './cc-input-group.component';
 
 import { NgbActiveModal, NgbModule, NgbAccordionModule } from "@ng-bootstrap/ng-bootstrap";
 import { NgScrollbarModule } from "ngx-scrollbar";
-import { HorizontalItemComponent, VerticalItemComponent } from "./components/index";
+import { HorizontalItemComponent, VerticalItemComponent, SearchComponent } from "./components/index";
 import { RouterModule } from '@angular/router';
 import { RoundedButtonComponent } from './components/rounded-button/rounded-button.component';
+
+
 
 @NgModule({
     declarations: [
@@ -16,7 +18,8 @@ import { RoundedButtonComponent } from './components/rounded-button/rounded-butt
         HorizontalItemComponent,
         VerticalItemComponent,
         RoundedButtonComponent,
-        
+        SearchComponent
+
     ],
     imports: [
         CommonModule,
@@ -33,6 +36,7 @@ import { RoundedButtonComponent } from './components/rounded-button/rounded-butt
         HorizontalItemComponent,
         VerticalItemComponent,
         RoundedButtonComponent,
+        SearchComponent, 
         NgbModule,
         NgbAccordionModule,
         FormsModule, 

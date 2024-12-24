@@ -189,7 +189,7 @@
                   <!-- <ng-container
                                                         *ngFor="let producto of lista_productos | slice: (pagination._page - 1) * pagination._per_page : pagination._page * pagination._per_page; let i = index"> -->
                   <div class="card-product"
-                    *ngFor="let producto of lista_productos | slice: (pagination._page - 1) * pagination._per_page : pagination._page * pagination._per_page; let i = index">
+                    *ngFor="let producto of lista_productos; let i = index">
                     <a [routerLink]="['/shopping/details', producto.id_producto]">
                       <div class="card-header">
                         <img [src]="producto.fotos && producto.fotos.length > 0 ? producto.fotos[0].recurso : ''"
@@ -203,6 +203,8 @@
                           <div class="card-code">
                             <span class="card-code_item">Cod. Interno: {{ producto.codigo }}</span>
                             <span class="card-code_item">Cod. Original: {{ producto.codigo }}</span>
+                            <span class="card-code_item">Grupo: {{ producto.grupo_clase?.nombre }}</span>
+                            <span class="card-code_item">Color: {{ producto.color }}</span>
                           </div>
                         </div>
                         <div class="card-detail_two">
@@ -248,19 +250,33 @@
     <!-- </div> -->
 
     <!-- </div> -->
-    <div class="d-flex justify-content-between">
-      <ngb-pagination [collectionSize]="productos.length" [pageSize]="pagination._per_page" [(page)]="pagination._page"
-        (pageChange)="changePage($event)">
+
+    <div class="box-pagination">
+      <ngb-pagination [collectionSize]="pagination.length" [pageSize]="pagination.pageSize" [ellipses]="true"
+          [maxSize]="6" [rotate]="true" [boundaryLinks]="true" [(page)]="pagination.page"
+          (pageChange)="changePage($event)">
       </ngb-pagination>
       <div>
+          <small>
+              Mostrando items del {{ pagination.start }} al {{ pagination.end }} 
+              ({{ pagination.pages }} p&aacute;ginas)
+          </small>
+      </div>
+  </div>
+   <!-- <div class="d-flex justify-content-between">
+    
+      <ngb-pagination [collectionSize]="productos.length" [pageSize]="pagination._per_page" [(page)]="pagination._page"
+        (pageChange)="changePage($event)">
+      </ngb-pagination> -->
+      <!-- <div>
         Mostrando elementos {{ pagination._start }} al {{ pagination._end }} ({{ pagination._pages }}
         paginas)
-      </div>
-    </div>
+      </div> 
+    </div>-->
   </div>
 </div>
 
-<ng-template #modalSearch let-modal style="background-color: transparent;">
+<ng-template #modalSearch let-modal>
   <app-search></app-search>
 </ng-template>
 

@@ -2,9 +2,9 @@ import { Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@an
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ShopService } from "./shop.service";
-import { CommonService } from 'src/app/services/common.service';
+import { CommonService } from '../../../services/common.service';
 import { Subscription } from 'rxjs';
-import { Producto } from 'src/app/shared/models';
+import { Producto } from '../../../shared/models';
 
 import { fakerES_MX as faker } from "@faker-js/faker";
 import { Productos } from './productos.interface';
@@ -45,23 +45,34 @@ export class ShopComponent implements OnInit, OnDestroy {
   private itemsSubscription!: Subscription;
 
   public productos: any[] = []
-  public pagination: any = {
+  public pagination_old: any = {
     _page: 1,
-    _per_page: 6,
-    _limit: 6,
+    _per_page: 15,
+    _limit: 15,
     _length: 0,
     _pages: 0,
     _start: 0,
     _end: 0,
   }
-  public pagination_2: any = {
-    page: 1,
-    perPage: 6,
-    limit: 6,
+  // public pagination_2: any = {
+  //   page: 1,
+  //   perPage: 6,
+  //   limit: 6,
+  //   length: 0,
+  //   pages: 0,
+  //   start: 0,
+  //   end: 0,
+  // }
+
+  public pagination: any = {
     length: 0,
-    pages: 0,
+    pageSize: 15,
+    pageSizeOptions: [3, 9, 12],
+    perPage: 15,
+    page: 1,
     start: 0,
     end: 0,
+    pages: 0,
   }
 
   public sidebarFilter: SidebarItem[] = [];
@@ -162,7 +173,8 @@ export class ShopComponent implements OnInit, OnDestroy {
       busqueda:'',
       filterControl: "",
       grupos: [],
-      marcas: []
+      marcas: [],
+      colores: []
     }
     this.paginate = {
       length: 0,
@@ -188,13 +200,21 @@ export class ShopComponent implements OnInit, OnDestroy {
     this.searchSubscription.unsubscribe()
   }
 
-  changePage = (event: number) => {
+  changePageOld = (event: number) => {
      console.log(event);
     Object.assign(this.pagination, {
       _page: event,
       _start: (event - 1) * this.pagination._per_page + 1,
       _end: Math.min(event * this.pagination._per_page, this.productos.length)
     })
+    this.CargarProductos()
+  }
+
+  changePage = (page: number) => {
+    // console.log('change page', page)
+    Object.assign(this.pagination, { page })
+    // console.log('pagination', this.pagination);
+    
     this.CargarProductos()
   }
 
@@ -234,17 +254,22 @@ export class ShopComponent implements OnInit, OnDestroy {
        let productos = await this.service.getProductosFotos({filter: this.filter, paginate : this.pagination});
        console.log(productos)
        productos.data.map((item: any) => Object.assign(item, { cantidad: 1 }))
-      
-       
+        Object.assign(this.pagination, {
+          length: productos.total, 
+          start: productos.from, 
+          end: productos.to,
+          pages: productos.last_page
+        })
+
         this.lista_productos= productos.data;
         console.log(this.lista_productos)
 
-        Object.assign(this.pagination, {
-          _length: this.productos.length,
-          _pages: Math.ceil(this.productos.length / this.pagination._per_page),
-          _start: (this.pagination._page - 1) * this.pagination._per_page + 1,
-          _end: Math.min(this.pagination._page * this.pagination._per_page, this.productos.length)
-        })
+        // Object.assign(this.pagination, {
+        //   _length: this.productos.length,
+        //   _pages: Math.ceil(this.productos.length / this.pagination._per_page),
+        //   _start: (this.pagination._page - 1) * this.pagination._per_page + 1,
+        //   _end: Math.min(this.pagination._page * this.pagination._per_page, this.productos.length)
+        // })
  
       //  console.log(this.lista_productos);
       //  this.paginate.length = productos.total;
@@ -317,15 +342,23 @@ async onSelectedGrupoMarca(event: any,item: any): Promise<void> {
     if (item.tipo === 'marca') {
       console.log(item.id.trim())
       this.filter.marcas.push(item.id.trim());
-    } else if (item.tipo === 'grupo') {
+    } 
+    if (item.tipo === 'grupo') {
       this.filter.grupos.push(item.id.trim());
+    }
+    if (item.tipo === 'color') {
+      this.filter.colores.push(item.id.trim());
     }
     this.CargarProductos();
   } else {
     if (item.tipo === 'marca') {
       this.filter.marcas = this.filter.marcas.filter((marca: any) => marca !== item.id.trim());
-    } else if (item.tipo === 'grupo') {
+    }
+    if (item.tipo === 'grupo') {
       this.filter.grupos = this.filter.grupos.filter((grupo: any) => grupo !== item.id.trim());
+    }
+    if (item.tipo === 'color') {
+      this.filter.colores = this.filter.colores.filter((color: any) => color !== item.id.trim());
     }
     this.CargarProductos();
   }
