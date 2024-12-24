@@ -1,3 +1,8 @@
+ngb-modal-window {
+    background-color: transparent !important;
+}
+
+
 
 :root {
     --clr-danger: #ff0000;
@@ -11,18 +16,18 @@
     --clr-gray-03: #d8dee9;
   }
   
-  // html {
-  //   box-sizing: border-box;
-  //  scroll-behavior: smooth;
-  // }
+  html {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+  }
   
-  // body {
-  //   color: var(--clr-base);
-  //   font-size: 100%;
-  //   min-height: 100vh;
-  //   margin: 0;
-  //   padding: 0;
-  // }
+  body {
+    color: var(--clr-base);
+    font-size: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+  }
   
   img, picture, video, iframe, figure {
     display: block;
@@ -104,18 +109,18 @@
     padding-top: 40px;
   }
   
-  // .modal-search_scroll::-webkit-scrollbar {
-  //   width: 10px;
-  // }
+  .modal-search_scroll::-webkit-scrollbar {
+    width: 10px;
+  }
   
-  // .modal-search_scroll::-webkit-scrollbar-track {
-  //   background-color: #c1c5cd;
-  // }
+  .modal-search_scroll::-webkit-scrollbar-track {
+    background-color: #c1c5cd;
+  }
   
-  // .modal-search_scroll::-webkit-scrollbar-thumb {
-  //   background-color: #a7a9ae;
-  //   border-radius: 20px;
-  // }
+  .modal-search_scroll::-webkit-scrollbar-thumb {
+    background-color: #a7a9ae;
+    border-radius: 20px;
+  }
   
   .view-card-count {
     align-items: center;
@@ -270,9 +275,9 @@
     background-color: var(--clr-white);
     border-radius: 8px;
     border: solid 1px var(--clr-base);
-    height: 36px;
+    height: 34px;
     padding: 6px 12px;
-    width: 45px;
+    width: 34px;
   }
   
   .box-stock {
@@ -428,20 +433,20 @@
     margin-bottom: 4px;
   }
   
-  // .modal-search_scroll {
-  //   background-color: var(--clr-gray-01);
-  //   border-radius: 8px;
-  //   overflow: overlay;
-  //   max-height: 500px;
-  //   padding: 12px;
-  // }
-  // .modal-search_scroll .card-price {
-  //   font-size: 14px;
-  // }
-  // .modal-search_scroll .card-price_normal,
-  // .modal-search_scroll .card-price_percentage {
-  //   font-size: 12px;
-  // }
+  .modal-search_scroll {
+    background-color: var(--clr-gray-01);
+    border-radius: 8px;
+    overflow: overlay;
+    max-height: 500px;
+    padding: 12px;
+  }
+  .modal-search_scroll .card-price {
+    font-size: 14px;
+  }
+  .modal-search_scroll .card-price_normal,
+  .modal-search_scroll .card-price_percentage {
+    font-size: 12px;
+  }
   
   .modal-k_credit {
     padding: 20px;
@@ -843,39 +848,39 @@
   }
   
   @media screen and (max-width: 768px) {
-    // .modal-search_scroll::-webkit-scrollbar {
-    //   width: 4px;
-    // }
+    .modal-search_scroll::-webkit-scrollbar {
+      width: 4px;
+    }
   
-    // .header-main {
-    //   align-items: center;
-    //   display: flex;
-    //   justify-content: space-between;
-    //   padding-left: 20px;
-    //   padding-right: 20px;
-    // }
+    .header-main {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
   
-    // .header-menu {
-    //   align-items: flex-start;
-    //   flex-direction: column;
-    //   gap: 20px;
-    // }
+    .header-menu {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 20px;
+    }
   
-    // .header-second {
-    //   height: auto;
-    //   padding: 16px 0;
-    // }
+    .header-second {
+      height: auto;
+      padding: 16px 0;
+    }
   
-    // .header-logo {
-    //   margin: initial;
-    //   max-width: 140px;
-    // }
+    .header-logo {
+      margin: initial;
+      max-width: 140px;
+    }
   
-    // .header-icon {
-    //   align-items: center;
-    //   display: flex;
-    //   gap: 12px;
-    // }
+    .header-icon {
+      align-items: center;
+      display: flex;
+      gap: 12px;
+    }
   
     .box-cart_desktop,
   .box-credit_desktop {
@@ -966,9 +971,9 @@
       width: 100%;
     }
   
-    // .modal-search_scroll {
-    //   padding: 0;
-    // }
+    .modal-search_scroll {
+      padding: 0;
+    }
   
     .modal-search .card-cart {
       padding: 12px;

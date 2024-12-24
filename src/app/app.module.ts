@@ -2,7 +2,10 @@ import { NgModule } from '@angular/core';
 import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { BrowserModule, Title } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgbCarouselConfig, NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
+ 
 
 import { NgScrollbarModule } from 'ngx-scrollbar';
 
@@ -14,7 +17,6 @@ import { AppComponent } from './app.component';
 
 // Import containers
 import { 
-  DefaultFooterComponent, DefaultHeaderComponent, DefaultLayoutComponent, 
   ShoppingHeaderComponent, ShoppingLayoutComponent,
 } from './containers';
 
@@ -47,9 +49,6 @@ import {
 import { IconModule, IconSetService } from '@coreui/icons-angular';
 
 const APP_CONTAINERS = [
-  DefaultFooterComponent,
-  DefaultHeaderComponent,
-  DefaultLayoutComponent,
   ShoppingHeaderComponent,
   ShoppingLayoutComponent,
 ];
@@ -87,6 +86,8 @@ const APP_CONTAINERS = [
     NavbarModule,
     CollapseModule,
     HttpClientModule,
+    ToastrModule.forRoot(),
+    NgbCarouselModule
   ],
   providers: [
     {

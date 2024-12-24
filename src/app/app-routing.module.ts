@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
 import { 
-  DefaultLayoutComponent, 
+  //DefaultLayoutComponent, 
   ShoppingLayoutComponent 
 } from './containers';
 import { Page404Component } from './views/pages/page404/page404.component';
@@ -97,6 +96,7 @@ const routes: Routes = [
       }
     ]
   },
+
   {
     path: '404',
     component: Page404Component,
@@ -127,6 +127,7 @@ const routes: Routes = [
     }
   },
   {path: '**', redirectTo: 'shopping'}
+
 ];
 
 @NgModule({

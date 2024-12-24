@@ -1,12 +1,12 @@
 import { Component, ElementRef, inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subscription } from 'rxjs';
-import { fakerES_MX as faker } from "@faker-js/faker";
 
 import { ShopService } from "./shop.service";
 import { CommonService } from '../../../services/common.service';
-import { Producto } from '../../../shared/models/Producto';
+import { Producto, SidebarItem } from '../../../shared/models';
 
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-shop',
@@ -18,10 +18,15 @@ export class ShopComponent implements OnInit, OnDestroy {
   @ViewChild('modalWallet', { static: false }) modalWallet!: ElementRef
   private service = inject(ShopService)
   private commonService = inject(CommonService)
+  private toastr = inject(ToastrService)
   private modalService = inject(NgbModal)
   public loadingProductos: boolean = false
   private walletSubscription!: Subscription
   private searchSubscription!: Subscription
+
+  itemCount: number = 0;
+  private itemsCountSubscription!: Subscription;
+  private itemsSubscription!: Subscription;
 
   public productos: any[] = []
   public pagination: any = {
@@ -35,35 +40,8 @@ export class ShopComponent implements OnInit, OnDestroy {
     pages: 0,
   }
 
-  public sidebarFilter = [
-    {
-      id: 1,
-      label: 'Categoria',
-      items: [
-        { id: 101, label: 'Switches', checked: false },
-        { id: 102, label: 'Cables', checked: false },
-        { id: 103, label: 'Accesorios', checked: false },
-      ]
-    },
-    {
-      id: 2,
-      label: 'Marca',
-      items: [
-        { id: 201, label: 'D-Link', checked: false },
-        { id: 202, label: 'Cisco', checked: false },
-        { id: 203, label: 'LANPro', checked: false },
-      ]
-    },
-    {
-      id: 3,
-      label: 'Color',
-      items: [
-        { id: 301, label: 'Negro', checked: false },
-        { id: 302, label: 'Blanco', checked: false },
-        { id: 303, label: 'Gris', checked: false },
-      ]
-    }
-  ]
+  public sidebarFilter: SidebarItem[] = [];
+
 
   filter: any = {};
   // lista_productos: any[] = [];
@@ -74,10 +52,58 @@ export class ShopComponent implements OnInit, OnDestroy {
     this.walletSubscription = this.commonService.wallet.asObservable().subscribe(() => {
       this.modalService.open(this.modalWallet, { size: 'lg', centered: true })
     })
+
     this.searchSubscription = this.commonService.search.asObservable().subscribe(() => {
       this.modalService.open(this.modalSearch, { size: 'xl', windowClass: 'transparent-modal' })
-    }
+      //this.modalService.open(this.modalSearch, { size: '', windowClass: 'transparent-modal modal-medium-large' })
+    })
+
+    this.service.pedido$.subscribe(
+      (res) => {
+        console.log(res)
+
+        if (res.val == 'GUARDAR') {
+          res.data.forEach((e: any) => {
+            // let items = res.data.filter(dat => {e.id_producto == dat.id_producto}) 
+            // if(e.id_producto == items[0]){
+            Object.assign(e, { cantidad: 1 })
+            //}
+          })
+          this.productos.forEach(e => {
+            // let items = res.data.filter(dat => {e.id_producto == dat.id_producto}) 
+            // if(e.id_producto == items[0]){
+            Object.assign(e, { cantidad: 1 })
+            //}
+          })
+        } else if (res.val == 'ELIMINAR') {
+          this.productos.forEach(e => {
+            if (e.id_producto == res.id_eliminado) {
+              Object.assign(e, { cantidad: 1 })
+            }
+          })
+        }
+        else {
+          // this.lista_productos.forEach(e => {
+          //   if(e.id_producto == res){
+          //     Object.assign(e,{cantidad: 1})
+          //   }
+          // })
+        }
+      }
     )
+    this.service.cliente$.subscribe(
+      (res) => {
+        console.log(res)
+        this.orden = res
+      }
+    )
+
+
+    this.itemsCountSubscription = this.service.getItemsCount().subscribe(count => {
+      this.itemCount = count;
+      console.log(this.itemCount)
+
+    });
   }
 
   ngOnInit(): void {
@@ -100,12 +126,21 @@ export class ShopComponent implements OnInit, OnDestroy {
 
     this.filter = {
       busqueda: '',
-      filterControl: ""
+      filterControl: "",
+      grupos: [],
+      marcas: []
     }
 
     setTimeout(() => {
-      // this.productos = faker.helpers.multiple(this.createRandomProduct, { count: 60 })
       this.cargarProductos()
+      // this.CargarProductos()
+      this.CargarGruposMarcas()
+      Object.assign(this.pagination, {
+        _length: this.productos.length,
+        _pages: Math.ceil(this.productos.length / this.pagination._per_page),
+        _start: (this.pagination._page - 1) * this.pagination._per_page + 1,
+        _end: Math.min(this.pagination._page * this.pagination._per_page, this.productos.length)
+      })
     }, 0)
   }
 
@@ -118,11 +153,11 @@ export class ShopComponent implements OnInit, OnDestroy {
     // console.log('change page', page)
     Object.assign(this.pagination, { page })
     // console.log('pagination', this.pagination);
-    
+
     this.cargarProductos()
   }
 
-  createRandomProduct = (): Producto => {
+  /* createRandomProduct = (): Producto => {
     const imagenNumber: number = Math.floor(Math.random() * 6) + 1
     const precio: number = parseFloat(faker.commerce.price())
     const oferta: boolean = faker.datatype.boolean({ probability: 0.75 })
@@ -139,20 +174,105 @@ export class ShopComponent implements OnInit, OnDestroy {
       precio_oferta,
       imagen: `assets/images/productos/repuesto-${imagenNumber}.png`,
     }
-  }
+  } */
 
   cargarProductos = async () => {
     this.productos = []
     this.loadingProductos = true
-    const response = await this.service.getProductos({pagination: this.pagination})
-    console.log(response)
-    Object.assign(this.pagination, {
-      length: response.total, 
-      start: response.from, 
-      end: response.to,
-      pages: response.last_page
-    })
-    this.productos = response.data
-    this.loadingProductos = false
+    try {
+      const response = await this.service.getProductosFotos({ filter: this.filter, paginate: this.pagination })
+      response.data.map((item: Producto) => Object.assign(item, { cantidad: 1 }))
+      console.log(response)
+      Object.assign(this.pagination, {
+        length: response.total,
+        start: response.from,
+        end: response.to,
+        pages: response.last_page
+      })
+      this.productos = response.data
+      this.loadingProductos = false
+    } catch (error) {
+      console.error(error)
+    }
+
   }
+
+  async CargarGruposMarcas() {
+    // this.mensajeSpiner = "Cargando productos...";
+    // this.lcargando.ctlSpinner(true);
+    try {
+
+
+      //alert(JSON.stringify(this.filter));
+
+      let gruposMarcas = await this.service.getGruposMarcas({ filter: this.filter });
+
+      this.sidebarFilter = gruposMarcas.original
+
+      console.log(gruposMarcas)
+
+    } catch (err) {
+      console.log(err)
+      //  this.lcargando.ctlSpinner(false)
+      //this.toastr.error(err.error.message, 'Error en Carga Inicial')
+    }
+
+  }
+
+  incrementarCantidad(product: Producto, index: number): void {
+    this.productos[index].cantidad++;
+  }
+
+  disminuirCantidad(product: Producto, index: number): void {
+    if (this.productos[index].cantidad > 1) {
+      this.productos[index].cantidad--;
+    }
+  }
+
+  addToCart(product: any): void {
+    if (product) {
+      this.service.addToCart(product);
+      console.log(product)
+      if (product.cantidad > 1) {
+        //this.toastr.success(product.cantidad + ' '+product.nombre +' agregados al carrito')
+        this.toastr.success(product.cantidad + ' ' + product.nombre + ' agregados al carrito', '', {
+          positionClass: 'toast-top-center'
+        });
+      } else if (product.cantidad == 1) {
+        //this.toastr.success(product.cantidad + ' '+product.nombre +' agregado al carrito')
+        this.toastr.success(product.cantidad + ' ' + product.nombre + ' agregados al carrito', '', {
+          positionClass: 'toast-top-center'
+        });
+      }
+    } else {
+    }
+    this.service.cliente$.emit(this.orden);
+  }
+
+  async onSelectedGrupoMarca(event: any, item: any): Promise<void> {
+
+    console.log('Checkbox cambiado:', event.target.checked);
+    console.log('Item:', item);
+    console.log('Tipo:', item.tipo);
+    if (event.target.checked) {
+      if (item.tipo === 'marca') {
+        console.log(item.id.trim())
+        this.filter.marcas.push(item.id.trim());
+      } else if (item.tipo === 'grupo') {
+        this.filter.grupos.push(item.id.trim());
+      }
+      this.cargarProductos();
+    } else {
+      if (item.tipo === 'marca') {
+        this.filter.marcas = this.filter.marcas.filter((marca: any) => marca !== item.id.trim());
+      } else if (item.tipo === 'grupo') {
+        this.filter.grupos = this.filter.grupos.filter((grupo: any) => grupo !== item.id.trim());
+      }
+      this.cargarProductos();
+    }
+
+  }
+
+
+
 }
