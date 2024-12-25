@@ -20,6 +20,14 @@ export interface Producto {
     iva?:number
     total_final?: number
     fotos?: ProductoFoto[]
+
+    transporte?: number
+    subtotal_iva?: number
+    codigo_impuesto_iva?: number
+    subtotal_0?: number
+    precio1?: number | string
+    id_usuario?: number
+    foto1?: string
 }
 
 interface ProductoFoto {
