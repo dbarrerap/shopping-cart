@@ -16,7 +16,7 @@ const routes: Routes = [
     redirectTo: 'shopping',
     pathMatch: 'full'
   },
-  {
+  /* {
     path: '',
     component: DefaultLayoutComponent,
     canActivate: [authGuard],
@@ -75,7 +75,7 @@ const routes: Routes = [
           import('./views/pages/pages.module').then((m) => m.PagesModule)
       },
     ]
-  },
+  }, */
   {
     path: '',
     component: ShoppingLayoutComponent,
@@ -91,7 +91,12 @@ const routes: Routes = [
           {
             path: 'shopping',
             loadChildren: () => import('./views/shopping/shopping.module').then(m => m.ShoppingModule)
-          }
+          },
+          {
+            path: 'pages',
+            loadChildren: () =>
+              import('./views/pages/pages.module').then((m) => m.PagesModule)
+          },
         ]
       }
     ]

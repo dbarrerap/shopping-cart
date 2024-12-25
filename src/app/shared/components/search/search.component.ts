@@ -1,9 +1,8 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-// import { ShopService } from '../shop.service';
+import { ShopService } from '../../../views/shopping/shop/shop.service';
 
 import { fakerES_MX as faker } from "@faker-js/faker";
 import { Producto } from '../../models';
-import { Productos } from '../productos.interface';
 import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-search',
@@ -12,13 +11,13 @@ import { Subscription } from 'rxjs';
 })
 
 export class SearchComponent implements OnInit {
-  //@Input() productos: Productos[] = []
-  public productosFiltered: Productos[] = []
+  //@Input() productos: Producto[] = []
+  public productosFiltered: Producto[] = []
 
   public searchQuery: string|null = null
   public loading: boolean = false
-  public productos: Productos[] = []
-  // private service = inject(ShopService)
+  public productos: Producto[] = []
+  private service = inject(ShopService)
   itemCount: number = 0;
   private itemsCountSubscription!: Subscription;
   private itemsSubscription!: Subscription;

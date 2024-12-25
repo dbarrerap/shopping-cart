@@ -1,7 +1,5 @@
 import { Component, Input,inject } from '@angular/core';
 import { Producto } from '../../models';
-//import { Productos } from '../../models/productos.interface';
-import { Productos } from '../../../views/shopping/shop/productos.interface';
 import { ShopService } from 'src/app/views/shopping/shop/shop.service';
 
 @Component({
@@ -11,11 +9,12 @@ import { ShopService } from 'src/app/views/shopping/shop/shop.service';
 })
 export class VerticalItemComponent {
  // @Input() producto!: Producto
-  @Input() producto!: Productos
+  @Input() producto!: Producto
   @Input() index!: number
   private service = inject(ShopService)
+  public defaultImage: string = ''
 
-  items: { product: Productos, cantidad: number }[] = [];
+  items: { product: Producto, cantidad: number }[] = [];
  
   public cantidad: number = 0
   lista_productos: any[] = [];
@@ -42,12 +41,12 @@ export class VerticalItemComponent {
     if (this.cantidad < 0) this.cantidad = 0
   }
 
-  incrementarCantidad(product: Productos) {
+  incrementarCantidad(product: Producto) {
 
     this.service.agregarDesdeCarrito(product);
     this.calculoIva();
   }
-  disminuirCantidad(product: Productos) {
+  disminuirCantidad(product: Producto) {
 
     this.service.disminuirDesdeCarrito(product);
     this.calculoIva();
@@ -55,13 +54,13 @@ export class VerticalItemComponent {
   }
   calculoIva() {
     this.items.forEach(item => {
-      item.product.iva = item.product.total *  0.15;
+      item.product.iva = item.product.total! *  0.15;
     });
     this.calculoTotalFinal();
   }
   calculoTotalFinal() {
     this.items.forEach(item => {
-      item.product.total_final = item.product.total + item.product.iva;
+      item.product.total_final = item.product.total! + item.product.iva!;
     });
   }
 

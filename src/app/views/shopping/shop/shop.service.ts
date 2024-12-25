@@ -1,14 +1,12 @@
 import { inject, Injectable, EventEmitter } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
-import { LaravelPaginateResponse } from "../../../shared/models";
-import { Productos } from './productos.interface';
-import { Cliente } from './cliente.interface';
+import { LaravelPaginateResponse, Producto, Cliente } from "../../../shared/models";
 import { BehaviorSubject } from 'rxjs';
 
 
 
 interface CartItem {
-  product: Productos;
+  product: Producto;
   cantidad: number;
 }
 
@@ -112,7 +110,7 @@ export class ShopService {
     return this.apiService.apiCallPedidos('pedidos/actualizar-pedido', 'POST', data);
   }
 
-  addToCart(product: Productos) {
+  addToCart(product: Producto) {
     console.log(product)
     const existingItemIndex = this.items.findIndex(item => this.areProductsEqual(item.product, product));
     console.log(existingItemIndex)
@@ -122,8 +120,8 @@ export class ShopService {
       this.items[existingItemIndex].product.transporte = 0;
       this.items[existingItemIndex].product.subtotal_iva = product.codigo_impuesto_iva == 2 ? product.subtotal :  0;
       this.items[existingItemIndex].product.subtotal_0 = product.codigo_impuesto_iva != 2 ? product.subtotal :  0;
-      this.items[existingItemIndex].product.iva = parseFloat(product.precio1) * Number(product.cantidad) * 0.15;
-      this.items[existingItemIndex].product.total_final = parseFloat(product.precio1)  * Number(product.cantidad) + product.iva;
+      this.items[existingItemIndex].product.iva = parseFloat(product.precio1! as string) * Number(product.cantidad) * 0.15;
+      this.items[existingItemIndex].product.total_final = parseFloat(product.precio1! as string)  * Number(product.cantidad) + product.iva!;
       // this.items[existingItemIndex].product.fotos = {id_producto_fotos: 0,fk_producto: 0,recurso: ''}
 
     } else {
@@ -132,7 +130,7 @@ export class ShopService {
       product.subtotal_iva = product.codigo_impuesto_iva == 2 ? product.subtotal :  0;
       product.subtotal_0 = product.codigo_impuesto_iva != 2 ? product.subtotal :  0;
       product.iva = Number(product.precio1) * Number(product.cantidad) * 0.15;
-      product.total_final = parseFloat(product.precio1)  * Number(product.cantidad) + product.iva;
+      product.total_final = parseFloat(product.precio1! as string)  * Number(product.cantidad) + product.iva;
       // product.fotos = {id_producto_fotos: 0,fk_producto: 0,recurso: ''}
       this.items.push({ product , cantidad: Number(product.cantidad)});
     }
@@ -142,7 +140,7 @@ export class ShopService {
 
  
 
-  agregarDesdeCarrito(product: Productos) {
+  agregarDesdeCarrito(product: Producto) {
     console.log(product)
     const existingItemIndex = this.items.findIndex(item => this.areProductsEqual(item.product, product));
     console.log(existingItemIndex)
@@ -162,7 +160,7 @@ export class ShopService {
     this.updateItemsCount();
   }
 
-  disminuirDesdeCarrito(product: Productos) {
+  disminuirDesdeCarrito(product: Producto) {
     console.log(product);
     const existingItemIndex = this.items.findIndex(item => this.areProductsEqual(item.product, product));
     console.log(existingItemIndex);
@@ -197,7 +195,7 @@ export class ShopService {
       console.log(this.cliente)
   }
 
-  private areProductsEqual(product1: Productos, product2: Productos): boolean {
+  private areProductsEqual(product1: Producto, product2: Producto): boolean {
     return product1.id_producto === product2.id_producto && 
            product1.codigo === product2.codigo &&
            product1.nombre === product2.nombre &&
@@ -234,7 +232,7 @@ export class ShopService {
     return this.items;
   }
 
-  increaseQuantity(product: Productos) {
+  increaseQuantity(product: Producto) {
     const existingItemIndex = this.items.findIndex(item => item.product.id_producto === product.id_producto);
     if (existingItemIndex !== -1) {
       this.items[existingItemIndex].cantidad += 1;
@@ -242,7 +240,7 @@ export class ShopService {
     }
   }
 
- decreaseQuantity(product: Productos) {
+ decreaseQuantity(product: Producto) {
   const existingItemIndex = this.items.findIndex(item => item.product.id_producto === product.id_producto);
   if (existingItemIndex !== -1) {
     const existingItem = this.items[existingItemIndex];

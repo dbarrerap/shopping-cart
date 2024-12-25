@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, Output,inject,OnInit, } from '@angular/core';
-import { Producto } from '../../models';
-import { Productos } from 'src/app/views/shopping/shop/productos.interface';
-import { Cliente } from '../../../views/shopping/shop/cliente.interface';
+import { Producto, Cliente } from '../../models';
 import { ShopService } from 'src/app/views/shopping/shop/shop.service';
 import { ToastrService } from 'ngx-toastr'; 
 import { Subscription } from 'rxjs';
@@ -18,7 +16,7 @@ export class HorizontalItemComponent implements OnInit  {
   @Output() updatedQuantity = new EventEmitter<number>()
 
 
-  public items: { product: Productos, cantidad: number }[] = [];
+  public items: { product: Producto, cantidad: number }[] = [];
   public cliente: Cliente[] = [];
   public itemCount: number = 0;
   private itemsCountSubscription!: Subscription;
@@ -90,18 +88,18 @@ export class HorizontalItemComponent implements OnInit  {
     
    }
 
-      incrementarCantidad(product: Productos): void {
+      incrementarCantidad(product: Producto): void {
         if(product.codigo == this.producto.codigo){
-          product.cantidad++; 
+          product.cantidad = parseFloat(product.cantidad as string) + 1; 
         }
        //this.producto[index].cantidad++;
      }
      
-     disminuirCantidad(product: Productos): void {
+     disminuirCantidad(product: Producto): void {
 
       if(product.codigo == this.producto.codigo){
-        if (product.cantidad > 1) {
-          product.cantidad--;
+        if (parseFloat(product.cantidad as string) > 1) {
+          product.cantidad = parseFloat(product.cantidad as string) - 1;
         }
       }
       

@@ -1,11 +1,14 @@
 import { Component, ElementRef, inject, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { fakerES_MX as faker } from "@faker-js/faker";
 import { Subscription } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import Swal from 'sweetalert2'
+import  moment from 'moment'
 
 import { Cliente, OrdenCompra, Producto } from "../../../shared/models";
 import { CommonService } from '../../../services/common.service';
+import { ShopService } from "../shop/shop.service";
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-cart',
@@ -19,15 +22,47 @@ export class CartComponent implements OnInit, OnDestroy {
   /* @Input() */ public orden!: OrdenCompra
   private commonService = inject(CommonService)
   private modalService = inject(NgbModal)
+  private service = inject(ShopService)
+  private toastr = inject(ToastrService)
 
   constructor() {
     this.searchSubscription = this.commonService.search.asObservable().subscribe(() => {
       this.modalService.open(this.modalSearch, { size: 'xl', windowClass: 'transparent-modal' })
-    }
+    })
+
+    this.service.pedido$.subscribe(
+      (res)=>{
+        console.log(res)
+
+        if(res.data.length > 0){
+          res.data.forEach((e:any) => {
+            e.product.cantidad = e.cantidad
+          });
+          this.items = res.data
+        }else{
+          this.items = []
+        }
+       
+        if(this.items.length > 0){
+          console.log(this.items)
+          
+          this.totalPorProducto()
+        }else{
+          // this.vmButtons[0].showimg= false
+          // this.vmButtons[1].showimg= true
+        }
+      }
+    )
+
+    this.service.cliente$.subscribe(
+      (res)=>{
+        console.log(res)
+        this.orden = res
+      }
     )
   }
 
-  public items: { product: Productos, cantidad: number }[] = [];
+  public items: { product: Producto, cantidad: number }[] = [];
   public cliente: Cliente[] = [];
   public itemCount: number = 0;
   private itemsCountSubscription!: Subscription;
@@ -40,41 +75,9 @@ export class CartComponent implements OnInit, OnDestroy {
   filter: any = {};
   paginate: any;
   lista_productos: any[] = [];
-  orden: any= [];
+  // orden: any= [];
 
 
-  constructor( private service: ShopService,private toastr: ToastrService) { 
-      this.service.pedido$.subscribe(
-        (res)=>{
-          console.log(res)
-
-          if(res.data.length > 0){
-            res.data.forEach((e:any) => {
-              e.product.cantidad = e.cantidad
-            });
-            this.items = res.data
-          }else{
-            this.items = []
-          }
-         
-          if(this.items.length > 0){
-            console.log(this.items)
-            
-            this.totalPorProducto()
-          }else{
-            // this.vmButtons[0].showimg= false
-            // this.vmButtons[1].showimg= true
-          }
-        }
-      )
-
-      this.service.cliente$.subscribe(
-        (res)=>{
-          console.log(res)
-          this.orden = res
-        }
-      )
-    }
   ngOnInit(): void {
     // const cliente: Cliente = {
     //   nombre: faker.person.fullName(),
@@ -175,15 +178,13 @@ export class CartComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.searchSubscription.unsubscribe()
-  }
 
-  ngOnDestroy(): void {
-    this.searchSubscription.unsubscribe()
-  }
-
-  handleUpdateQuantity = (quantity: number) => {
-    console.log(quantity);
-    
+    if (this.itemsCountSubscription) {
+      this.itemsCountSubscription.unsubscribe();
+    }
+    if (this.clienteSubscription) {
+      this.clienteSubscription.unsubscribe();
+    }
   }
 
   // createRandomProduct = (): Producto => {
@@ -205,15 +206,6 @@ export class CartComponent implements OnInit, OnDestroy {
   //     imagen: `assets/images/productos/repuesto-${imagenNumber}.png`,
   //   }
   // }
-
-  ngOnDestroy() {
-    if (this.itemsCountSubscription) {
-      this.itemsCountSubscription.unsubscribe();
-    }
-    if (this.clienteSubscription) {
-      this.clienteSubscription.unsubscribe();
-    }
-  }
 
 
   async validaOrdenPedido() {
@@ -414,7 +406,7 @@ export class CartComponent implements OnInit, OnDestroy {
               this.items.forEach(e => {
                 const productSinFotos = { ...e.product };
                 delete productSinFotos.fotos;
-                this.orden.detalles.push(productSinFotos);
+                this.orden.detalles!.push(productSinFotos);
               });
               // this.items.forEach(e => {
                 
@@ -481,11 +473,11 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
 
-  increaseQuantity(product: Productos,index:number) {
+  increaseQuantity(product: Producto,index:number) {
     this.service.addToCart(product);
   }
   
-  decreaseQuantity(product: Productos) {
+  decreaseQuantity(product: Producto) {
     const existingItem = this.items.find(item => item.product.id_producto === product.id_producto);
     console.log(existingItem)
     if (existingItem && existingItem.cantidad > 1) {
@@ -505,57 +497,57 @@ export class CartComponent implements OnInit, OnDestroy {
     //const totalCount = this.items.reduce((total, item) => total + item.product.precio1, 0);
 
     this.items.forEach(item => {
-      item.product.subtotal = parseFloat(item.product.precio1) * Number(item.product.cantidad);
-      item.product.descuento = parseFloat(item.product.precio1) * Number(item.product.cantidad) * Number(item.product.porcentaje) / 100;
+      item.product.subtotal = parseFloat(item.product.precio1! as string) * Number(item.product.cantidad);
+      item.product.descuento = parseFloat(item.product.precio1! as string) * Number(item.product.cantidad) * Number(item.product.porcentaje) / 100;
       item.product.total = item.product.subtotal -  Number(item.product.descuento);
       item.product.transporte = 0;
-      item.product.subtotal_iva = item.product.codigo_impuesto_iva == 2 ? parseFloat(item.product.precio1) * Number(item.product.cantidad): 0
-      item.product.subtotal_0 = item.product.codigo_impuesto_iva != 2 ? parseFloat(item.product.precio1) * Number(item.product.cantidad): 0
-      this.totalProductos += parseFloat(item.product.precio1) * Number(item.product.cantidad);
+      item.product.subtotal_iva = item.product.codigo_impuesto_iva == 2 ? parseFloat(item.product.precio1! as string) * Number(item.product.cantidad): 0
+      item.product.subtotal_0 = item.product.codigo_impuesto_iva != 2 ? parseFloat(item.product.precio1! as string) * Number(item.product.cantidad): 0
+      this.totalProductos += parseFloat(item.product.precio1! as string) * Number(item.product.cantidad);
     });
 
   
 
    }
    totalOrden(){
-    const totalCount = this.items.reduce((total, item) => total + item.product.total, 0);
+    const totalCount = this.items.reduce((total, item) => total + item.product.total!, 0);
     this.orden.total= totalCount
     return totalCount;
    }
     subtotalOrden(){
-    const totalCount = this.items.reduce((total, item) => total + item.product.subtotal, 0);
+    const totalCount = this.items.reduce((total, item) => total + item.product.subtotal!, 0);
     this.orden.subtotal= totalCount
     return totalCount;
    }
    subtotalIvaOrden(){
-    const totalCount = this.items.reduce((total, item) => total + item.product.subtotal_iva, 0);
+    const totalCount = this.items.reduce((total, item) => total + item.product.subtotal_iva!, 0);
     this.orden.subtotal_iva= totalCount
     return totalCount;
    }
    subtotalCeroOrden(){
-    const totalCount = this.items.reduce((total, item) => total + item.product.subtotal_0, 0);
+    const totalCount = this.items.reduce((total, item) => total + item.product.subtotal_0!, 0);
     this.orden.subtotal_0= totalCount
     return totalCount;
    }
    descuentoOrden(){
-    const totalCount = this.items.reduce((total, item) => total + item.product.descuento, 0);
+    const totalCount = this.items.reduce((total, item) => total + parseFloat(item.product.descuento as string), 0);
     this.orden.descuento= totalCount
     return totalCount;
    }
    totalIvaOrden(){
-    const totalCount = this.items.reduce((total, item) => total + item.product.iva, 0);
+    const totalCount = this.items.reduce((total, item) => total + item.product.iva!, 0);
     this.orden.iva= totalCount
     return totalCount;
    }
 
    totalFinalOrden(){
-    const totalCount = this.items.reduce((total, item) => total + item.product.total_final, 0);
+    const totalCount = this.items.reduce((total, item) => total + item.product.total_final!, 0);
     this.orden.total_con_impuesto= totalCount
     return totalCount;
    }
    
    totalTransporte(){
-    const totalCount = this.items.reduce((total, item) => total + item.product.transporte, 0);
+    const totalCount = this.items.reduce((total, item) => total + item.product.transporte!, 0);
     this.orden.transporte= totalCount
     return totalCount;
    }
@@ -564,19 +556,19 @@ export class CartComponent implements OnInit, OnDestroy {
    
   
     this.items.forEach(item => {
-      item.product.subtotal = parseFloat(item.product.precio1) * Number(item.product.cantidad);
-      item.product.descuento = parseFloat(item.product.precio1) * Number(item.product.cantidad) * Number(item.product.porcentaje) / 100;
+      item.product.subtotal = parseFloat(item.product.precio1! as string) * Number(item.product.cantidad);
+      item.product.descuento = parseFloat(item.product.precio1! as string) * Number(item.product.cantidad) * Number(item.product.porcentaje) / 100;
       item.product.total = item.product.subtotal -  Number(item.product.descuento);
       item.product.iva = item.product.total *  0.15;
       item.product.total_final = item.product.total + item.product.iva;
       item.product.total_final += item.product.total + item.product.iva;
 
       if (item.product.codigo_impuesto_iva == 2) {
-        item.product.subtotal_iva += item.product.subtotal -  Number(item.product.descuento);// Suma al subtotal con IVA
+        item.product.subtotal_iva! += item.product.subtotal -  Number(item.product.descuento);// Suma al subtotal con IVA
       } else {
-        item.product.subtotal_0 += item.product.subtotal -  Number(item.product.descuento); // Suma al subtotal sin IVA
+        item.product.subtotal_0! += item.product.subtotal -  Number(item.product.descuento); // Suma al subtotal sin IVA
       }
-      this.totalProductos += parseFloat(item.product.precio1) * Number(item.product.cantidad);
+      this.totalProductos += parseFloat(item.product.precio1! as string) * Number(item.product.cantidad);
     });
     
 
@@ -584,13 +576,13 @@ export class CartComponent implements OnInit, OnDestroy {
 
   calculoIva() {
     this.items.forEach(item => {
-      item.product.iva = item.product.total *  0.15;
+      item.product.iva = item.product.total! *  0.15;
     });
     this.calculoTotalFinal();
   }
   calculoTotalFinal() {
     this.items.forEach(item => {
-      item.product.total_final = item.product.total + item.product.iva;
+      item.product.total_final = item.product.total! + item.product.iva!;
     });
   }
 
@@ -603,12 +595,12 @@ export class CartComponent implements OnInit, OnDestroy {
     //this.activeModal.dismiss();//COMENTADO
   }
  
-  incrementarCantidad(product: Productos, index: number) {
+  incrementarCantidad(product: Producto, index: number) {
 
     this.service.agregarDesdeCarrito(product);
     this.calculoIva();
   }
-  disminuirCantidad(product: Productos, index: number) {
+  disminuirCantidad(product: Producto, index: number) {
 
     this.service.disminuirDesdeCarrito(product);
     this.calculoIva();

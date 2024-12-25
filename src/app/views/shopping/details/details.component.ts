@@ -168,10 +168,10 @@ export class DetailsComponent implements OnInit{
   totalPorProducto(){
     //const totalCount = this.items.reduce((total, item) => total + item.product.precio1, 0);
     this.items.forEach(item => {
-      item.product.subtotal = parseFloat(item.product.precio1!) * Number(item.product.cantidad);
-      item.product.descuento = parseFloat(item.product.precio1!) * Number(item.product.cantidad) * Number(item.product.porcentaje) / 100;
+      item.product.subtotal = parseFloat(item.product.precio1! as string) * Number(item.product.cantidad);
+      item.product.descuento = parseFloat(item.product.precio1! as string) * Number(item.product.cantidad) * Number(item.product.porcentaje) / 100;
       item.product.total = item.product.subtotal -  Number(item.product.descuento);
-      this.totalProductos += parseFloat(item.product.precio1!) * Number(item.product.cantidad);
+      this.totalProductos += parseFloat(item.product.precio1! as string) * Number(item.product.cantidad);
     });
 
   
