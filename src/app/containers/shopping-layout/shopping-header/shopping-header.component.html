@@ -7,18 +7,29 @@
     <c-container fluid class="justify-content-between text-bg-light p-3">
         <c-breadcrumb-router></c-breadcrumb-router>
         <c-header-nav class="ms-auto">
-            <!-- <form cForm class="d-flex" role="search" [ngClass]="{'d-none': _router.url == '/shopping/cart'}">
-                <input type="search" cFormControl class="me-2" sizing="sm" (click)="emitSearch()">
-                <button cButton type="submit" color="primary">
-                    <i class="fa fa-magnifying-glass"></i>
+            <form cForm class="d-flex" role="search">
+                <input type="search" class="me-2" placeholder="Buscar por nombre, marca, categoria..." 
+                    cFormControl sizing="sm" (click)="emitSearch()">
+                <button cButton type="submit" color="primary" class="btn-search">
+                    <img src="./assets/images/iconos/icon-search.png" alt="">
                 </button>
-            </form> -->
-            <!-- <c-nav-item>
+            </form>
+            <c-nav-item>
                 <a cNavLink [routerLink]="['/shopping/cart']">
-                    <i class="fa fa-shopping-cart"></i>
+                    <div class="box-cart">
+                        <img src="./assets/images/iconos/icon-cart.png" alt="" class="icon-cart">
+                        <div class="count-cart roboto-medium">{{itemCount}}</div>
+                    </div>
                 </a>
-            </c-nav-item> -->
-            <div class="box-search">
+            </c-nav-item>
+            <c-nav-item>
+                <!-- <div class="box-credit"> -->
+                    <button cNavLink class="btn btn-light" (click)="emitWallet()">
+                        <img src="./assets/images/iconos/icon-credit.png" alt="">
+                    </button>
+                <!-- </div> -->
+            </c-nav-item>
+            <!-- <div class="box-search">
                 <input type="text" placeholder="Buscar por nombre, marca, categoria..." class="input-search"
                 (click)="emitSearch()">
                 <button class="btn-search">
@@ -41,12 +52,7 @@
                     </button>
                     </div>
                 </div>
-            </div>
-            <!-- <c-nav-item>
-                <button cNavLink class="btn btn-light" (click)="emitWallet()">
-                    <i class="fa fa-wallet"></i>
-                </button>
-            </c-nav-item> -->
+            </div> -->
         </c-header-nav>
     </c-container>
 </c-header>
