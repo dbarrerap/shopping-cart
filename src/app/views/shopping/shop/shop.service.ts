@@ -67,7 +67,7 @@ export class ShopService {
   // {
   //   return this.apiService.apiCallPedidos('pedidos/get-productos-fotos', 'POST', data);
   // }
-  getProductosFotos(data: any): Promise<any> {
+  getProductosFotos(data: any): Promise<LaravelPaginateResponse> {
     return new Promise((resolve, reject) => {
       this.apiService.apiCallPedidos('pedidos/get-productos-fotos', 'POST', data).subscribe({
         next: (res: any) => resolve(res.data),

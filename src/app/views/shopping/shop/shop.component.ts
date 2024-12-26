@@ -135,12 +135,6 @@ export class ShopComponent implements OnInit, OnDestroy {
       this.cargarProductos()
       // this.CargarProductos()
       this.CargarGruposMarcas()
-      Object.assign(this.pagination, {
-        _length: this.productos.length,
-        _pages: Math.ceil(this.productos.length / this.pagination._per_page),
-        _start: (this.pagination._page - 1) * this.pagination._per_page + 1,
-        _end: Math.min(this.pagination._page * this.pagination._per_page, this.productos.length)
-      })
     }, 0)
   }
 
@@ -190,9 +184,10 @@ export class ShopComponent implements OnInit, OnDestroy {
         pages: response.last_page
       })
       this.productos = response.data
-      this.loadingProductos = false
     } catch (error) {
       console.error(error)
+    } finally {
+      this.loadingProductos = false
     }
 
   }
