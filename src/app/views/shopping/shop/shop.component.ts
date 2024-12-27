@@ -40,7 +40,48 @@ export class ShopComponent implements OnInit, OnDestroy {
     pages: 0,
   }
 
-  public sidebarFilter: SidebarItem[] = [];
+  public sidebarFilter: SidebarItem[] = [
+    {
+      id: 0,
+      label: 'Categoria',
+      items: [
+        {
+          id: 0,
+          label: 'Redes',
+          total: 0,
+          checked: false,
+          items: []
+        },
+        {
+          id: 1,
+          label: 'Estructura',
+          total: 0,
+          checked: false,
+          items: []
+        }
+      ]
+    },
+    {
+      id: 0,
+      label: 'Marca',
+      items: [
+        {
+          id: 0,
+          label: 'LANPro',
+          total: 0,
+          checked: false,
+          items: []
+        },
+        {
+          id: 1,
+          label: 'D-Link',
+          total: 0,
+          checked: false,
+          items: []
+        }
+      ]
+    },
+  ];
 
 
   filter: any = {};
