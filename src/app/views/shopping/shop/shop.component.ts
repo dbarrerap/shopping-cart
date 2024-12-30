@@ -110,7 +110,7 @@ export class ShopComponent implements OnInit, OnDestroy {
 
     this.itemsCountSubscription = this.service.getItemsCount().subscribe(count => {
       this.itemCount = count;
-      console.log(this.itemCount)
+      // console.log(this.itemCount)
 
     });
   }

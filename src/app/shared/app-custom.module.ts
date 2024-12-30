@@ -33,7 +33,7 @@ import {
         VerticalItemComponent,
         RoundedButtonComponent,
         SearchComponent, 
-        CurrencyInputComponent,
+        CurrencyInputComponent, 
     ],
     imports: [
         CommonModule,
@@ -55,7 +55,7 @@ import {
         HorizontalItemComponent,
         VerticalItemComponent,
         RoundedButtonComponent,
-        SearchComponent, 
+        SearchComponent,
         CurrencyInputComponent,
         NgbModule,
         FormsModule, 

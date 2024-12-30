@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { CommonService } from "src/app/services/common.service";
+import { CommonService } from "../../../services/common.service";
 import { ShopService } from '../../../views/shopping/shop/shop.service';
 import { Subscription } from 'rxjs';
 
@@ -20,7 +20,7 @@ export class ShoppingHeaderComponent {
   ngOnInit():void{
     this.itemsCountSubscription = this.shopService.getItemsCount().subscribe(count => {
       this.itemCount = count;
-      console.log(this.itemCount)
+      // console.log(this.itemCount)
    
     });
   }
