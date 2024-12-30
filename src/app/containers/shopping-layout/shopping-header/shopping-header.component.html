@@ -13,7 +13,7 @@
                         <img src="assets/images/iconos/icon-search.png" alt="">
                     </button>
                 </form>
-                <c-nav-item>
+                <c-nav-item [ngClass]="{'d-none': _router.url == '/shopping/cart'}">
                     <div class="box-cart_desktop">
                         <a cNavLink [routerLink]="['/shopping/cart']">
                             <div class="box-cart">
@@ -23,7 +23,7 @@
                         </a>
                     </div>
                 </c-nav-item>
-                <c-nav-item>
+                <c-nav-item [ngClass]="{'d-none': _router.url == '/shopping/cart'}">
                     <div class="box-credit_desktop">
                         <div class="box-credit">
                             <button cNavLink class="btn btn-light bg-transparent" (click)="emitWallet()">
