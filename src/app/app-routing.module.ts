@@ -19,9 +19,6 @@ const routes: Routes = [
     path: '',
     component: ShoppingLayoutComponent,
     canActivateChild: [authGuard],
-    data: {
-      title: 'Inicio'
-    },
     children: [
       {
         path: 'shopping',
