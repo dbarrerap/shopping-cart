@@ -1,97 +1,119 @@
+.header-main {
+  background-color: var(--clr-base) !important;
+  padding: 18px 0;
+}
 
-  .roboto-medium {
-    font-family: "Roboto", sans-serif;
-    font-weight: 500;
-    font-style: normal;
-  }
+.header-logo {
+  max-width: 204px;
+  margin: auto;
+}
 
-  .box-cart {
-    align-items: center;
-    display: flex;
-    gap: 2px;
-  }
-  
-  .icon-cart {
-    height: 20px;
-    width: 20px;
-  }
-  
-  .count-cart {
-    align-items: center;
-    background-color: var(--clr-white);
-    border-radius: 20px;
-    color: var(--clr-action);
-    display: flex;
-    justify-content: center;
-    font-size: 14px;
-    height: 20px;
-    width: 20px;
-  }
-  .box-cart_desktop,
+.header-second {
+  background-color: var(--clr-gray-02) !important;
+  height: 70px;
+}
+
+.header-menu {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.box-search {
+  display: flex;
+  gap: 4px;
+  width: 360px;
+}
+
+.box-cart {
+  align-items: center;
+  display: flex;
+  gap: 2px;
+}
+
+.icon-cart {
+  height: 20px;
+  width: 20px;
+}
+
+.count-cart {
+  align-items: center;
+  background-color: var(--clr-white);
+  border-radius: 20px;
+  color: var(--clr-action);
+  display: flex;
+  justify-content: center;
+  font-size: 14px;
+  height: 20px;
+  width: 20px;
+}
+
+.box-cart_desktop,
 .box-credit_desktop {
   display: block;
 }
 
-  .box-cart_movil,
-  .box-credit_movil {
-      display: block;
-    }
-  
-    .card-credit .accordion-button_k::after {
-        margin-left: auto;
-    }
+.box-cart_movil,
+.box-credit_movil {
+  display: block;
+}
 
-    .box-credit .dropdown-toggle::after {
-        display: none;
-      }
-      .box-credit button {
-        border: none;
-        height: 36px;
-        outline: none;
-      }
-      .box-credit button.show {
-        background-color: var(--clr-gray-01);
-        border-radius: 20px;
-      }
-      .box-credit .card-summary {
-        font-size: 12px;
-        padding: 12px;
-        width: 260px;
-        transform: translate3d(0px, 46px, 0px) !important;
-      }
-      .box-credit .table-summary td {
-        padding-bottom: 4px;
-      }
+.box-credit .dropdown-toggle::after {
+  display: none;
+}
 
-      .box-search {
-        display: flex;
-        gap: 4px;
-        width: 360px;
-      }
-      
-      .input-search {
-        background-color: var(--clr-white);
-        border-radius: 4px;
-        border: none;
-        color: var(--clr-base);
-        font-size: 14px;
-        height: 40px;
-        padding: 12px 8px;
-        flex: 1;
-      }
-      
-      .input-search::placeholder {
-        color: #81899b;
-      }
-      
-      .input-search:focus-visible {
-        outline: none;
-      }
-      
-      .btn-search {
-        background-color: var(--clr-action);
-        border-radius: 4px;
-        border: none;
-        height: 40px;
-        min-width: 40px;
-      }
+.box-credit button {
+  border: none;
+  height: 36px;
+  outline: none;
+}
+
+.box-credit button.show {
+  background-color: var(--clr-gray-01);
+  border-radius: 20px;
+}
+
+.box-credit .card-summary {
+  font-size: 12px;
+  padding: 12px;
+  width: 260px;
+  transform: translate3d(0px, 46px, 0px) !important;
+}
+
+.box-credit .table-summary td {
+  padding-bottom: 4px;
+}
+
+.box-search {
+  display: flex;
+  gap: 4px;
+  width: 360px;
+}
+
+.input-search {
+  background-color: var(--clr-white);
+  border-radius: 4px;
+  border: none;
+  color: var(--clr-base);
+  font-size: 14px;
+  height: 40px;
+  padding: 12px 8px;
+  flex: 1;
+}
+
+.input-search::placeholder {
+  color: #81899b;
+}
+
+.input-search:focus-visible {
+  outline: none;
+}
+
+.btn-search {
+  background-color: var(--clr-action);
+  border-radius: 4px;
+  border: none;
+  height: 40px;
+  min-width: 40px;
+}

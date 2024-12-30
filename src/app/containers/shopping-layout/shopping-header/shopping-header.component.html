@@ -1,58 +1,38 @@
-<c-header class="mb-2">
-    <c-container fluid class="justify-content-center py-3" [ngStyle]="{ backgroundColor: '#151C2C' }">
-        <c-header-brand [routerLink]="['/']" [ngStyle]="{ color: '#fff' }">
-            <img src="./assets/images/logo-aptimo.png" alt="Aptimo">
-        </c-header-brand>
+<c-header class="mb-2 border-0">
+    <c-container fluid class="header-main">
+        <img src="./assets/images/logo-aptimo.png" alt="Aptimo" class="header-logo">
     </c-container>
-    <c-container fluid class="justify-content-between text-bg-light p-3">
-        <c-breadcrumb-router></c-breadcrumb-router>
-        <c-header-nav class="ms-auto">
-            <form cForm class="d-flex" role="search">
-                <input type="search" class="me-2" placeholder="Buscar por nombre, marca, categoria..." 
-                    cFormControl sizing="sm" (click)="emitSearch()">
-                <button cButton type="submit" color="primary" class="btn-search">
-                    <img src="./assets/images/iconos/icon-search.png" alt="">
-                </button>
-            </form>
-            <c-nav-item>
-                <a cNavLink [routerLink]="['/shopping/cart']">
-                    <div class="box-cart">
-                        <img src="./assets/images/iconos/icon-cart.png" alt="" class="icon-cart">
-                        <div class="count-cart roboto-medium">{{itemCount}}</div>
-                    </div>
-                </a>
-            </c-nav-item>
-            <c-nav-item>
-                <!-- <div class="box-credit"> -->
-                    <button cNavLink class="btn btn-light" (click)="emitWallet()">
-                        <img src="./assets/images/iconos/icon-credit.png" alt="">
+    <c-container fluid class="header-second">
+        <c-container class="header-menu">
+            <c-breadcrumb-router></c-breadcrumb-router>
+            <c-header-nav class="ms-auto">
+                <form cForm class="box-search" role="search">
+                    <input type="search" class="input-search" placeholder="Buscar por nombre, marca, categoria..."
+                        cFormControl sizing="sm" (click)="emitSearch()">
+                    <button cButton type="submit" class="btn-search">
+                        <img src="assets/images/iconos/icon-search.png" alt="">
                     </button>
-                <!-- </div> -->
-            </c-nav-item>
-            <!-- <div class="box-search">
-                <input type="text" placeholder="Buscar por nombre, marca, categoria..." class="input-search"
-                (click)="emitSearch()">
-                <button class="btn-search">
-                  <img src="./assets/images/iconos/icon-search.png" alt="">
-                </button>
-            </div>
-            <div class="box-cart_movil">
-                <a cNavLink [routerLink]="['/shopping/cart']">
-                  <div class="box-cart">
-                    <img src="./assets/images/iconos/icon-cart.png" alt="" class="icon-cart">
-                    <div class="count-cart roboto-medium">{{itemCount}}</div>
-                  </div>
-                </a>
-            </div>
-            <div class="box-credit_movil">
-                <div class="box-credit">
-                    <div class="btn-group">
-                    <button cNavLink (click)="emitWallet()">
-                        <img src="./assets/images/iconos/icon-credit.png" alt="">
-                    </button>
+                </form>
+                <c-nav-item>
+                    <div class="box-cart_desktop">
+                        <a cNavLink [routerLink]="['/shopping/cart']">
+                            <div class="box-cart">
+                                <img src="assets/images/iconos/icon-cart.png" alt="" class="icon-cart">
+                                <div class="count-cart roboto-medium">{{itemCount}}</div>
+                            </div>
+                        </a>
                     </div>
-                </div>
-            </div> -->
-        </c-header-nav>
+                </c-nav-item>
+                <c-nav-item>
+                    <div class="box-credit_desktop">
+                        <div class="box-credit">
+                            <button cNavLink class="btn btn-light bg-transparent" (click)="emitWallet()">
+                                <img src="assets/images/iconos/icon-credit.png" alt="">
+                            </button>
+                        </div>
+                    </div>
+                </c-nav-item>
+            </c-header-nav>
+        </c-container>
     </c-container>
 </c-header>
