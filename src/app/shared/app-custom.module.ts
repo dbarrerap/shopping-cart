@@ -15,6 +15,7 @@ import {
     SpinnerModule,
     CarouselModule,
 } from "@coreui/angular";
+import { NgxCurrencyDirective } from "ngx-currency";
 
 import { CcInputGroup } from './cc-input-group.component';
 import { 
@@ -22,8 +23,8 @@ import {
     VerticalItemComponent, 
     RoundedButtonComponent,
     SearchComponent, 
+    CurrencyInputComponent,
 } from "./components/index";
-
 
 @NgModule({
     declarations: [
@@ -32,7 +33,7 @@ import {
         VerticalItemComponent,
         RoundedButtonComponent,
         SearchComponent, 
-        
+        CurrencyInputComponent,
     ],
     imports: [
         CommonModule,
@@ -46,6 +47,7 @@ import {
         SpinnerModule,
         CarouselModule,
         NgbCarouselModule,
+        NgxCurrencyDirective,
     ],
     exports: [
         CommonModule,
@@ -54,6 +56,7 @@ import {
         VerticalItemComponent,
         RoundedButtonComponent,
         SearchComponent, 
+        CurrencyInputComponent,
         NgbModule,
         FormsModule, 
         ReactiveFormsModule,
@@ -63,6 +66,7 @@ import {
         SpinnerModule,
         CarouselModule,
         NgbCarouselModule,
+        NgxCurrencyDirective,
     ],
     providers: [
         NgbActiveModal,

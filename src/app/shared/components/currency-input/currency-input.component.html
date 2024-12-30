@@ -1,0 +1,4 @@
+<input type="tel" 
+    currencyMask [options]="options"
+    [(ngModel)]="amount" (ngModelChange)="onAmountChange()"
+    onclick="this.select()" (keydown)="handleInput($event)">
