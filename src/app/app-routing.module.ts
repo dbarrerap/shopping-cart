@@ -79,26 +79,20 @@ const routes: Routes = [
   {
     path: '',
     component: ShoppingLayoutComponent,
-    canActivate: [authGuard],
+    canActivateChild: [authGuard],
+    data: {
+      title: 'Inicio'
+    },
     children: [
       {
-        path: '',
-        canActivateChild: [authGuard],
-        data: {
-          title: 'Home'
-        },
-        children: [
-          {
-            path: 'shopping',
-            loadChildren: () => import('./views/shopping/shopping.module').then(m => m.ShoppingModule)
-          },
-          {
-            path: 'pages',
-            loadChildren: () =>
-              import('./views/pages/pages.module').then((m) => m.PagesModule)
-          },
-        ]
-      }
+        path: 'shopping',
+        loadChildren: () => import('./views/shopping/shopping.module').then(m => m.ShoppingModule)
+      },
+      {
+        path: 'pages',
+        loadChildren: () =>
+          import('./views/pages/pages.module').then((m) => m.PagesModule)
+      },
     ]
   },
 
@@ -131,7 +125,7 @@ const routes: Routes = [
       title: 'Register Page'
     }
   },
-  {path: '**', redirectTo: 'shopping'}
+  {path: '**', redirectTo: '404'}
 
 ];
 
