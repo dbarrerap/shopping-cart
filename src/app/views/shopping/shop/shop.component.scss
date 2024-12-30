@@ -1,0 +1,50 @@
+.card-credit {
+    background-color: var(--clr-white);
+    border-radius: 8px;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    padding: 16px 20px;
+}
+
+.card-credit .accordion-button_k::after {
+    margin-left: 20px;
+}
+
+.card-credit_title {
+    font-size: 20px;
+}
+
+.card-credit_body {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+
+.card-credit_item {
+    align-items: center;
+    border: solid 1px var(--clr-gray-03);
+    border-radius: 4px;
+    display: flex;
+    width: 49%;
+}
+
+.card-credit_item .col-one,
+.card-credit_item .col-two {
+    height: 32px;
+    flex: 1;
+    padding: 4px 8px;
+}
+
+.card-credit_item .col-one {
+    background-color: var(--clr-gray-01);
+}
+
+.card-credit_item .col-two input {
+    border: none;
+    width: 100%;
+}
+
+.card-credit_item .col-two input:focus {
+    box-shadow: none;
+    outline: none;
+}

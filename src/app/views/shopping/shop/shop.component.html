@@ -1,36 +1,53 @@
 <div class="container">
-    <div class="alert alert-light">
-        <details>
-            <summary class="roboto-bold">Credito</summary>
-            <div class="row">
-                <div class="col-6">
-                    <app-cc-input-group label="Estado Credito" styleSpan="size-span-campo">
-                        <input type="number" name="" id="" class="form-control" placeholder="0">
-                    </app-cc-input-group>
-                </div>
-                <div class="col-6">
-                    <app-cc-input-group label="Cupo Credito" styleSpan="size-span-campo">
-                        <input type="number" name="" id="" class="form-control" placeholder="0">
-                    </app-cc-input-group>
-                </div>
-                <div class="col-6">
-                    <app-cc-input-group label="Cupo Disponible" styleSpan="size-span-campo">
-                        <input type="number" name="" id="" class="form-control" placeholder="0">
-                    </app-cc-input-group>
-                </div>
-                <div class="col-6">
-                    <app-cc-input-group label="No. Facturas Vencidas" styleSpan="size-span-campo">
-                        <input type="number" name="" id="" class="form-control" placeholder="0">
-                    </app-cc-input-group>
-                </div>
-                <div class="col-6">
-                    <app-cc-input-group label="Valores Vencidos" styleSpan="size-span-campo">
-                        <input type="number" name="" id="" class="form-control" placeholder="0">
-                    </app-cc-input-group>
-                </div>
-            </div>
-        </details>
-
+    <div class="card-credit py-1">
+        <c-accordion [flush]="true">
+            <c-accordion-item #itemCredito="cAccordionItem" [visible]="false" class="accordion-item_k">
+                <ng-template cTemplateId="accordionHeaderTemplate">
+                    <div class="accordion-header_k">
+                        <button (click)="itemCredito.toggleItem()" [collapsed]="!itemCredito.visible" cAccordionButton
+                            class="accordion-button_k roboto-bold px-0">
+                            <h3 class="card-credit_title roboto-medium mb-0">Cr&eacute;dito</h3>
+                        </button>
+                    </div>
+                </ng-template>
+                <ng-template cTemplateId="accordionBodyTemplate">
+                    <div class="accordion-body accordion-body_k px-0">
+                        <div class="card-credit_body">
+                            <div class="card-credit_item">
+                                <div class="col-one">Estado Cr&eacute;dito</div>
+                                <div class="col-two">
+                                    <cc-currency [currencyOptions]="{min: 0, max: 9999}" [(value)]="credit.estado" />
+                                </div>
+                            </div>
+                            <div class="card-credit_item">
+                                <div class="col-one">Cupo de Cr&eacute;dito</div>
+                                <div class="col-two">
+                                    <cc-currency [currencyOptions]="{min: 0, max: 9999}" [(value)]="credit.cupo_credito" />
+                                </div>
+                            </div>
+                            <div class="card-credit_item">
+                                <div class="col-one">Cupo Disponible</div>
+                                <div class="col-two">
+                                    <cc-currency [currencyOptions]="{min: 0, max: 9999}" [(value)]="credit.cupo_disponible" />
+                                </div>
+                            </div>
+                            <div class="card-credit_item">
+                                <div class="col-one">N<sup>o</sup> Facturas Vencidas</div>
+                                <div class="col-two">
+                                    <cc-currency [currencyOptions]="{min: 0, max: 9999}" [(value)]="credit.facturas_vencidas" />
+                                </div>
+                            </div>
+                            <div class="card-credit_item">
+                                <div class="col-one">Valores Vencidos</div>
+                                <div class="col-two">
+                                    <cc-currency [currencyOptions]="{min: 0, max: 9999}" [(value)]="credit.valores_vencidos" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </c-accordion-item>
+        </c-accordion>
     </div>
     <div class="row">
         <div class="col-md-3">

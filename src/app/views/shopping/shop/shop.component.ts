@@ -4,7 +4,7 @@ import { Subscription } from 'rxjs';
 
 import { ShopService } from "./shop.service";
 import { CommonService } from '../../../services/common.service';
-import { Producto, SidebarItem } from '../../../shared/models';
+import { Producto, SidebarItem, CreditData } from '../../../shared/models';
 
 import { ToastrService } from 'ngx-toastr';
 
@@ -20,11 +20,13 @@ export class ShopComponent implements OnInit, OnDestroy {
   private commonService = inject(CommonService)
   private toastr = inject(ToastrService)
   private modalService = inject(NgbModal)
-  public loadingProductos: boolean = false
+
   private walletSubscription!: Subscription
   private searchSubscription!: Subscription
+  
+  public loadingProductos: boolean = false
 
-  itemCount: number = 0;
+  public itemCount: number = 0;
   private itemsCountSubscription!: Subscription;
   private itemsSubscription!: Subscription;
 
@@ -41,6 +43,13 @@ export class ShopComponent implements OnInit, OnDestroy {
   }
 
   public sidebarFilter: SidebarItem[] = [];
+  public credit: CreditData = {
+    estado: 0,
+    cupo_credito: 0,
+    cupo_disponible: 0,
+    facturas_vencidas: 0,
+    valores_vencidos: 0,
+  }
 
 
   filter: any = {};
