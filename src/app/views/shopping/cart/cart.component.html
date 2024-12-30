@@ -1,240 +1,122 @@
-<section class="s-main s-cart">
-    <div class="container mb-2">
-        <div class="row">
-            <div class="col-12 col-md-8">
-                <!-- <h3>Carrito de Compras ({{ orden.detalles.length }} productos)</h3>
-                <ng-container *ngFor="let item of orden.detalles">
-                    <app-horizontal-item [producto]="item" [route]="router.url" (updatedQuantity)="handleUpdateQuantity($event)"></app-horizontal-item>
-                </ng-container> -->
-                 <h2 class="title-summary roboto-medium">Carrito <span class="roboto-regular">({{ itemCount }} productos)</span></h2>
-                 <div *ngFor="let item of items; let i = index">
-                    <div  class="card-product card-cart">
-                        <div class="card-cart_one">
-                            <div class="card-header">
-                                <img [src]="item.product.foto1"   alt="Imagen" class="img-fluid">
-                            </div>
-                            <div class="card-body">
-                              <div>
-                                <div class="card-detail_one">
-                                  <h2 class="card-title roboto-medium">{{ item.product.nombre }}</h2>
-                                  <div class="card-code">
-                                    <span class="card-code_item">Cod. Interno: {{ item.product.codigo }}</span>
-                                    <span class="card-code_item">Cod. Original: {{ item.product.codigo }}</span>
-                                  </div>
-                                </div>
-                                <div class="card-detail_two">
-                                  <p class="card-aplic">Aplicación: DIMAX 3.0 2.5 A DIESEL 05</p>
-                                  <p class="card-brand roboto-medium">Marca: {{ item.product.marca }}</p>
-                                </div>
-                              </div>
-                            </div>
-                        </div>
-                        <div class="card-cat_two">
-                            <div class="box-counter">
-                              <button class="btn-counter_sign" (click)="disminuirCantidad(item.product, i)">-</button>
-                              <input type="text" [(ngModel)]="item.product.cantidad"  (input)="totalDescuento($event,i)" placeholder="1" class="box-counter_input">
-                              <button class="btn-counter_sign" (click)="incrementarCantidad(item.product, i)">+</button>
-                            </div>
-                            <span class="box-stock">Stock:  {{ item.product.stock }}</span>
-                        </div>
-                        <div class="card-cat-three">
-                            <div>
-                              <div class="flex-price roboto-medium">
-                                <small class="card-price_discount card-mount">Precio Unit.:</small>
-                                <p class="card-price_discount card-price">{{ item.product.precio1 }}</p>
-                              </div>
-                              <div class="flex-price roboto-medium">
-                                <small class="card-mount">Dscto. <span class="card-discount">(20%)</span>:</small>
-                                <p class="card-number">%12.00</p>
-                              </div>
-                              <div class="flex-price roboto-medium">
-                                <small class="card-mount">Subtotal:</small>
-                                <p class="card-number">%102.00</p>
-                              </div>
-                            </div>
-                            <button class="box-trash" (click)="eliminarProducto(item.product.id_producto,i)">
-                              <img src="./assets/images/iconos/icon-trash.png" alt="">
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                 <!-- <ng-container *ngFor="let item of items; let i = index"> -->
-
-                    <!-- <div class="card mb-2 border-0">
-                        <div class="row g-0">
-                            <div class="col-md-3">
-                                <img [src]="item.product.foto1"   alt="Imagen" class="img-fluid">
-                            </div>
-                            <div class="col-md-9">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-5">
-                                            <div class="mb-3">
-                                                <h5 class="card-title">{{ item.product.nombre }}</h5>
-                                                <small class="card-text mb-0 d-block">Cod. Interno: {{ item.product.codigo }}</small>
-                                                <small class="card-text mb-0">Cod. Original: {{ item.product.codigo }}</small>
-                                            </div>
-                                            <div>
-                                                <p class="card-text mb-0">Aplicacion: DIMAX 3.0 2.5 DIESEL 05</p>
-                                                <p class="card-text mb-0 fw-bold">MARCA: RKT</p>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <div class="row g-0 align-items-center mb-3">
-                                                <div class="col-md-4 text-center">
-                                                    <app-rounded-button styleClass="mx-1" (click)="disminuirCantidad(item.product, i)">
-                                                        <i class="fa fa-minus fa-lg"></i>
-                                                    </app-rounded-button>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <input type="text" class="form-control form-control-sm" 
-                                                    [(ngModel)]="item.product.cantidad"  (input)="totalDescuento($event,i)">
-                                                </div>
-                                                <div class="col-md-4 text-center">
-                                                    <app-rounded-button styleClass="mx-1" (click)="incrementarCantidad(item.product, i)">
-                                                        <i class="fa fa-plus fa-lg"></i>
-                                                    </app-rounded-button>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col">
-                                                    Stock: {{ item.product.stock | number }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-4">
-                                            <div class="d-flex flex-column">
-                                                <div class="float-end">
-                                                    <p class="text-danger mb-0 fw-bold text-end">
-                                                        <small>Precio Unit.:</small> {{ item.product.precio1 | currency }}
-                                                    </p>
-                                                    <ng-container *ngIf="item.product.descuento">
-                                                        <p class="mb-0 text-end">Descuento: {{ item.product.descuento }}%</p>
-                                                        <p class="mb-0 text-end">Subtotal: {{ item.product.subtotal | currency }}</p>
-                                                    </ng-container>
-                                                </div>
-                                                <div *ngIf="router.url == '/shopping/cart'; else otherViews" class="d-flex justify-content-end">
-                                                    <button type="button" class="btn btn-danger text-light" (click)="eliminarProducto(item.product.id_producto,i)">
-                                                        <i class="fa fa-trash"></i>
-                                                    </button>
-                                                </div>
-                                                <ng-template #otherViews>
-                                                    <button type="button" class="btn btn-success text-white">
-                                                        <i class="fa fa-cart-plus"></i>
-                                                        Agregar al carrito
-                                                    </button>
-                                                </ng-template>
-                                            </div>
-                                        </div>
-                                    </div>
-                    
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-                <!-- </ng-container> -->
-            </div>
-            <div class="col-12 col-md-4">
+<section class="s-main s-cart pb-2">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-8">
+        <h2 class="title-summary roboto-medium">Carrito <span class="roboto-regular">({{ itemCount }} productos)</span>
+        </h2>
+        <div *ngFor="let item of items; let i = index">
+          <div class="card-product card-cart">
+            <div class="card-cart_one">
+              <div class="card-header">
+                <img [src]="item.product.foto1" alt="Imagen" class="img-fluid">
+              </div>
+              <div class="card-body">
                 <div>
-                    <h2 class="title-summary roboto-medium">Resumen del pedido</h2>
-                    <div class="card-summary">
-                      <table class="table-summary">
-                        <tbody>
-                          <tr>
-                            <td>Subtotal sin impuestos</td>
-                            <td class="table-summary_mount">{{ subtotalOrden()| currency }}</td>
-                          </tr>
-                          <tr>
-                            <td>Subtotal IVA 15%</td>
-                            <td class="table-summary_mount">{{ subtotalIvaOrden()| currency }}</td>
-                          </tr>
-                          <tr>
-                            <td>Subtotal 0%</td>
-                            <td class="table-summary_mount">{{ subtotalCeroOrden()| currency }}</td>
-                          </tr>
-                          <tr>
-                            <td>Descuento</td>
-                            <td class="table-summary_mount">{{ descuentoOrden() | currency }}</td>
-                          </tr>
-                          <tr>
-                            <td>Total</td>
-                            <td class="table-summary_mount">{{ totalOrden() | currency }}</td>
-                          </tr>
-                          <tr>
-                            <td>Transporte</td>
-                            <td class="table-summary_mount">{{ totalTransporte()| currency }}</td>
-                          </tr>
-                          <tr>
-                            <td>IVA 15%</td>
-                            <td class="table-summary_mount">{{ totalIvaOrden()| currency }}</td>
-                          </tr>
-                          <tr>
-                            <td colspan="2">
-                              <hr>
-                            </td>
-                          </tr>
-                        </tbody>
-                        <tfoot>
-                          <tr>
-                            <th>Total</th>
-                            <th class="table-summary_mount">{{ totalFinalOrden() | currency }}</th>
-                          </tr>
-                        </tfoot>
-                      </table>
-                      <div class="mt-4">
-                        <button class="btn-one roboto-medium btn-one_cart w-100">Continuar compra</button>
-                      </div>
+                  <div class="card-detail_one">
+                    <h2 class="card-title roboto-medium">{{ item.product.nombre }}</h2>
+                    <div class="card-code">
+                      <span class="card-code_item">Cod. Interno: {{ item.product.codigo }}</span>
+                      <span class="card-code_item">Cod. Original: {{ item.product.codigo }}</span>
                     </div>
                   </div>
-                <!-- <h3>Resumen</h3>
-                <div class="card border-0">
-                    <div class="card-body">
-                        <table class="table-borderless">
-                            <tbody>
-                                <tr>
-                                    <td>Subtotal sin Impuestos</td>
-                                    <td class="float-end">{{ subtotalOrden()| currency }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Subtotal IVA 15%</td>
-                                    <td class="float-end">{{ subtotalIvaOrden()| currency }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Subtotal 0%</td>
-                                    <td class="float-end">{{ subtotalCeroOrden()| currency }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Descuento</td>
-                                    <td class="float-end">{{ descuentoOrden() | currency }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Total</td>
-                                    <td class="float-end">{{ totalOrden() | currency }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Transporte</td>
-                                    <td class="float-end">{{ totalTransporte()| currency }}</td>
-                                </tr>
-                                <tr>
-                                    <td>IVA 15%</td>
-                                    <td class="float-end">{{ totalIvaOrden()| currency }}</td>
-                                </tr>
-                                <tr class="border-0 border-top fw-bold">
-                                    <td>Total</td>
-                                    <td class="float-end">{{ totalFinalOrden() | currency }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <div class="d-grid mt-3">
-                            <button class="btn btn-success text-white">Continuar Compra</button>
-                        </div>
-                    </div>
-                </div> -->
+                  <div class="card-detail_two">
+                    <p class="card-aplic">Aplicación: DIMAX 3.0 2.5 A DIESEL 05</p>
+                    <p class="card-brand roboto-medium">Marca: {{ item.product.marca }}</p>
+                  </div>
+                </div>
+              </div>
             </div>
+            <div class="card-cat_two">
+              <div class="box-counter">
+                <button class="btn-counter_sign" (click)="disminuirCantidad(item.product, i)">-</button>
+                <input type="text" [(ngModel)]="item.product.cantidad" (input)="totalDescuento($event,i)"
+                  placeholder="1" class="box-counter_input">
+                <button class="btn-counter_sign" (click)="incrementarCantidad(item.product, i)">+</button>
+              </div>
+              <span class="box-stock">Stock: {{ item.product.stock }}</span>
+            </div>
+            <div class="card-cat-three">
+              <div>
+                <div class="flex-price roboto-medium">
+                  <small class="card-price_discount card-mount">Precio Unit.:</small>
+                  <p class="card-price_discount card-price">{{ item.product.precio1 }}</p>
+                </div>
+                <div class="flex-price roboto-medium">
+                  <small class="card-mount">Dscto. <span class="card-discount">(20%)</span>:</small>
+                  <p class="card-number">%12.00</p>
+                </div>
+                <div class="flex-price roboto-medium">
+                  <small class="card-mount">Subtotal:</small>
+                  <p class="card-number">%102.00</p>
+                </div>
+              </div>
+              <button class="box-trash" (click)="eliminarProducto(item.product.id_producto,i)">
+                <img src="./assets/images/iconos/icon-trash.png" alt="">
+              </button>
+            </div>
+          </div>
         </div>
+
+      </div>
+      <div class="col-12 col-md-4">
+        <div>
+          <h2 class="title-summary roboto-medium">Resumen del pedido</h2>
+          <div class="card-summary">
+            <table class="table-summary">
+              <tbody>
+                <tr>
+                  <td>Subtotal sin impuestos</td>
+                  <td class="table-summary_mount">{{ subtotalOrden() | currency }}</td>
+                </tr>
+                <tr>
+                  <td>Subtotal IVA 15%</td>
+                  <td class="table-summary_mount">{{ subtotalIvaOrden() | currency }}</td>
+                </tr>
+                <tr>
+                  <td>Subtotal 0%</td>
+                  <td class="table-summary_mount">{{ subtotalCeroOrden() | currency }}</td>
+                </tr>
+                <tr>
+                  <td>Descuento</td>
+                  <td class="table-summary_mount">{{ descuentoOrden() | currency }}</td>
+                </tr>
+                <tr>
+                  <td>Total</td>
+                  <td class="table-summary_mount">{{ totalOrden() | currency }}</td>
+                </tr>
+                <tr>
+                  <td>Transporte</td>
+                  <td class="table-summary_mount">{{ totalTransporte() | currency }}</td>
+                </tr>
+                <tr>
+                  <td>IVA 15%</td>
+                  <td class="table-summary_mount">{{ totalIvaOrden() | currency }}</td>
+                </tr>
+                <tr>
+                  <td colspan="2">
+                    <hr>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <th>Total</th>
+                  <th class="table-summary_mount">{{ totalFinalOrden() | currency }}</th>
+                </tr>
+              </tfoot>
+            </table>
+            <div class="mt-4">
+              <button class="btn-one roboto-medium btn-one_cart w-100">Continuar compra</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
+  </div>
 </section>
 
+
 <ng-template #modalSearch let-modal>
-    <app-search></app-search>
+  <app-search></app-search>
 </ng-template>

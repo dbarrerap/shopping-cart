@@ -174,6 +174,8 @@ export class CartComponent implements OnInit, OnDestroy {
       page: 1,
       pageSizeOptions: [5, 10]
     }
+
+    fetch('./assets/documento.json').then(res => res.json()).then(d => this.orden = d)
   }
 
   ngOnDestroy(): void {
