@@ -1,6 +1,6 @@
 import { Component, Input,inject } from '@angular/core';
 import { Producto } from '../../models';
-import { ShopService } from 'src/app/views/shopping/shop/shop.service';
+import { ShopService } from '../../../views/shopping/shop/shop.service';
 
 @Component({
   selector: 'app-vertical-item',
@@ -12,7 +12,7 @@ export class VerticalItemComponent {
   @Input() producto!: Producto
   @Input() index!: number
   private service = inject(ShopService)
-  public defaultImage: string = ''
+  public defaultImage: string = 'https://placehold.co/320?text=No+Image'
 
   items: { product: Producto, cantidad: number }[] = [];
  

@@ -1,25 +1,27 @@
-<div class="card h-100 border-0">
-    <img [src]="producto.fotos && producto.fotos.length > 0 ? producto.fotos[0].recurso : defaultImage"
-        style="height: 250px; width: 80%; object-fit: cover;" class="card-img-top">
+<div class="card-product">
+    <div class="card-header text-center">
+        <img [src]="producto.fotos && producto.fotos.length > 0 ? producto.fotos[0].recurso : defaultImage" 
+            class="img-fluid" style="height: 100%; object-fit: cover;">
+    </div>
     <div class="card-body">
-        <div class="mb-3">
-            <h5 class="card-title">{{ producto.nombre }}</h5>
-            <p class="card-text mb-0">Cod. Interno: {{ producto.codigo }}</p>
-            <p class="card-text mb-0">Cod. Original: {{ producto.codigo }}</p>
+        <div class="card-detail_one">
+            <h2 class="card-title roboto-medium">{{ producto.nombre }}</h2>
+            <div class="card-code">
+                <div class="card-code_item">Cod. Interno: {{ producto.codigo }}</div>
+                <div class="card-code_item">Cod. Original: {{ producto.codigo }}</div>
+            </div>
         </div>
-        <div class="mb-3">
-            <p class="card-text mb-0">Aplicacion: DIMAX 3.0 2.5 DIESEL 05</p>
-            <p class="card-text mb-0 fw-bold">MARCA: RKT</p>
+        <div class="card-detail_two">
+            <p class="card-aplic">Aplicacion: DIMAX 3.0 2.5 DIESEL 05</p>
+            <p class="card-brand roboto-medium">Marca: MKT</p>
         </div>
-        <div class="mb-3">
-            <h3 class="text-danger mb-0">{{ producto.precio1 | currency }}</h3>
-            <ng-container *ngIf="producto.precio1">
-                <h5>
-                    <span class="text-decoration-line-through me-2">{{ producto.precio1 | currency }}</span>
-                    <span class="badge text-white text-bg-danger">{{ producto.descuento }}%</span>
-                </h5>
-            </ng-container>
-            <small>No incluye IVA</small>
+        <div class="cardBoxPrice">
+            <h3 class="card-price card-price_discount roboto-medium">{{ producto.precio1 | currency }}</h3>
+            <div class="flex-price">
+                <h3 class="card-price_normal roboto-medium">{{ producto.precio1 | currency }}</h3>
+                <span class="card-price_percentage roboto-medium">-{{ producto.descuento }}%</span>
+                <small>No incluye IVA</small>
+            </div>
         </div>
     </div>
     <div class="card-footer bg-transparent">
@@ -43,11 +45,6 @@
                 <i class="fa fa-plus"></i>
                 Detalles
             </a>
-            <!-- <button type="button" class="btn-one roboto-medium btn-one_outline">
-            </button> -->
         </div>
     </div>
 </div>
-
-
-
