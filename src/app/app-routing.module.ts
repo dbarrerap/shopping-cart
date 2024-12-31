@@ -57,6 +57,7 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent,
+    canActivate: [loginGuard],
     data: {
       title: 'Register Page'
     }
