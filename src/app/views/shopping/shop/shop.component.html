@@ -98,7 +98,7 @@
                 </div>
             </ng-template>
             <div class="box-pagination">
-                <ngb-pagination [collectionSize]="pagination.length" [pageSize]="pagination.pageSize" [ellipses]="true"
+                <ngb-pagination [collectionSize]="pagination.length" [pageSize]="pagination.perPage" [ellipses]="true"
                     [maxSize]="6" [rotate]="true" [boundaryLinks]="true" [(page)]="pagination.page"
                     (pageChange)="changePage($event)">
                 </ngb-pagination>

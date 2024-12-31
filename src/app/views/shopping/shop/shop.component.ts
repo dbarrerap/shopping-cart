@@ -33,7 +33,7 @@ export class ShopComponent implements OnInit, OnDestroy {
   public productos: any[] = []
   public pagination: any = {
     length: 0,
-    pageSize: 9,
+    perPage: 9,
     pageSizeOptions: [3, 9, 12],
 
     page: 1,
@@ -186,6 +186,7 @@ export class ShopComponent implements OnInit, OnDestroy {
       const response = await this.service.getProductosFotos({ filter: this.filter, paginate: this.pagination })
       response.data.map((item: Producto) => Object.assign(item, { cantidad: 1 }))
       console.log(response)
+      // return;
       Object.assign(this.pagination, {
         length: response.total,
         start: response.from,
@@ -213,7 +214,7 @@ export class ShopComponent implements OnInit, OnDestroy {
 
       this.sidebarFilter = gruposMarcas.original
 
-      console.log(gruposMarcas)
+      // console.log(gruposMarcas)
 
     } catch (err) {
       console.log(err)
