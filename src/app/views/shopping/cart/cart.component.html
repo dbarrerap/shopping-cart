@@ -4,42 +4,44 @@
       <div class="col-12 col-md-8">
         <h2 class="title-summary roboto-medium">Carrito <span class="roboto-regular">({{ itemCount }} productos)</span>
         </h2>
-        <div *ngFor="let item of items; let i = index">
-          <div class="card-product card-cart">
+        <div *ngFor="let item of carrito; let i = index">
+          <app-cart-item [producto]="item"></app-cart-item>
+          <!-- <app-horizontal-item [producto]="item"></app-horizontal-item> -->
+          <!-- <div class="card-product card-cart">
             <div class="card-cart_one">
               <div class="card-header">
-                <img [src]="item.product.foto1" alt="Imagen" class="img-fluid">
+                <img [src]="item.foto1" alt="Imagen" class="img-fluid">
               </div>
               <div class="card-body">
                 <div>
                   <div class="card-detail_one">
-                    <h2 class="card-title roboto-medium">{{ item.product.nombre }}</h2>
+                    <h2 class="card-title roboto-medium">{{ item.nombre }}</h2>
                     <div class="card-code">
-                      <span class="card-code_item">Cod. Interno: {{ item.product.codigo }}</span>
-                      <span class="card-code_item">Cod. Original: {{ item.product.codigo }}</span>
+                      <span class="card-code_item">Cod. Interno: {{ item.codigo }}</span>
+                      <span class="card-code_item">Cod. Original: {{ item.codigo }}</span>
                     </div>
                   </div>
                   <div class="card-detail_two">
                     <p class="card-aplic">Aplicación: DIMAX 3.0 2.5 A DIESEL 05</p>
-                    <p class="card-brand roboto-medium">Marca: {{ item.product.marca }}</p>
+                    <p class="card-brand roboto-medium">Marca: {{ item.marca }}</p>
                   </div>
                 </div>
               </div>
             </div>
             <div class="card-cat_two">
               <div class="box-counter">
-                <button class="btn-counter_sign" (click)="disminuirCantidad(item.product, i)">-</button>
-                <input type="text" [(ngModel)]="item.product.cantidad" (input)="totalDescuento($event,i)"
+                <button class="btn-counter_sign" (click)="disminuirCantidad(item, i)">-</button>
+                <input type="text" [(ngModel)]="item.cantidad" (input)="totalDescuento($event,i)"
                   placeholder="1" class="box-counter_input">
-                <button class="btn-counter_sign" (click)="incrementarCantidad(item.product, i)">+</button>
+                <button class="btn-counter_sign" (click)="incrementarCantidad(item, i)">+</button>
               </div>
-              <span class="box-stock">Stock: {{ item.product.stock }}</span>
+              <span class="box-stock">Stock: {{ item.stock }}</span>
             </div>
             <div class="card-cat-three">
               <div>
                 <div class="flex-price roboto-medium">
                   <small class="card-price_discount card-mount">Precio Unit.:</small>
-                  <p class="card-price_discount card-price">{{ item.product.precio1 }}</p>
+                  <p class="card-price_discount card-price">{{ item.precio1 }}</p>
                 </div>
                 <div class="flex-price roboto-medium">
                   <small class="card-mount">Dscto. <span class="card-discount">(20%)</span>:</small>
@@ -50,11 +52,11 @@
                   <p class="card-number">%102.00</p>
                 </div>
               </div>
-              <button class="box-trash" (click)="eliminarProducto(item.product.id_producto,i)">
+              <button class="box-trash" (click)="eliminarProducto(item.id_producto!)">
                 <img src="./assets/images/iconos/icon-trash.png" alt="">
               </button>
             </div>
-          </div>
+          </div> -->
         </div>
 
       </div>

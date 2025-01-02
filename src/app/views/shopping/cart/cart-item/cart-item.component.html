@@ -1,0 +1,53 @@
+<div class="card-product card-cart">
+    <div class="card-cart_one">
+        <div class="card-header">
+            <img [src]="producto.fotos !== undefined && producto.fotos![0] !== undefined ? producto.fotos![0].recurso : defaultImage" alt="" class="img-fluid">
+        </div>
+        <div class="card-body">
+            <div class="card-detail_one">
+                <h2 class="card-title roboto-medium">{{ producto.nombre }}</h2>
+                <div class="card-code">
+                    <span class="card-code_item">Cod. Interno: {{ producto.codigo }}</span>
+                    <span class="card-code_item">Cod. Original: {{ producto.codigo }}</span>
+                </div>
+            </div>
+            <div class="card-detail_two">
+                <p class="card-aplic">Aplicación: DIMAX 3.0 2.5 A DIESEL 05</p>
+                <p class="card-brand roboto-medium">Marca: {{ producto.marca }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="card-cat_two">
+        <div class="box-counter">
+            <!-- <button type="button" class="btn-counter_sign" (click)="decrementar()">-</button> -->
+             <app-rounded-button (click)="decrementar()">
+                <i class="fa fa-minus"></i>
+             </app-rounded-button>
+            <input type="text" class="box-counter_input" [value]="producto.cantidad" readonly />
+            <!-- <button type="button" class="btn-counter_sign" (click)="incrementar()">+</button> -->
+             <app-rounded-button (click)="incrementar()">
+                <i class="fa fa-plus"></i>
+             </app-rounded-button>
+        </div>
+        <span class="box-stock">Stock: {{ producto.stock }}</span>
+    </div>
+    <div class="card-cat-three">
+        <div>
+            <div class="flex-price roboto-medium">
+                <small class="card-price_discount card-mount">Precio Unit.:</small>
+                <p class="card-price_discount card-price">{{ producto.precio1 | currency }}</p>
+            </div>
+            <div class="flex-price roboto-medium">
+                <small class="card-mount">Dscto. <span class="card-discount">({{ producto.descuento }}%)</span>:</small>
+                <p class="card-number">{{ producto.descuento }}</p>
+            </div>
+            <div class="flex-price roboto-medium">
+                <small class="card-mount">Subtotal:</small>
+                <p class="card-number">{{ producto.precio1 | currency }}</p>
+            </div>
+        </div>
+        <div class="box-trash">
+            <img src="./assets/images/icons/icon-trash.png" alt="Eliminar">
+        </div>
+    </div>
+</div>

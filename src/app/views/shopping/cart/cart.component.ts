@@ -10,6 +10,8 @@ import { CommonService } from '../../../services/common.service';
 import { ShopService } from "../shop/shop.service";
 import { ToastrService } from 'ngx-toastr';
 
+import { CartService } from "../../../services/cart.service";
+
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
@@ -24,6 +26,9 @@ export class CartComponent implements OnInit, OnDestroy {
   private modalService = inject(NgbModal)
   private service = inject(ShopService)
   private toastr = inject(ToastrService)
+
+  private cartService = inject(CartService)
+  public carrito: Producto[] = []
 
   constructor() {
     this.searchSubscription = this.commonService.search.asObservable().subscribe(() => {
@@ -78,7 +83,7 @@ export class CartComponent implements OnInit, OnDestroy {
   // orden: any= [];
 
 
-  ngOnInit(): void {
+  async ngOnInit() {
     // const cliente: Cliente = {
     //   nombre: faker.person.fullName(),
     //   direccion: faker.location.streetAddress(),
@@ -175,7 +180,12 @@ export class CartComponent implements OnInit, OnDestroy {
       pageSizeOptions: [5, 10]
     }
 
-    fetch('./assets/documento.json').then(res => res.json()).then(d => this.orden = d)
+    this.carrito = await this.cartService.obtenerCarrito()
+  }
+
+  eliminarProducto = async (id_producto: number): Promise<void> => {
+    await this.cartService.eliminarProducto(id_producto)
+    this.carrito = await this.cartService.obtenerCarrito()
   }
 
   ngOnDestroy(): void {
@@ -609,11 +619,11 @@ export class CartComponent implements OnInit, OnDestroy {
     
   }
 
-  eliminarProducto(id_producto: any,index:number){
+  /* eliminarProducto(id_producto: any,index:number){
     console.log(index)
     this.service.eliminarDesdeCarrito(id_producto,index);
     
-  }
+  } */
 
   validarEmail(valor:any) {
     if (/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i.test(valor)) {

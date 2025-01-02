@@ -14,8 +14,104 @@
     --clr-gray-03: #d8dee9;
 }
 
+html {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
 body {
+    color: var(--clr-base);
+    font-size: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
     font-family: "Roboto", sans-serif !important;
+}
+
+img,
+picture,
+video,
+iframe,
+figure {
+    display: block;
+    max-width: 100%;
+    width: 100%;
+}
+
+a {
+    display: block;
+}
+
+p a {
+    display: inline;
+}
+
+li {
+    list-style-type: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+a,
+strong,
+blockquote,
+i,
+b,
+u,
+em {
+    color: inherit;
+    font-style: inherit;
+    font-weight: inherit;
+    text-decoration: none;
+}
+
+blockquote::before,
+blockquote::after,
+q::before,
+q::after {
+    content: "";
+    content: none;
+}
+
+::selection {
+    background-color: var(--color-primario);
+    color: var(--color-secundario);
+}
+
+form,
+input,
+textarea,
+select,
+button,
+label {
+    background-color: transparent;
+    color: inherit;
+    display: block;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+table,
+tr,
+td {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+svg {
+    display: block;
+    fill: currentColor;
+    width: 100%;
+}
+
+p {
+    margin: 0 !important;
 }
 
 .roboto-regular {
@@ -178,7 +274,7 @@ body {
 
 .accordion_k-detail {
     margin: 80px 0;
-  }
+}
 
 .card-detail_one {
     margin-bottom: 12px;
