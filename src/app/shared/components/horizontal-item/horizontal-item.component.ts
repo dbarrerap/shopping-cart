@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output,inject,OnInit, } from '@angular/core';
 import { Producto, Cliente } from '../../models';
-import { ShopService } from 'src/app/views/shopping/shop/shop.service';
+import { ShopService } from '../../../views/shopping/shop/shop.service';
 import { ToastrService } from 'ngx-toastr'; 
 import { Subscription } from 'rxjs';
 
