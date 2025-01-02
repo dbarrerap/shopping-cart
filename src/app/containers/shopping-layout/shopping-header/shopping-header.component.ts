@@ -1,8 +1,9 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonService } from "../../../services/common.service";
 import { ShopService } from '../../../views/shopping/shop/shop.service';
 import { Subscription } from 'rxjs';
+import { CartService } from '../../../services/cart.service';
 
 @Component({
   selector: 'app-shopping-header',
@@ -15,7 +16,13 @@ export class ShoppingHeaderComponent {
   private itemsCountSubscription!: Subscription;
   private itemsSubscription!: Subscription;
 
-  constructor(private commonService: CommonService,private shopService: ShopService, public _router: Router) {}
+  private cartService = inject(CartService)
+
+  constructor(private commonService: CommonService,private shopService: ShopService, public _router: Router) {
+    this.cartService.itemCount$.subscribe((count: number) => {
+      this.itemCount = count
+    })
+  }
 
   ngOnInit():void{
     this.itemsCountSubscription = this.shopService.getItemsCount().subscribe(count => {

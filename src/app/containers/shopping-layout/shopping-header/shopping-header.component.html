@@ -18,7 +18,7 @@
                         <a cNavLink [routerLink]="['/shopping/cart']">
                             <div class="box-cart">
                                 <img src="assets/images/iconos/icon-cart.png" alt="" class="icon-cart">
-                                <div class="count-cart roboto-medium">{{itemCount}}</div>
+                                <div *ngIf="itemCount > 0" class="count-cart roboto-medium">{{itemCount}}</div>
                             </div>
                         </a>
                     </div>
