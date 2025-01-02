@@ -180,12 +180,26 @@ export class CartComponent implements OnInit, OnDestroy {
       pageSizeOptions: [5, 10]
     }
 
-    this.carrito = await this.cartService.obtenerCarrito()
+    this.actualizarCarrito()
+  }
+
+  incrementar = async (id_producto: number) => {
+    await this.cartService.incrementarCantidad(id_producto)
+    await this.actualizarCarrito()
+  }
+  decrementar = async (id_producto: number) => {
+    await this.cartService.decrementarCantidad(id_producto)
+    await this.actualizarCarrito()
   }
 
   eliminarProducto = async (id_producto: number): Promise<void> => {
     await this.cartService.eliminarProducto(id_producto)
     this.carrito = await this.cartService.obtenerCarrito()
+  }
+
+  actualizarCarrito = async (): Promise<void> => {
+    this.carrito = await this.cartService.obtenerCarrito()
+    this.itemCount = this.carrito.reduce((acc: number, item: Producto) => acc + parseInt(item.cantidad as string), 0)
   }
 
   ngOnDestroy(): void {

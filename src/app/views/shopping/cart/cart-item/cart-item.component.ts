@@ -1,6 +1,5 @@
 import { Component, inject, Input } from '@angular/core';
 import { Producto } from '../../../../shared/models';
-import { CartService } from '../../../../services/cart.service';
 
 @Component({
   selector: 'app-cart-item',
@@ -9,8 +8,10 @@ import { CartService } from '../../../../services/cart.service';
 })
 export class CartItemComponent {
   @Input() producto!: Producto
+  @Input() removeFromCart!: (id_producto: number) => Promise<void>
+  @Input() incrementarCantidad!: (id_producto: number) => Promise<void>
+  @Input() decrementarCantidad!: (id_producto: number) => Promise<void>
 
-  private cartService = inject(CartService)
   public defaultImage = 'https://placehold.co/320?text=Sin+Imagen'
 
   incrementar = () => {
@@ -25,5 +26,17 @@ export class CartItemComponent {
     }
     this.producto.cantidad = cantidad
     
+  }
+
+  onIncrementar = async (): Promise<void> => {
+    await this.incrementarCantidad(this.producto.id_producto!)
+  }
+
+  onDecrementar = async (): Promise<void> => {
+    await this.decrementarCantidad(this.producto.id_producto!)
+  }
+ 
+  onEliminar = async (): Promise<void> => {
+    await this.removeFromCart(this.producto.id_producto!)
   }
 }

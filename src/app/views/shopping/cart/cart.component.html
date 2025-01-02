@@ -5,7 +5,12 @@
         <h2 class="title-summary roboto-medium">Carrito <span class="roboto-regular">({{ itemCount }} productos)</span>
         </h2>
         <div *ngFor="let item of carrito; let i = index">
-          <app-cart-item [producto]="item"></app-cart-item>
+          <app-cart-item 
+            [producto]="item" 
+            [incrementarCantidad]="incrementar"
+            [decrementarCantidad]="decrementar"
+            [removeFromCart]="eliminarProducto" 
+          ></app-cart-item>
           <!-- <app-horizontal-item [producto]="item"></app-horizontal-item> -->
           <!-- <div class="card-product card-cart">
             <div class="card-cart_one">

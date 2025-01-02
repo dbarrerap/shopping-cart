@@ -20,12 +20,12 @@
     <div class="card-cat_two">
         <div class="box-counter">
             <!-- <button type="button" class="btn-counter_sign" (click)="decrementar()">-</button> -->
-             <app-rounded-button (click)="decrementar()">
+             <app-rounded-button (click)="onDecrementar()">
                 <i class="fa fa-minus"></i>
              </app-rounded-button>
             <input type="text" class="box-counter_input" [value]="producto.cantidad" readonly />
             <!-- <button type="button" class="btn-counter_sign" (click)="incrementar()">+</button> -->
-             <app-rounded-button (click)="incrementar()">
+             <app-rounded-button (click)="onIncrementar()">
                 <i class="fa fa-plus"></i>
              </app-rounded-button>
         </div>
@@ -46,7 +46,7 @@
                 <p class="card-number">{{ producto.precio1 | currency }}</p>
             </div>
         </div>
-        <div class="box-trash">
+        <div class="box-trash" (click)="onEliminar()">
             <img src="./assets/images/icons/icon-trash.png" alt="Eliminar">
         </div>
     </div>
