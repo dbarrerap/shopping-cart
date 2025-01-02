@@ -11,6 +11,7 @@ export class VerticalItemComponent {
  // @Input() producto!: Producto
   @Input() producto!: Producto
   @Input() index!: number
+  @Input() addToCart!: (producto: Producto) => Promise<void>;
   private service = inject(ShopService)
   public defaultImage: string = 'https://placehold.co/320?text=No+Image'
 
@@ -32,13 +33,16 @@ export class VerticalItemComponent {
   }
   
   increment = (valor: number) => {
-    this.cantidad += valor;
+    this.producto.cantidad = parseInt(this.producto.cantidad as string) + valor
+    // this.cantidad += valor;
     //if (this.cantidad > parseInt(this.producto.stock as string)) this.cantidad = parseInt(this.producto.stock as string)
   }
 
   decrement = (valor: number) => {
-    this.cantidad -= valor
-    if (this.cantidad < 0) this.cantidad = 0
+    let cantidad: number = parseInt(this.producto.cantidad as string)
+    cantidad -= valor
+    if (cantidad < 1) { cantidad = 1 }
+    this.producto.cantidad = cantidad
   }
 
   incrementarCantidad(product: Producto) {
@@ -64,7 +68,11 @@ export class VerticalItemComponent {
     });
   }
 
-  addToCart(product: any): void {
+  onAgregar = async (): Promise<void> => {
+    await this.addToCart(this.producto)
+  }
+
+  /* addToCart(product: any): void {
     if (product) {
       this.service.addToCart(product);
       console.log(product)
@@ -82,5 +90,5 @@ export class VerticalItemComponent {
     } else {
     }
    // this.service.cliente$.emit (this.orden);
-  }
+  } */
 }

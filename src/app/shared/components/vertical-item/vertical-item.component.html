@@ -30,7 +30,7 @@
                 <app-rounded-button styleClass="mx-1" (click)="decrement(1)">
                     <i class="fa fa-minus fa-lg"></i>
                 </app-rounded-button>
-                <input type="text" class="box-counter_input" [id]="producto.codigo" [(ngModel)]="cantidad">
+                <input type="text" class="box-counter_input" [id]="producto.codigo" [(ngModel)]="producto.cantidad">
                 <app-rounded-button styleClass="mx-1" (click)="increment(1)">
                     <i class="fa fa-plus fa-lg"></i>
                 </app-rounded-button>
@@ -38,7 +38,7 @@
             <span class="box-stock">Stock {{ producto.stock | number }}</span>
         </div>
         <div class="card-footer_actions">
-            <button type="button" class="btn-one roboto-medium btn-one_cart">
+            <button type="button" class="btn-one roboto-medium btn-one_cart" (click)="onAgregar()">
                 A&ntilde;adir al carrito
             </button>
             <a [routerLink]="['/shopping/details', producto.id_producto]" class="btn btn-outline-success roboto-medium btn-one btn-one_outline">

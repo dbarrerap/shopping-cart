@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 
 import { ShopService } from "./shop.service";
 import { CommonService } from '../../../services/common.service';
+import { CartService } from '../../../services/cart.service'
 import { Producto, SidebarItem, CreditData } from '../../../shared/models';
 
 import { ToastrService } from 'ngx-toastr';
@@ -29,6 +30,8 @@ export class ShopComponent implements OnInit, OnDestroy {
   public itemCount: number = 0;
   private itemsCountSubscription!: Subscription;
   private itemsSubscription!: Subscription;
+
+  private cartService = inject(CartService)
 
   public productos: any[] = []
   public pagination: any = {
@@ -234,7 +237,12 @@ export class ShopComponent implements OnInit, OnDestroy {
     }
   }
 
-  addToCart(product: any): void {
+  addToCart = async (producto: Producto) => {
+    await this.cartService.agregarProducto(producto)
+    this.toastr.success(`${ producto.nombre } agregado al carrito`, 'Agregar al Carrito', {positionClass: 'toast-top-center'})
+  }
+
+  /* addToCart(product: any): void {
     if (product) {
       this.service.addToCart(product);
       console.log(product)
@@ -252,7 +260,7 @@ export class ShopComponent implements OnInit, OnDestroy {
     } else {
     }
     this.service.cliente$.emit(this.orden);
-  }
+  } */
 
   async onSelectedGrupoMarca(event: any, item: any): Promise<void> {
 
