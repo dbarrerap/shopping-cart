@@ -17,14 +17,32 @@ export class CartService {
   }
 
   agregarProducto = async (producto: Producto): Promise<void> => {
-    const carrito: any = await localforage.getItem(this.storeKey) || [];
+    const carrito: Producto[] = await localforage.getItem(this.storeKey) || [];
     const index = carrito.findIndex((item: Producto) => item.id_producto === producto.id_producto);
     if (index !== -1) {
-      carrito[index].cantidad += 1;
+      carrito[index].cantidad = parseInt(carrito[index].cantidad as string) + 1;
     } else {
       carrito.push({ ...producto });
     }
     await localforage.setItem(this.storeKey, carrito);
+  }
+
+  incrementarCantidad = async (id_producto: number): Promise<void> => {
+    const carrito: Producto[] = (await localforage.getItem(this.storeKey)) || [];
+    const index = carrito.findIndex((item: Producto) => item.id_producto === id_producto);
+    if (index !== -1) {
+      carrito[index].cantidad = parseInt(carrito[index].cantidad as string) + 1;
+      await localforage.setItem(this.storeKey, carrito);
+    }
+  }
+
+  decrementarCantidad = async (id_producto: number): Promise<void> => {
+    const carrito: Producto[] = (await localforage.getItem(this.storeKey)) || [];
+    const index = carrito.findIndex((item: Producto) => item.id_producto === id_producto);
+    if (index !== -1) {
+      carrito[index].cantidad = Math.max(1, parseInt(carrito[index].cantidad as string) - 1);
+      await localforage.setItem(this.storeKey, carrito);
+    }
   }
 
   obtenerCarrito = async (): Promise<any[]> => {
@@ -32,7 +50,7 @@ export class CartService {
   }
 
   eliminarProducto = async (id_producto: number): Promise<void> => {
-    const carrito: any = (await localforage.getItem(this.storeKey)) || []
+    const carrito: Producto[] = (await localforage.getItem(this.storeKey)) || []
     const nuevoCarrito = carrito.filter((item: Producto) => item.id_producto !== id_producto)
     await localforage.setItem(this.storeKey, nuevoCarrito)
   }
