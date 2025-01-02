@@ -194,7 +194,7 @@ export class CartComponent implements OnInit, OnDestroy {
 
   eliminarProducto = async (id_producto: number): Promise<void> => {
     await this.cartService.eliminarProducto(id_producto)
-    this.carrito = await this.cartService.obtenerCarrito()
+    await this.actualizarCarrito()
   }
 
   actualizarCarrito = async (): Promise<void> => {
