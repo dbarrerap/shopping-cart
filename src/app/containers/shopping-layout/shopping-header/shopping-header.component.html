@@ -3,7 +3,45 @@
         <img src="./assets/images/logo-aptimo.png" alt="Aptimo" class="header-logo">
     </c-container>
     <c-container fluid class="header-second">
-        <c-container class="header-menu">
+        <c-navbar colorScheme="light" expand="md" class="w-100">
+            <c-container>
+                <c-breadcrumb-router></c-breadcrumb-router>
+                <button [cNavbarToggler]="collapseRef"></button>
+                <div #collapseRef="cCollapse" navbar cCollapse>
+                    <form cForm class="ms-md-auto box-search" role="search">
+                        <input type="search" class="input-search" placeholder="Buscar por nombre, marca, categoria..."
+                            cFormControl sizing="sm" (click)="emitSearch()">
+                        <button cButton type="submit" class="btn-search">
+                            <img src="assets/images/iconos/icon-search.png" alt="">
+                        </button>
+                    </form>
+                    <c-navbar-nav>
+                        <c-nav-item [ngClass]="{'d-none': _router.url == '/shopping/cart'}">
+                            <div class="box-cart_desktop">
+                                <a cNavLink [routerLink]="['/shopping/cart']">
+                                    <div class="box-cart">
+                                        <img src="assets/images/iconos/icon-cart.png" alt="" class="icon-cart">
+                                        <div *ngIf="itemCount > 0" class="count-cart roboto-medium">{{itemCount}}</div>
+                                        <span class="d-md-none">&nbsp;Carrito</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </c-nav-item>
+                        <c-nav-item [ngClass]="{'d-none': _router.url == '/shopping/cart'}">
+                            <div class="box-credit_desktop">
+                                <div class="box-credit d-flex align-items-center">
+                                    <button cNavLink class="btn btn-light bg-transparent" (click)="emitWallet()">
+                                        <img src="assets/images/iconos/icon-credit.png" alt="">
+                                    </button>
+                                    <span class="d-md-none">&nbsp;Credito</span>
+                                </div>
+                            </div>
+                        </c-nav-item>
+                    </c-navbar-nav>
+                </div>
+            </c-container>
+        </c-navbar>
+        <!-- <c-container class="header-menu">
             <c-breadcrumb-router></c-breadcrumb-router>
             <c-header-nav class="ms-auto">
                 <form cForm class="box-search" role="search">
@@ -33,6 +71,6 @@
                     </div>
                 </c-nav-item>
             </c-header-nav>
-        </c-container>
+        </c-container> -->
     </c-container>
 </c-header>
